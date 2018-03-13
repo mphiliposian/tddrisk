@@ -25,8 +25,9 @@
 - At any point during the allocating reinforcements phase, the player may choose to redeem a set of cards, and this set must contain exactly 3 cards; either 1 from each group, or all 3 from the same group. Card details are explained in appendix D.
 - When a player redeems a set of cards, the following things happen: The cards are moved to a set of used cards, the player receives a number of reinforcements equal to a set value that the game keeps track of, a redeemed set counter is incremented, and the set value is increased. 
 - The set counter starts at 0, and the set value starts at 4. For each additional set redeemed, the set value increases by 2. When the set counter reaches 7, the set value increases by 5, and all future sets redeemed also increase the set value by 5.
+- If a player redeems a set of cards which contains a card that is associated with at least one of the territories that they control, the player is prompted to select one of these territories, and 2 additional reinforcements are placed on the territory they select.
 - At any point during the allocating reinforcements phase, the player may add a reinforcement to any of their controller territories.
-- The allocating reinorcements phase only ends when the player exhausts their reinforcements.
+- The allocating reinorcements phase only ends when the player has 0 reinforcements.
 
 ### Attacking:
 - 
