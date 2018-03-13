@@ -30,7 +30,7 @@
 ## Appendix A: Routes
 
 ## Appendix B:
-### - North America (5)
+### North America (5)
 - Alaska
 - Alberta (Western Canada)
 - Central America
@@ -40,12 +40,14 @@
 - Ontario (Central Canada)
 - Quebec (Eastern Canada)
 - Western United States
-### - South America (2)
+
+### South America (2)
 - Argentina
 - Brazil
 - Peru
 - Venezuela
-### - Europe (5)
+
+### Europe (5)
 - Great Britain (Great Britain & Ireland)
 - Iceland
 - Northern Europe
@@ -53,14 +55,16 @@
 - Southern Europe
 - Ukraine (Eastern Europe, Russia)
 - Western Europe
-### - Africa (3)
+
+### Africa (3)
 - Congo (Central Africa)
 - East Africa
 - Egypt
 - Madagascar
 - North Africa
 - South Africa
-### - Asia (7)
+
+### Asia (7)
 - Afghanistan
 - China
 - India (Hindustan)
@@ -73,7 +77,8 @@
 - Siberia
 - Ural
 - Yakutsk
-### - Australia (2)
+
+### Australia (2)
 - Eastern Australia
 - Indonesia
 - New Guinea
