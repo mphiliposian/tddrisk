@@ -18,14 +18,18 @@
 
 ## Turns
 - A turn is defined in three phases: Allocating reinforcements, attacking, and fortifying, and they always occur in this order.
+
 ### Allocating reinforcements:
 - The active player is provided a number of reinforcements equal to 3, or the number of territories they control divided by 3, whichever is greater.
 - The activate player is provided a number of reinforcements for each continent whose territories the player controls all of. The amount of reinforcements associated with each continent is shown in appendix B next to each continent's name.
-- At any point during the allocating reinforcements phase, the player may choose to turn in 3 cards in order to obtain additional reinforcements. Cards are explained in appendix D.
+- At any point during the allocating reinforcements phase, the player may choose to redeem a set of cards, and this set must contain exactly 3 cards; either 1 from each group, or all 3 from the same group. Card details are explained in appendix D.
+- When a player redeems a set of cards, the following things happen: The cards are moved to a set of used cards, the player receives a number of reinforcements equal to a set value that the game keeps track of, a redeemed set counter is incremented, and the set value is increased. 
+- The set counter starts at 0, and the set value starts at 4. For each additional set redeemed, the set value increases by 2. When the set counter reaches 7, the set value increases by 5, and all future sets redeemed also increase the set value by 5.
 - At any point during the allocating reinforcements phase, the player may add a reinforcement to any of their controller territories.
 - The allocating reinorcements phase only ends when the player exhausts their reinforcements.
-### Attacking:
 
+### Attacking:
+- 
 
 ## Appendix A: Routes
 
@@ -86,9 +90,14 @@
 
 
 ## Appendix C: Starting Units
-Players    Units
-----------------
-3	35
-4	30
-5	25
-6	20
+| Players | Units |
+|---------|-------|
+| 3	  | 35    |
+| 4	  | 30    |
+| 5	  | 25    |
+| 6	  | 20    |
+
+## Appendix D: Cards
+- There are 42 unique risk cards, each associated with specific territory.
+- These cards are evenly divided into three groups,  and each group is marked with a unique identifier.
+- There are 2 additional cards which are not associated with a territory, but belong to all three of the card groups.
