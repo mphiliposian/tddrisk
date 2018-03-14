@@ -30,7 +30,47 @@
 - The allocating reinorcements phase only ends when the player has 0 reinforcements.
 
 ### Attacking:
-- 
+- Players can choose to attack or continue to the fortifying phase.
+- Players can only attack territores that are adjacent or connected to territories that the attacknig player owns.
+- A territory must have atleast two units to declare an attack on another territory
+- The attacking player maybe continue to attack one country until he has elimated the enemy units on the territory or until he has only one unit left.
+- The attacknig player may also choose to attack a new territory as much as they'd like durring there attacking phase.
+
+#### To Attack
+- After the attacker selects which territory they are attacking, they and the enemy must select how many "dice" they intend to roll.
+- The attacker may choose to roll 1,2, or 3 "dice". They must have 1 more unit than the dice they roll.
+- The attacker may choose to roll 1, or 2 "dice". They must have 1 more unit than the dice they roll.
+
+#### Deciding the Winner of a battle
+- A winner is declared by the higher dice roll.
+- If the attacker has a higher dice roll, then the defender loses one unit.
+- If the defender has a higher dice roll, then the attacker loses one unit.
+- If the defender and the attacker tie for the highest roll, then the attacker loses one unit.
+- If each player rolled more than one dice, then compare the two next-highest dice and repeat the above win conditions.
+
+#### Capturing a territory
+- After defeating all units on a territory, the attacking player must occupy the territory imediately by moving units that attacked onto that territory.
+- The Player can move as many or as little units as they'd like onto that territory as long as the territory you attacked from has one unit left on it.
+
+#### Eliminating an opponent
+- If durring the players turn, they eliminate an opponent (reduce the enemy players units to 0), the winning player recieves the defeated enemies RISK cards.
+- If the player holds 6 or more RISK cards in there hand, then they must imediately turn in a set and place the recieved units on any of their owned territores.
+- If the player has less than 5 cards after recieving them from the enemy, then they must wait until their next turn to turn in a set.
+
+#### Ending an attack
+- The player end their attacks at anytime durring the attack phase.
+- If the player captured atleast one territory, then the place recieves a RISK card.
+- The player then continues to the Fortify phase
+
+### Fortifying
+- Players can move units from one territory to anotherr territory as long as a set of adjacent or connected paths connect them.
+- The Player must also leave atleast one unit behind when moving units to a new territory.
+
+## Continuing the game
+After the fortifying phase, a player ends their turn and then the next player takes their turn.
+
+## Winning
+Turns continue until one player elimates all opponents by capturing all 42 territories.
 
 ## Appendix A: Routes
 
