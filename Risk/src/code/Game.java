@@ -4,24 +4,29 @@ import java.util.ArrayList;
 
 public class Game {
 
-	private ArrayList<Player> p;
+	private ArrayList<Player> players;
 		
 	public Game() {
-		this.p = new ArrayList<Player>();
+		this.players = new ArrayList<Player>();
 	}
 	
 	public boolean gameIsWon() {
-		return true;
+		for (Player player : players){
+			if (player.getNumOfTerritories() == 42) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void addPlayer(Player player) {
-		if (p.size() < 6) {
-			p.add(player);
+		if (players.size() < 6) {
+			players.add(player);
 		}
 	}
 
 	public int numPlayers() {
-		return p.size();
+		return players.size();
 	}
 
 }

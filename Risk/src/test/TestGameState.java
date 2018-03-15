@@ -63,13 +63,16 @@ class TestGameState {
 		assertEquals(1, p.getNumOfTerritories());
 	}
 	
-	/*
 	@Test
 	void testWinGameState() {
 		Game g = new Game();
-		Player p = EasyMock.mock(Player.class);
-		EasyMock.expect(p.getNumOfTerritories()).andReturn(42);
+		Player p = new Player();
+		g.addPlayer(p);
+		for(int x = 0; x < 42; x ++ ) {
+			p.addTerritory();
+		}
+		
 		assertTrue(g.gameIsWon());
 	}
-	*/
+
 }
