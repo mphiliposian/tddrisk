@@ -34,6 +34,22 @@ class TestGameState {
 		assertEquals(6,g.numPlayers());
 	}
 	
+	@Test 
+	void testAddAboveMaxPlayers() {
+		Game g = new Game();
+		Player p = new Player();
+		Player p2 = new Player();
+		Player pn = new Player();
+		g.addPlayer(pn);
+		g.addPlayer(pn);
+		g.addPlayer(pn);
+		g.addPlayer(pn);
+		g.addPlayer(pn);
+		g.addPlayer(pn);
+		g.addPlayer(pn);
+		assertEquals(6,g.numPlayers());
+	}
+	
 	/*
 	@Test
 	void testWinGameState() {

@@ -15,7 +15,9 @@ public class Game {
 	}
 
 	public void addPlayer(Player player) {
-		p.add(player);
+		if (p.size() < 6) {
+			p.add(player);
+		}
 	}
 
 	public int numPlayers() {
