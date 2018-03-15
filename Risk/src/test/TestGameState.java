@@ -50,6 +50,12 @@ class TestGameState {
 		assertEquals(6,g.numPlayers());
 	}
 	
+	@Test
+	void testgetNumOfTerritories() {
+		Player p = new Player();
+		assertEquals(0, p.getNumOfTerritories());
+	}
+	
 	/*
 	@Test
 	void testWinGameState() {
