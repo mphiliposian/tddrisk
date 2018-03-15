@@ -2,8 +2,14 @@ package code;
 
 public class Player {
 
+	int numOfTerritories = 0;
+	
 	public int getNumOfTerritories() {
-		return 0;
+		return numOfTerritories;
+	}
+
+	public void addTerritory() {
+		this.numOfTerritories++;
 	}
 
 }

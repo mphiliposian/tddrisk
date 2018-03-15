@@ -51,9 +51,16 @@ class TestGameState {
 	}
 	
 	@Test
-	void testgetNumOfTerritories() {
+	void testGetNumOfTerritories() {
 		Player p = new Player();
 		assertEquals(0, p.getNumOfTerritories());
+	}
+	
+	@Test
+	void testAddTerritories() {
+		Player p = new Player();
+		p.addTerritory();
+		assertEquals(1, p.getNumOfTerritories());
 	}
 	
 	/*
