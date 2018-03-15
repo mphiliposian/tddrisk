@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
 
 	private ArrayList<Player> p;
-	
+		
 	public Game() {
 		this.p = new ArrayList<Player>();
 	}
@@ -14,8 +14,12 @@ public class Game {
 		return true;
 	}
 
-	public void addPlayer(Player p) {
-		
+	public void addPlayer(Player player) {
+		p.add(player);
+	}
+
+	public int numPlayers() {
+		return p.size();
 	}
 
 }
