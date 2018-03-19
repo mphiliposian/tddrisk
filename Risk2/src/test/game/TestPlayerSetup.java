@@ -3,18 +3,31 @@ package test.game;
 import static org.junit.Assert.assertEquals;
 
 import org.easymock.EasyMock;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import code.game.Game;
 import code.game.Player;
 import code.gui.RiskUI;
 
+// TODO: Find a way around this. Current workaround for static ID.
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestPlayerSetup {
 	
 	// Goals:
 	// - Player count between 3 and 6
 	// - Units given appropriately
 	// - Turn ordering
+	
+	@Test
+	public void aThreePlayersIDs() {
+		Player[] ps = new Player[3];
+		for (int i=0; i<3; i++) {
+			ps[i] = new Player();
+			assertEquals(ps[i].ID, i);
+		}
+	}
 	
 	@Test
 	public void lowNumberOfPlayers() {
