@@ -35,7 +35,7 @@ public class Game {
 
 	public void createPlayers() {
 		int numPlayers = 0;
-		while (numPlayers < 3) {
+		while (numPlayers < 3 || numPlayers > 6) {
 			numPlayers = ui.playerCountPrompt();
 		}
 		

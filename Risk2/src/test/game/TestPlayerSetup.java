@@ -31,4 +31,19 @@ public class TestPlayerSetup {
 		EasyMock.verify(fakeGui);
 		assertEquals(g.numPlayers(), 3);
 	}
+	
+	@Test
+	public void highNumberOfPlayers() {
+		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
+		EasyMock.expect(fakeGui.playerCountPrompt()).andReturn(7);
+		EasyMock.expect(fakeGui.playerCountPrompt()).andReturn(6);
+		
+		EasyMock.replay(fakeGui);
+		
+		Game g = new Game(fakeGui);
+		g.createPlayers();
+		
+		EasyMock.verify(fakeGui);
+		assertEquals(g.numPlayers(), 6);
+	}
 }
