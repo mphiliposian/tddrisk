@@ -34,8 +34,13 @@ public class Game {
 	}
 
 	public void createPlayers() {
-		for (int i=0; i<3; i++) {
-			ui.playerCountPrompt();
+		int numPlayers = 0;
+		while (numPlayers < 3) {
+			numPlayers = ui.playerCountPrompt();
+		}
+		
+		for (int i=0; i<numPlayers; i++) {
+			players.add(new Player());
 		}
 	}
 

@@ -1,5 +1,7 @@
 package test.game;
 
+import static org.junit.Assert.assertEquals;
+
 import org.easymock.EasyMock;
 import org.junit.Test;
 
@@ -15,7 +17,7 @@ public class TestPlayerSetup {
 	// - Turn ordering
 	
 	@Test
-	public void testLowNumberOfPlayers() {
+	public void lowNumberOfPlayers() {
 		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
 		EasyMock.expect(fakeGui.playerCountPrompt()).andReturn(0);
 		EasyMock.expect(fakeGui.playerCountPrompt()).andReturn(1);
@@ -27,6 +29,6 @@ public class TestPlayerSetup {
 		g.createPlayers();
 		
 		EasyMock.verify(fakeGui);
+		assertEquals(g.numPlayers(), 3);
 	}
-
 }
