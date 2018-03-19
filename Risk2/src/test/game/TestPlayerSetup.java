@@ -21,13 +21,20 @@ public class TestPlayerSetup {
 	// - Turn ordering
 	
 	@Test
-	public void aThreePlayersIDs() {
+	public void aThreeAndSixPlayersIDs() {
 		Player[] ps = new Player[3];
 		for (int i=0; i<3; i++) {
 			ps[i] = new Player();
 			assertEquals(ps[i].ID, i);
 		}
+		
+		Player[] ps2 = new Player[3];
+		for (int i=0; i<3; i++) {
+			ps2[i] = new Player();
+			assertEquals(ps2[i].ID, i + 3);
+		}
 	}
+	
 	
 	@Test
 	public void lowNumberOfPlayers() {
