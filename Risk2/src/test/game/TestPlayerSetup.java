@@ -2,6 +2,8 @@ package test.game;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.easymock.EasyMock;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -16,7 +18,6 @@ import code.gui.RiskUI;
 public class TestPlayerSetup {
 	
 	// Goals:
-	// - Player count between 3 and 6
 	// - Units given appropriately
 	// - Turn ordering
 	
@@ -66,4 +67,27 @@ public class TestPlayerSetup {
 		EasyMock.verify(fakeGui);
 		assertEquals(g.numPlayers(), 6);
 	}
+	
+	@Test
+	public void initialReinforcements() {
+		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
+		Game g = new Game(fakeGui);
+		Player p = new Player();
+		g.addPlayer(p);
+		for (int i=0; i<2; i++) {
+			g.addPlayer(new Player());
+		}
+		
+		g.initializeReinforcements();
+		assertEquals(35, p.getReinforcements());
+		g.addPlayer(new Player());
+		g.initializeReinforcements();
+		assertEquals(30, p.getReinforcements());
+		g.addPlayer(new Player());
+		g.initializeReinforcements();
+		assertEquals(25, p.getReinforcements());
+		g.addPlayer(new Player());
+		g.initializeReinforcements();
+		assertEquals(20, p.getReinforcements());
+	}	
 }

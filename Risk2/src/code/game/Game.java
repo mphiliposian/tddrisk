@@ -44,4 +44,23 @@ public class Game {
 		}
 	}
 
+	public void initializeReinforcements() {
+		int reinforcements = 35;
+		switch (players.size()) {
+		case 4:
+			reinforcements = 30;
+			break;
+		case 5:
+			reinforcements = 25;
+			break;
+		case 6:
+			reinforcements = 20;
+			break;
+		}
+		
+		for (Player p : players) {
+			p.setReinforcements(reinforcements);
+		}
+	}
+
 }
