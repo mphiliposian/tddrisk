@@ -3,6 +3,7 @@ package test.game;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.easymock.EasyMock;
 import org.junit.FixMethodOrder;
@@ -89,5 +90,47 @@ public class TestPlayerSetup {
 		g.addPlayer(new Player());
 		g.initializeReinforcements();
 		assertEquals(20, p.getReinforcements());
-	}	
+	}
+	
+	@Test
+	public void switchTurn3Players() {
+		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
+		Game g = new Game(fakeGui);
+		Player p = new Player();
+		g.addPlayer(p);
+		p = new Player();
+		g.addPlayer(p);
+		p = new Player();
+		g.addPlayer(p);
+		assertEquals(g.currentTurn(),0);
+		g.switchTurn();
+		assertEquals(g.currentTurn(),1);
+		g.switchTurn();
+		assertEquals(g.currentTurn(),2);
+		g.switchTurn();
+		assertEquals(g.currentTurn(),0);
+	}
+	
+	@Test
+	public void switchTurn6Players() {
+		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
+		Game g = new Game(fakeGui);
+		Player p = new Player();
+		g.addPlayer(p);
+		for (int x = 0;x < 5;x++) {
+			p = new Player();
+			g.addPlayer(p);
+		}
+		assertEquals(g.currentTurn(),0);
+		g.switchTurn();
+		assertEquals(g.currentTurn(),1);
+		g.switchTurn();
+		g.switchTurn();
+		g.switchTurn();
+		g.switchTurn();
+		assertEquals(g.currentTurn(),5);
+		g.switchTurn();
+		assertEquals(g.currentTurn(),0);
+	}
+	
 }

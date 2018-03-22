@@ -1,6 +1,7 @@
 package code.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import code.gui.RiskUI;
 
@@ -8,10 +9,12 @@ public class Game {
 
 	private ArrayList<Player> players;
 	private RiskUI ui;
-		
+	private int currTurn;
+	
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
 		this.ui = ui;
+		this.currTurn = 0;
 	}
 	
 	public boolean gameIsWon() {
@@ -28,6 +31,11 @@ public class Game {
 			players.add(player);
 		}
 	}
+	
+	//TODO do we have to test this?
+	public void randomizeOrder() {
+		Collections.shuffle(players);
+	}
 
 	public int numPlayers() {
 		return players.size();
@@ -43,7 +51,7 @@ public class Game {
 			players.add(new Player());
 		}
 	}
-
+	
 	public void initializeReinforcements() {
 		int reinforcements = 35;
 		switch (players.size()) {
@@ -61,6 +69,15 @@ public class Game {
 		for (Player p : players) {
 			p.setReinforcements(reinforcements);
 		}
+	}
+
+	public int currentTurn() {
+		return currTurn;
+	}
+
+	public void switchTurn() {
+		this.currTurn = (currTurn + 1)%players.size();
+		
 	}
 
 }

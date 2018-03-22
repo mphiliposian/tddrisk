@@ -15,43 +15,7 @@ import code.gui.RiskUI;
 class TestGameState {
 	
 	private RiskUI mockGui() {
-		return new RiskUI() {
-
-			@Override
-			public void initializeUI(List<Territory> territories) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public int playerCountPrompt() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			@Override
-			public void createPlayerDisplay(List<Player> players) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void updatePlayerDisplay(Player player) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void updateTerritoryDisplay(Territory territory) {
-				// TODO Auto-generated method stub
-				
-			}
-			@Override
-			public Territory territoryPrompt(String message) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
+		return EasyMock.mock(RiskUI.class);
 	}
 
 	@Test 
