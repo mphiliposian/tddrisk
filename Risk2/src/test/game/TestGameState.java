@@ -1,12 +1,12 @@
-package test;
+package test.game;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 
-import code.Game;
-import code.Player;
+import code.game.Game;
+import code.game.Player;
 
 class TestGameState {
 
