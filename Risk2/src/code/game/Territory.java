@@ -6,20 +6,20 @@ public class Territory {
 	private String territoryID;
 	private String name;
 	private List<String> borderingTerritories;
-	private int x;
-	private int y;
+	private Double x;
+	private Double y;
 	private int yield;
 	
-	public Territory(String territoryID, String name, int yield, List<String> borderingTerritories, int x, int y) {
+	public Territory(String territoryID, String name, int yield, List<String> borderingTerritories, Double x2, Double y2) {
 		this.territoryID = territoryID;
 		this.name = name;
 		this.borderingTerritories = borderingTerritories;
-		this.x = x;
-		this.y = y;
+		this.x = x2;
+		this.y = y2;
 	}
 	
-	public Territory(String territoryID, String name, List<String> borderingTerritories, int x, int y) {
-		this(territoryID, name, 0, borderingTerritories, x, y);
+	public Territory(String territoryID, String name, List<String> borderingTerritories, Double x2, Double y2) {
+		this(territoryID, name, 0, borderingTerritories, x2, y2);
 	}
 
 	public String getTerritoryID() {
@@ -42,11 +42,11 @@ public class Territory {
 		return this.borderingTerritories;
 	}
 
-	public int getX() {
+	public Double getX() {
 		return this.x;
 	}
 
-	public int getY() {
+	public Double getY() {
 		return this.y;
 	}
 

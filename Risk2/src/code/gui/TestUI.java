@@ -3,23 +3,17 @@ package code.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -71,20 +65,22 @@ public class TestUI {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			bufferedReader.readLine();
+			int i = 0;
 			while (((line = bufferedReader.readLine()) != null)) {
-				if(!line.isEmpty()) {
+				if(!line.isEmpty() && (i > 4)) {
 					String[] territoryInfo = line.split(" \\| ");
 					String coordinates = territoryInfo[3].replace("(", "").replace(")", "").replace(" ", "");
-					int x = Integer.parseInt(coordinates.substring(0, coordinates.indexOf(",")));
-					int y = Integer.parseInt(coordinates.substring(coordinates.indexOf(",")+1, coordinates.length()));
+					Double xScale = Double.parseDouble(coordinates.substring(0, coordinates.indexOf(",")));
+					Double yScale = Double.parseDouble(coordinates.substring(coordinates.indexOf(",")+1, coordinates.length()));
 					territoryList.add(new Territory(territoryInfo[0],
 													territoryInfo[1],
 													new ArrayList<String>(Arrays.asList(territoryInfo[2]
 																			.replace("[","")
 																			.replace("]","")
 																			.split(","))),
-													x, y));
+													xScale*window_width, yScale*window_height));
 				}
+				i++;
 			}
 			bufferedReader.close();
 		} catch (FileNotFoundException ex1) {
@@ -130,8 +126,8 @@ public class TestUI {
 			l.setForeground(Color.RED);
 			l.setFont(l.getFont().deriveFont(14.0f));
 			l.setHorizontalAlignment(JLabel.CENTER);
-			l.setBounds(curTerritory.getX()-50, curTerritory.getY()-60, 150, 100);
-			b.setBounds(curTerritory.getX(), curTerritory.getY(), 55, 20);
+			l.setBounds(curTerritory.getX().intValue()-50, curTerritory.getY().intValue()-60, 150, 100);
+			b.setBounds(curTerritory.getX().intValue(), curTerritory.getY().intValue(), 55, 20);
 			panel.add(l);
 			panel.add(b);
 		}
