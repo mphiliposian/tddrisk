@@ -1,8 +1,13 @@
 package code.game;
 
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.JFrame;
+
+import code.gui.PlayerDisplayPanel;
+import code.gui.RiskGUI;
 import code.gui.RiskUI;
 
 public class Game {
@@ -10,6 +15,27 @@ public class Game {
 	private ArrayList<Player> players;
 	private RiskUI ui;
 	private int currTurn;
+	
+	public static void main(String[] args) {
+		RiskGUI rG = new RiskGUI();
+		Game g = new Game(rG);
+		rG.initializeUI(null);
+		g.createPlayers();
+		g.initializeReinforcements();
+		
+		PlayerDisplayPanel pDp = new PlayerDisplayPanel(g.players);
+		JFrame frame = new JFrame("Players");
+		frame.setLayout(new FlowLayout());
+		frame.add(pDp.getPanel());
+		frame.setSize(800, 200);
+		frame.setVisible(true);
+		
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		
+		
+	}
 	
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
@@ -78,6 +104,14 @@ public class Game {
 	public void switchTurn() {
 		this.currTurn = (currTurn + 1)%players.size();
 		
+	}
+	
+	public void setup() {
+		createPlayers();
+		randomizeOrder();
+		initializeReinforcements();
+		ui.createPlayerDisplay(players);
+		ui.updatePlayerDisplay();
 	}
 
 }

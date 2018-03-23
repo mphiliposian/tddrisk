@@ -1,8 +1,11 @@
 package code.game;
 
+import java.awt.Color;
+
 public class Player {
 
 	private static int nextId = 0;
+	public static final Color[] COLORS = {Color.red, Color.orange, Color.yellow, Color.green, Color.cyan,  Color.magenta};
 	public final int ID;
 	int numOfTerritories = 0;
 	private int reinforcements;
@@ -27,6 +30,10 @@ public class Player {
 	
 	public void setReinforcements(int numReinforcements) {
 		this.reinforcements = numReinforcements;
+	}
+
+	public Color getColor() {
+		return COLORS[this.ID];
 	}
 
 }
