@@ -45,12 +45,24 @@ class TestGameState {
 		EasyMock.replay(mockUI);
 		Game g = new Game(mockUI);
 		g.createPlayers();
-		for(int x = 0; x < 42; x ++ ) {
+		for(int x = 0; x < 42; x++) {
 			g.getPlayerByID(0).addTerritory();
 		}
 		
 		EasyMock.verify(mockUI);
 		assertTrue(g.gameIsWon());
 	}
-
+	
+	@Test
+	void testGameIsWon0Territories() {
+		RiskUI mockUI = mockGui();
+		EasyMock.expect(mockUI.playerCountPrompt()).andReturn(6);
+		
+		EasyMock.replay(mockUI);
+		Game g = new Game(mockUI);
+		g.createPlayers();
+		
+		EasyMock.verify(mockUI);
+		assertFalse(g.gameIsWon());
+	}
 }
