@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import org.easymock.EasyMock;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import code.game.Game;
@@ -14,6 +15,7 @@ import code.gui.RiskUI;
 
 class TestGameState {
 	
+	@Before
 	private RiskUI mockGui() {
 		return EasyMock.mock(RiskUI.class);
 	}

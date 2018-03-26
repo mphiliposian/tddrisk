@@ -46,7 +46,7 @@ public class Game {
 	}
 	
 	public boolean gameIsWon() {
-		for (Player player : players){
+		for (Player player : players) {
 			if (player.getNumOfTerritories() == 42) {
 				return true;
 			}
