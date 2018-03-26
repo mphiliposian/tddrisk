@@ -17,27 +17,27 @@ public class Game {
 	private RiskUI ui;
 	private int currTurn;
 	
-	public static void main(String[] args) {
-		RiskGUI rG = new RiskGUI();
-		Game g = new Game(rG);
-		rG.initializeUI(null);
-		g.createPlayers();
-		g.randomizeOrder();
-		g.initializeReinforcements();
-		
-		PlayerDisplayPanel pDp = new PlayerDisplayPanel(g.players);
-		JFrame frame = new JFrame("Players");
-		frame.setLayout(new FlowLayout());
-		frame.add(pDp.getPanel());
-		frame.setSize(800, 200);
-		frame.setVisible(true);
-		
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		
-		
-	}
+//	public static void main(String[] args) {
+//		RiskGUI rG = new RiskGUI();
+//		Game g = new Game(rG);
+//		rG.initializeUI(null);
+//		g.createPlayers();
+//		g.randomizeOrder();
+//		g.initializeReinforcements();
+//		
+//		PlayerDisplayPanel pDp = new PlayerDisplayPanel(g.players);
+//		JFrame frame = new JFrame("Players");
+//		frame.setLayout(new FlowLayout());
+//		frame.add(pDp.getPanel());
+//		frame.setSize(800, 200);
+//		frame.setVisible(true);
+//		
+//		frame.setResizable(false);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.pack();
+//		
+//		
+//	}
 	
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();

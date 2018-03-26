@@ -1,46 +1,43 @@
 package test.game;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import code.game.Game;
 import code.game.Player;
-import code.game.Territory;
 import code.gui.RiskUI;
 
-class TestGameState {
+public class TestGameState {
 	
-	@Before
-	private RiskUI mockGui() {
+	public RiskUI mockGui() {
 		return EasyMock.mock(RiskUI.class);
 	}
 
 	@Test 
-	void numPlayers() {
+	public void numPlayers() {
 		Game g = new Game(mockGui());
 		assertEquals(0,g.numPlayers());
 	}
 	
 	@Test
-	void getNumOfTerritories() {
+	public void getNumOfTerritories() {
 		Player p = new Player(0);
 		assertEquals(0, p.getNumOfTerritories());
 	}
 	
 	@Test
-	void addTerritories() {
+	public void addTerritories() {
 		Player p = new Player(0);
 		p.addTerritory();
 		assertEquals(1, p.getNumOfTerritories());
 	}
 	
 	@Test
-	void winGameState() {
+	public void winGameState() {
 		RiskUI mockUI = mockGui();
 		EasyMock.expect(mockUI.playerCountPrompt()).andReturn(6);
 		
@@ -56,7 +53,7 @@ class TestGameState {
 	}
 	
 	@Test
-	void gameIsWon0Territories() {
+	public void gameIsWon0Territories() {
 		RiskUI mockUI = mockGui();
 		EasyMock.expect(mockUI.playerCountPrompt()).andReturn(6);
 		
@@ -69,7 +66,7 @@ class TestGameState {
 	}
 	
 	@Test
-	void gameIsWon0Players() {
+	public void gameIsWon0Players() {
 		RiskUI mockUI = mockGui();
 		Game g = new Game(mockUI);
 		assertFalse(g.gameIsWon());

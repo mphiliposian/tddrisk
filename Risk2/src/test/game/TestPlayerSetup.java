@@ -158,5 +158,4 @@ public class TestPlayerSetup {
 		EasyMock.verify(fakeUI);
 		EasyMock.verify(g);
 	}
-	
 }
