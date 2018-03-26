@@ -21,6 +21,7 @@ public class Game {
 		Game g = new Game(rG);
 		rG.initializeUI(null);
 		g.createPlayers();
+		g.randomizeOrder();
 		g.initializeReinforcements();
 		
 		PlayerDisplayPanel pDp = new PlayerDisplayPanel(g.players);

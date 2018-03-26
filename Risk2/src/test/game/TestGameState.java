@@ -44,8 +44,6 @@ class TestGameState {
 	@Test 
 	void testAddAboveMaxPlayers() {
 		Game g = new Game(mockGui());
-		Player p = new Player();
-		Player p2 = new Player();
 		Player pn = new Player();
 		g.addPlayer(pn);
 		g.addPlayer(pn);
