@@ -26,13 +26,13 @@ public class TestPlayerSetup {
 	public void aThreeAndSixPlayersIDs() {
 		Player[] ps = new Player[3];
 		for (int i=0; i<3; i++) {
-			ps[i] = new Player();
+			ps[i] = new Player(i);
 			assertEquals(ps[i].ID, i);
 		}
 		
 		Player[] ps2 = new Player[3];
 		for (int i=0; i<3; i++) {
-			ps2[i] = new Player();
+			ps2[i] = new Player(i);
 			assertEquals(ps2[i].ID, i + 3);
 		}
 	}
@@ -73,21 +73,21 @@ public class TestPlayerSetup {
 	public void initialReinforcements() {
 		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
 		Game g = new Game(fakeGui);
-		Player p = new Player();
+		Player p = new Player(0);
 		g.addPlayer(p);
 		for (int i=0; i<2; i++) {
-			g.addPlayer(new Player());
+			g.addPlayer(new Player(0));
 		}
 		
 		g.initializeReinforcements();
 		assertEquals(35, p.getReinforcements());
-		g.addPlayer(new Player());
+		g.addPlayer(new Player(0));
 		g.initializeReinforcements();
 		assertEquals(30, p.getReinforcements());
-		g.addPlayer(new Player());
+		g.addPlayer(new Player(0));
 		g.initializeReinforcements();
 		assertEquals(25, p.getReinforcements());
-		g.addPlayer(new Player());
+		g.addPlayer(new Player(0));
 		g.initializeReinforcements();
 		assertEquals(20, p.getReinforcements());
 	}
@@ -96,11 +96,11 @@ public class TestPlayerSetup {
 	public void switchTurn3Players() {
 		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
 		Game g = new Game(fakeGui);
-		Player p = new Player();
+		Player p = new Player(0);
 		g.addPlayer(p);
-		p = new Player();
+		p = new Player(1);
 		g.addPlayer(p);
-		p = new Player();
+		p = new Player(2);
 		g.addPlayer(p);
 		assertEquals(g.currentTurn(),0);
 		g.switchTurn();
@@ -115,10 +115,10 @@ public class TestPlayerSetup {
 	public void switchTurn6Players() {
 		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
 		Game g = new Game(fakeGui);
-		Player p = new Player();
+		Player p = new Player(0);
 		g.addPlayer(p);
 		for (int x = 0;x < 5;x++) {
-			p = new Player();
+			p = new Player(0);
 			g.addPlayer(p);
 		}
 		assertEquals(g.currentTurn(),0);

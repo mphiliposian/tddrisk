@@ -21,8 +21,8 @@ public class PlayerDisplayPanel{
 	
 	public static void main(String[] args) {
 		ArrayList<Player> players = new ArrayList<Player>();
-		for (int numPlayers = 0; numPlayers < 6; numPlayers++) {
-			Player p = new Player();
+		for (int i = 0; i < 6; i++) {
+			Player p = new Player(i);
 			players.add(p);
 			p.setReinforcements(20);
 		}		

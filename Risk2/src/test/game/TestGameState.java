@@ -27,24 +27,22 @@ class TestGameState {
 	@Test 
 	void testAddMultiPlayersToGame() {
 		Game g = new Game(mockGui());
-		Player p = new Player();
-		Player p2 = new Player();
-		Player pn = new Player();
+		Player p = new Player(0);
 		g.addPlayer(p);
 		assertEquals(1,g.numPlayers());
-		g.addPlayer(p2);
+		g.addPlayer(p);
 		assertEquals(2,g.numPlayers());
-		g.addPlayer(pn);
-		g.addPlayer(pn);
-		g.addPlayer(pn);
-		g.addPlayer(pn);
+		g.addPlayer(p);
+		g.addPlayer(p);
+		g.addPlayer(p);
+		g.addPlayer(p);
 		assertEquals(6,g.numPlayers());
 	}
 	
 	@Test 
 	void testAddAboveMaxPlayers() {
 		Game g = new Game(mockGui());
-		Player p = new Player();
+		Player p = new Player(0);
 		for (int i=0; i<6; i++) {
 			g.addPlayer(p);
 		}
@@ -54,13 +52,13 @@ class TestGameState {
 	
 	@Test
 	void testGetNumOfTerritories() {
-		Player p = new Player();
+		Player p = new Player(0);
 		assertEquals(0, p.getNumOfTerritories());
 	}
 	
 	@Test
 	void testAddTerritories() {
-		Player p = new Player();
+		Player p = new Player(0);
 		p.addTerritory();
 		assertEquals(1, p.getNumOfTerritories());
 	}
@@ -68,7 +66,7 @@ class TestGameState {
 	@Test
 	void testWinGameState() {
 		Game g = new Game(mockGui());
-		Player p = new Player();
+		Player p = new Player(0);
 		g.addPlayer(p);
 		for(int x = 0; x < 42; x ++ ) {
 			p.addTerritory();
