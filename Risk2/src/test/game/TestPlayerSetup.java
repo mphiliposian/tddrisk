@@ -3,12 +3,9 @@ package test.game;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.easymock.EasyMock;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import code.game.Game;
 import code.game.Player;
@@ -129,6 +126,37 @@ public class TestPlayerSetup {
 		assertEquals(g.currentTurn(),5);
 		g.switchTurn();
 		assertEquals(g.currentTurn(),0);
+	}
+	
+	@Test
+	public void setup() {
+		RiskUI fakeUI = EasyMock.strictMock(RiskUI.class);
+		Game g = EasyMock.partialMockBuilder(Game.class)
+				.withConstructor(fakeUI)
+				.addMockedMethod("createPlayers")
+				.addMockedMethod("randomizeOrder")
+				.addMockedMethod("initializeReinforcements")
+				.createStrictMock();
+		
+		g.createPlayers();
+		EasyMock.expectLastCall();
+		g.randomizeOrder();
+		EasyMock.expectLastCall();
+		g.initializeReinforcements();
+		EasyMock.expectLastCall();
+		
+		fakeUI.createPlayerDisplay(new ArrayList<>());
+		EasyMock.expectLastCall();
+		fakeUI.updatePlayerDisplay();
+		EasyMock.expectLastCall();
+		
+		EasyMock.replay(fakeUI);
+		EasyMock.replay(g);
+		
+		g.setup();
+		
+		EasyMock.verify(fakeUI);
+		EasyMock.verify(g);
 	}
 	
 }
