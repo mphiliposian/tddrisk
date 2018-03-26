@@ -63,6 +63,7 @@ public class Game {
 	}
 
 	public void createPlayers() {
+		players = new ArrayList<>();
 		int numPlayers = 0;
 		while (numPlayers < 3 || numPlayers > 6) {
 			numPlayers = ui.playerCountPrompt();
@@ -109,8 +110,8 @@ public class Game {
 		ui.updatePlayerDisplay();
 	}
 
-	public void addTerritoryToPlayer(int playerID, Territory territory) {
-		players.get(playerID).addTerritory();
+	public Player getPlayerByID(int playerID) {
+		return players.get(playerID);
 	}
 
 }

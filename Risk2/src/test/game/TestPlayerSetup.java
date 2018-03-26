@@ -65,37 +65,43 @@ public class TestPlayerSetup {
 	
 	@Test
 	public void initialReinforcements() {
-		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
-		Game g = new Game(fakeGui);
-		Player p = new Player(0);
-		g.addPlayer(p);
-		for (int i=0; i<2; i++) {
-			g.addPlayer(new Player(0));
-		}
+		// Record
+		RiskUI fakeUI = EasyMock.strictMock(RiskUI.class);
+		EasyMock.expect(fakeUI.playerCountPrompt()).andReturn(3);
+		EasyMock.expect(fakeUI.playerCountPrompt()).andReturn(5);
+		EasyMock.expect(fakeUI.playerCountPrompt()).andReturn(6);
 		
+		// Replay
+		EasyMock.replay(fakeUI);
+		Game g = new Game(fakeUI);
+		g.createPlayers();
 		g.initializeReinforcements();
-		assertEquals(35, p.getReinforcements());
-		g.addPlayer(new Player(0));
+		Player player0 = g.getPlayerByID(0);
+		assertEquals(35, player0.getReinforcements());
+		
+		g.createPlayers();
 		g.initializeReinforcements();
-		assertEquals(30, p.getReinforcements());
-		g.addPlayer(new Player(0));
+		player0 = g.getPlayerByID(0);
+		assertEquals(25, player0.getReinforcements());
+
+		g.createPlayers();
 		g.initializeReinforcements();
-		assertEquals(25, p.getReinforcements());
-		g.addPlayer(new Player(0));
-		g.initializeReinforcements();
-		assertEquals(20, p.getReinforcements());
+		player0 = g.getPlayerByID(0);
+		assertEquals(20, player0.getReinforcements());
+		
+		// Verify
+		EasyMock.verify(fakeUI);
 	}
 	
 	@Test
 	public void switchTurn3Players() {
 		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
+		EasyMock.expect(fakeGui.playerCountPrompt()).andReturn(3);
+		
+		EasyMock.replay(fakeGui);
 		Game g = new Game(fakeGui);
-		Player p = new Player(0);
-		g.addPlayer(p);
-		p = new Player(1);
-		g.addPlayer(p);
-		p = new Player(2);
-		g.addPlayer(p);
+		g.createPlayers();
+		
 		assertEquals(g.currentTurn(),0);
 		g.switchTurn();
 		assertEquals(g.currentTurn(),1);
@@ -103,18 +109,19 @@ public class TestPlayerSetup {
 		assertEquals(g.currentTurn(),2);
 		g.switchTurn();
 		assertEquals(g.currentTurn(),0);
+		
+		EasyMock.verify(fakeGui);
 	}
 	
 	@Test
 	public void switchTurn6Players() {
 		RiskUI fakeGui = EasyMock.mock(RiskUI.class);
+		EasyMock.expect(fakeGui.playerCountPrompt()).andReturn(6);
+		
+		EasyMock.replay(fakeGui);
 		Game g = new Game(fakeGui);
-		Player p = new Player(0);
-		g.addPlayer(p);
-		for (int x = 0;x < 5;x++) {
-			p = new Player(0);
-			g.addPlayer(p);
-		}
+		g.createPlayers();
+		
 		assertEquals(g.currentTurn(),0);
 		g.switchTurn();
 		assertEquals(g.currentTurn(),1);
