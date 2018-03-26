@@ -45,15 +45,10 @@ class TestGameState {
 	void testAddAboveMaxPlayers() {
 		Game g = new Game(mockGui());
 		Player p = new Player();
-		Player p2 = new Player();
-		Player pn = new Player();
-		g.addPlayer(pn);
-		g.addPlayer(pn);
-		g.addPlayer(pn);
-		g.addPlayer(pn);
-		g.addPlayer(pn);
-		g.addPlayer(pn);
-		g.addPlayer(pn);
+		for (int i=0; i<6; i++) {
+			g.addPlayer(p);
+		}
+		
 		assertEquals(6,g.numPlayers());
 	}
 	
