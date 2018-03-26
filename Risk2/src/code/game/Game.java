@@ -59,7 +59,6 @@ public class Game {
 		}
 	}
 
-	//TODO do we have to test this?
 	public void randomizeOrder() {
 		Collections.shuffle(players);
 	}
