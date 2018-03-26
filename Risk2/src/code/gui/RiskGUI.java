@@ -25,7 +25,7 @@ public class RiskGUI implements RiskUI{
 		int s = Integer.parseInt((String)JOptionPane.showInputDialog(
 		                    frame,
 		                    "Please select the number of players:\n",
-		                    "Customized Dialog",
+		                    "RISK",
 		                    JOptionPane.PLAIN_MESSAGE,
 		                    null,
 		                    possibilities,
