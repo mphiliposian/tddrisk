@@ -65,13 +65,11 @@ public class TestPlayerSetup {
 	
 	@Test
 	public void initialReinforcements() {
-		// Record
 		RiskUI fakeUI = EasyMock.strictMock(RiskUI.class);
 		EasyMock.expect(fakeUI.playerCountPrompt()).andReturn(3);
 		EasyMock.expect(fakeUI.playerCountPrompt()).andReturn(5);
 		EasyMock.expect(fakeUI.playerCountPrompt()).andReturn(6);
 		
-		// Replay
 		EasyMock.replay(fakeUI);
 		Game g = new Game(fakeUI);
 		g.createPlayers();
@@ -89,7 +87,6 @@ public class TestPlayerSetup {
 		player0 = g.getPlayerByID(0);
 		assertEquals(20, player0.getReinforcements());
 		
-		// Verify
 		EasyMock.verify(fakeUI);
 	}
 	

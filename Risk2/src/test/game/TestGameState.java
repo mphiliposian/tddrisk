@@ -39,11 +39,9 @@ class TestGameState {
 	
 	@Test
 	void testWinGameState() {
-		// Record
 		RiskUI mockUI = mockGui();
 		EasyMock.expect(mockUI.playerCountPrompt()).andReturn(6);
 		
-		// Replay
 		EasyMock.replay(mockUI);
 		Game g = new Game(mockUI);
 		g.createPlayers();
@@ -51,7 +49,6 @@ class TestGameState {
 			g.getPlayerByID(0).addTerritory();
 		}
 		
-		// Verify
 		EasyMock.verify(mockUI);
 		assertTrue(g.gameIsWon());
 	}
