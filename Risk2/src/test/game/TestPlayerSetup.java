@@ -30,10 +30,10 @@ public class TestPlayerSetup {
 			assertEquals(ps[i].ID, i);
 		}
 		
-		Player[] ps2 = new Player[3];
-		for (int i=0; i<3; i++) {
+		Player[] ps2 = new Player[6];
+		for (int i=0; i<6; i++) {
 			ps2[i] = new Player(i);
-			assertEquals(ps2[i].ID, i + 3);
+			assertEquals(ps2[i].ID, i);
 		}
 	}
 	
