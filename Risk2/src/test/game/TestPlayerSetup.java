@@ -14,13 +14,7 @@ import code.game.Game;
 import code.game.Player;
 import code.gui.RiskUI;
 
-// TODO: Find a way around this. Current workaround for static ID.
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestPlayerSetup {
-	
-	// Goals:
-	// - Units given appropriately
-	// - Turn ordering
 	
 	@Test
 	public void aThreeAndSixPlayersIDs() {
