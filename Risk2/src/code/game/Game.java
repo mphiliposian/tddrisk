@@ -31,7 +31,7 @@ public class Game {
 			players.add(player);
 		}
 	}
-	
+
 	//TODO do we have to test this?
 	public void randomizeOrder() {
 		Collections.shuffle(players);
