@@ -19,26 +19,26 @@ class TestGameState {
 	}
 
 	@Test 
-	void testNumPlayers() {
+	void numPlayers() {
 		Game g = new Game(mockGui());
 		assertEquals(0,g.numPlayers());
 	}
 	
 	@Test
-	void testGetNumOfTerritories() {
+	void getNumOfTerritories() {
 		Player p = new Player(0);
 		assertEquals(0, p.getNumOfTerritories());
 	}
 	
 	@Test
-	void testAddTerritories() {
+	void addTerritories() {
 		Player p = new Player(0);
 		p.addTerritory();
 		assertEquals(1, p.getNumOfTerritories());
 	}
 	
 	@Test
-	void testWinGameState() {
+	void winGameState() {
 		RiskUI mockUI = mockGui();
 		EasyMock.expect(mockUI.playerCountPrompt()).andReturn(6);
 		
@@ -54,7 +54,7 @@ class TestGameState {
 	}
 	
 	@Test
-	void testGameIsWon0Territories() {
+	void gameIsWon0Territories() {
 		RiskUI mockUI = mockGui();
 		EasyMock.expect(mockUI.playerCountPrompt()).andReturn(6);
 		
@@ -67,7 +67,7 @@ class TestGameState {
 	}
 	
 	@Test
-	void testGameIsWon0Players() {
+	void gameIsWon0Players() {
 		RiskUI mockUI = mockGui();
 		Game g = new Game(mockUI);
 		assertFalse(g.gameIsWon());
