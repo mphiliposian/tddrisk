@@ -10,16 +10,38 @@ public class Territory {
 	private Double y;
 	private int yield;
 	
-	public Territory(String territoryID, String name, int yield, List<String> borderingTerritories, Double x2, Double y2) {
+	/** 
+	 * @param territoryID
+	 * 		A value that uniquely determines a territory.
+	 * @param name
+	 * 		The name of the territory.
+	 * @param yield
+	 * 		The number of army units a territory contains.
+	 * @param borderingTerritories
+	 * 		A list of territoryIDs for which the territory borders.
+	 * @param x
+	 * 		The x-position in which a territory lies on the map.
+	 * @param y
+	 * 		The y-position in which a territory lies on the map.
+	 */
+	public Territory(String territoryID, String name, int yield, List<String> borderingTerritories, Double x, Double y) {
 		this.territoryID = territoryID;
 		this.name = name;
 		this.borderingTerritories = borderingTerritories;
-		this.x = x2;
-		this.y = y2;
+		this.x = x;
+		this.y = y;
 	}
 	
-	public Territory(String territoryID, String name, List<String> borderingTerritories, Double x2, Double y2) {
-		this(territoryID, name, 0, borderingTerritories, x2, y2);
+	/**
+	 * Builds the constructor with no army units.
+	 * @param territoryID
+	 * @param name
+	 * @param borderingTerritories
+	 * @param x
+	 * @param y
+	 */
+	public Territory(String territoryID, String name, List<String> borderingTerritories, Double x, Double y) {
+		this(territoryID, name, 0, borderingTerritories, x, y);
 	}
 
 	public String getTerritoryID() {
