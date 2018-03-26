@@ -65,4 +65,11 @@ class TestGameState {
 		EasyMock.verify(mockUI);
 		assertFalse(g.gameIsWon());
 	}
+	
+	@Test
+	void testGameIsWon0Players() {
+		RiskUI mockUI = mockGui();
+		Game g = new Game(mockUI);
+		assertFalse(g.gameIsWon());
+	}
 }
