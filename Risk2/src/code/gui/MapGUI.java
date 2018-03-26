@@ -78,6 +78,8 @@ public class MapGUI {
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	ListenerManager manager = new ListenerManager();
+	
 	private void drawTerritories() {
 		for(int i = 0; i < territoryList.size(); i++) {
 			/*
@@ -87,22 +89,10 @@ public class MapGUI {
 			Territory curTerritory = territoryList.get(i);
 			JLabel l = new JLabel(curTerritory.getName());
 			JButton b = new JButton(String.valueOf(curTerritory.getYield()));
-			b.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					/*
-					 * -Opens JPanel for fortifying.
-					 * -User inputs x (number of units to place in territory)
-					 * 
-					 * if(x < 0)
-					 * 		// throw exception
-					 * if(x > //maximum units)
-					 * 		// throw exception
-					 * else
-					 * 		curTerritory.setYield(curTerritory.getYield+x);
-					 */
-				}
-			});
+			b.setName(curTerritory.getTerritoryID());
+			
+			manager.addListener(b);
+			
 			l.setForeground(Color.RED);
 			l.setFont(l.getFont().deriveFont(14.0f));
 			l.setHorizontalAlignment(JLabel.CENTER);
