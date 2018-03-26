@@ -3,6 +3,7 @@ package code.game;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -12,7 +13,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private ArrayList<Player> players;
+	private List<Player> players;
 	private RiskUI ui;
 	private int currTurn;
 	
@@ -51,12 +52,6 @@ public class Game {
 			}
 		}
 		return false;
-	}
-
-	public void addPlayer(Player player) {
-		if (players.size() < 6) {
-			players.add(player);
-		}
 	}
 
 	public void randomizeOrder() {
@@ -112,6 +107,10 @@ public class Game {
 		initializeReinforcements();
 		ui.createPlayerDisplay(players);
 		ui.updatePlayerDisplay();
+	}
+
+	public void addTerritoryToPlayer(int playerID, Territory territory) {
+		players.get(playerID).addTerritory();
 	}
 
 }

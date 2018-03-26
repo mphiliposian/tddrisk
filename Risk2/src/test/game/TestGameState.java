@@ -24,32 +24,6 @@ class TestGameState {
 		assertEquals(0,g.numPlayers());
 	}
 	
-	@Test 
-	void testAddMultiPlayersToGame() {
-		Game g = new Game(mockGui());
-		Player p = new Player(0);
-		g.addPlayer(p);
-		assertEquals(1,g.numPlayers());
-		g.addPlayer(p);
-		assertEquals(2,g.numPlayers());
-		g.addPlayer(p);
-		g.addPlayer(p);
-		g.addPlayer(p);
-		g.addPlayer(p);
-		assertEquals(6,g.numPlayers());
-	}
-	
-	@Test 
-	void testAddAboveMaxPlayers() {
-		Game g = new Game(mockGui());
-		Player p = new Player(0);
-		for (int i=0; i<6; i++) {
-			g.addPlayer(p);
-		}
-		
-		assertEquals(6,g.numPlayers());
-	}
-	
 	@Test
 	void testGetNumOfTerritories() {
 		Player p = new Player(0);
@@ -65,11 +39,17 @@ class TestGameState {
 	
 	@Test
 	void testWinGameState() {
-		Game g = new Game(mockGui());
-		Player p = new Player(0);
-		g.addPlayer(p);
+		RiskUI mockUI = mockGui();
+		EasyMock.expect(mockUI.playerCountPrompt()).andReturn(6);
+		Game g = new Game(mockUI);
+		
+		EasyMock.replay(mockUI);
+		g.createPlayers();
+		
+		EasyMock.verify(mockUI);
+		
 		for(int x = 0; x < 42; x ++ ) {
-			p.addTerritory();
+			g.addTerritoryToPlayer(0, new Territory());
 		}
 		
 		assertTrue(g.gameIsWon());

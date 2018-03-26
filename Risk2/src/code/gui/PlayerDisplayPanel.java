@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Label;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -39,7 +40,7 @@ public class PlayerDisplayPanel{
 
 	}
 	
-	public PlayerDisplayPanel(ArrayList<Player> players) {
+	public PlayerDisplayPanel(List<Player> players) {
 		this.panel = new JPanel();
 		panel.setBounds(0, 0, 100, 100);
 		for (Player p : players) {
