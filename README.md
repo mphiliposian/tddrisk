@@ -7,17 +7,20 @@
 - [ ] A continent is a set of territories. Continents are listed in Appendix B.
 
 ## Setup
-- [ ] There are 3 to 6 players. The program assigns each player a unique identifier. The territories under a player's control will be marked with this identifier. 
-- [ ] At the start of the game, each player is provided with a number of units corresponding to the number of players in the game. These values are provided in appendix C. Units which a player owns but has not yet placed are referred to as "reinforcements".
-- [ ] The program generates a turn ordering.
+- [x] There are 3 to 6 players. The program assigns each player a unique identifier. 
+- [ ] The territories under a player's control will be marked with this identifier. 
+- [x] At the start of the game, each player is provided with a number of units corresponding to the number of players in the game. These values are provided in appendix C. Units which a player owns but has not yet placed are referred to as "reinforcements".
+- [x] The program generates a turn ordering.
 - [ ] Starting with the first player in the ordering, each player is prompted to select a territory on which to place a unit. This process repeats in the turn ordering until all territories contain exactly one unit. 
 - [ ] Once all territories contain exactly one unit, each player is prompted to select a territory which they already control on which to place an additional unit from their reinforcements. This process continues in the turn ordering until each player has exhausted their supply of reinforcements. 
+
+
+## Turns
+- [ ] A turn is defined in three phases: Allocating reinforcements, attacking, and fortifying, and they always occur in this order.
 - [ ] The first player in the turn ordering is prompted to play a turn.
 - [ ] After a turn is completed, the next player in the turn ordering who has not yet been eliminated is prompted to play a turn.
 - [ ] A player is eliminated when they control no territories.
 
-## Turns
-- [ ] A turn is defined in three phases: Allocating reinforcements, attacking, and fortifying, and they always occur in this order.
 
 ### Allocating reinforcements:
 - [ ] The active player is provided a number of reinforcements equal to 3, or the number of territories they control divided by 3, whichever is greater.
