@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import code.game.Game;
+import code.game.Territory;
 import code.gui.RiskUI;
 
 public class TestPlaceUnits {
@@ -15,6 +16,7 @@ public class TestPlaceUnits {
 	public void placeInitialReinforcementsWith3Players() {
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
+		EasyMock.expect(ui.territoryPrompt("")).andReturn(new Territory()).atLeastOnce();
 		Game game = new Game(ui);
 	
 		EasyMock.replay(ui);

@@ -115,7 +115,7 @@ public class Game {
 	}
 
 	public void placeInitialReinforcements() {
-		
+		ui.territoryPrompt("");
 	}
 
 }
