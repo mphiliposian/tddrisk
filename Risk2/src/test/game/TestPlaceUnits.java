@@ -3,7 +3,6 @@ package test.game;
 import static org.junit.Assert.assertEquals;
 
 import org.easymock.EasyMock;
-import org.junit.Before;
 import org.junit.Test;
 
 import code.game.Game;
@@ -26,6 +25,10 @@ public class TestPlaceUnits {
 		EasyMock.verify(ui);
 		for (int playerID = 0; playerID < game.numPlayers(); playerID++) {
 			assertEquals(game.getPlayerByID(playerID).getReinforcements(), 0);
+			assertEquals(game.getPlayerByID(playerID).getNumOfTerritories(), 14);
+		}
+		for (int territoryID = 0; territoryID < 42; territoryID++) {
+			game.getTerritoryByID(territoryID);
 		}
 	}
 }
