@@ -6,8 +6,8 @@ public class Territory {
 	private String territoryID;
 	private String name;
 	private List<String> borderingTerritories;
-	private Double x;
-	private Double y;
+	private double xScale;
+	private double yScale;
 	private int yield;
 	
 	/** 
@@ -24,12 +24,12 @@ public class Territory {
 	 * @param y
 	 * 		The y-position in which a territory lies on the map.
 	 */
-	public Territory(String territoryID, String name, int yield, List<String> borderingTerritories, Double x, Double y) {
+	public Territory(String territoryID, String name, int yield, List<String> borderingTerritories, double x, double y) {
 		this.territoryID = territoryID;
 		this.name = name;
 		this.borderingTerritories = borderingTerritories;
-		this.x = x;
-		this.y = y;
+		this.xScale = x;
+		this.yScale = y;
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public class Territory {
 	 * @param x
 	 * @param y
 	 */
-	public Territory(String territoryID, String name, List<String> borderingTerritories, Double x, Double y) {
+	public Territory(String territoryID, String name, List<String> borderingTerritories, double x, double y) {
 		this(territoryID, name, 0, borderingTerritories, x, y);
 	}
 
@@ -57,19 +57,19 @@ public class Territory {
 	}
 
 	public void setYield(int yield) {
-		// TODO
+		this.yield = yield;
 	}
 
 	public List<String> getBorderingTerritories() {
 		return this.borderingTerritories;
 	}
 
-	public Double getX() {
-		return this.x;
+	public double getX() {
+		return this.xScale;
 	}
 
-	public Double getY() {
-		return this.y;
+	public double getY() {
+		return this.yScale;
 	}
 
 }

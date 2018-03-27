@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import code.game.Player;
 import code.game.Territory;
 
 public class MapGUI {
@@ -92,10 +93,11 @@ public class MapGUI {
 			
 			manager.addListener(lButton);
 			
-			lButton.setBounds(curTerritory.getX().intValue(), curTerritory.getY().intValue(), 55, 20);
+			lButton.setBounds(new Double(curTerritory.getX()).intValue(), new Double(curTerritory.getY()).intValue(), 55, 20);
 		}
 	}
 
+	// TODO: Move this into game logic, break down into smaller functions, test thoroughly
 	private void addAllTerritories(String territoriesSource) {
 		String line = null;
 		try {
