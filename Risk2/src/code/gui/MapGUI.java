@@ -87,19 +87,12 @@ public class MapGUI {
 			 * We should find a way to fix this.
 			 */
 			Territory curTerritory = territoryList.get(i);
-			JLabel l = new JLabel(curTerritory.getName());
-			JButton b = new JButton(String.valueOf(curTerritory.getYield()));
-			b.setName(curTerritory.getTerritoryID());
+			LabeledButton lButton = new LabeledButton(panel, curTerritory.getName(), String.valueOf(curTerritory.getYield()));
+			lButton.setName(curTerritory.getTerritoryID());
 			
-			manager.addListener(b);
+			manager.addListener(lButton);
 			
-			l.setForeground(Color.RED);
-			l.setFont(l.getFont().deriveFont(14.0f));
-			l.setHorizontalAlignment(JLabel.CENTER);
-			l.setBounds(curTerritory.getX().intValue()-50, curTerritory.getY().intValue()-60, 150, 100);
-			b.setBounds(curTerritory.getX().intValue(), curTerritory.getY().intValue(), 55, 20);
-			panel.add(l);
-			panel.add(b);
+			lButton.setBounds(curTerritory.getX().intValue(), curTerritory.getY().intValue(), 55, 20);
 		}
 	}
 
