@@ -114,4 +114,8 @@ public class Game {
 		return players.get(playerID);
 	}
 
+	public void placeInitialReinforcements() {
+		
+	}
+
 }
