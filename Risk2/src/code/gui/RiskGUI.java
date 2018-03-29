@@ -72,7 +72,9 @@ public class RiskGUI implements RiskUI{
 
 	@Override
 	public void updatePlayerDisplay() {
-		System.out.println("Player display updated!");
+		
+		//for (Player p : players)
+		//System.out.println(
 	}
 
 	@Override
