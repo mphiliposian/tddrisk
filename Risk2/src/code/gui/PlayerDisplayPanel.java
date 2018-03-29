@@ -1,6 +1,7 @@
 package code.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Label;
 import java.util.ArrayList;
@@ -20,29 +21,9 @@ public class PlayerDisplayPanel{
 	
 	private JPanel panel;
 	
-//	public static void main(String[] args) {
-//		ArrayList<Player> players = new ArrayList<Player>();
-//		for (int i = 0; i < 6; i++) {
-//			Player p = new Player(i);
-//			players.add(p);
-//			p.setReinforcements(20);
-//		}		
-//		PlayerDisplayPanel pDp = new PlayerDisplayPanel(players);
-//		JFrame frame = new JFrame("Players");
-//		frame.setLayout(new FlowLayout());
-//		frame.add(pDp.getPanel());
-//		frame.setSize(800, 200);
-//		frame.setVisible(true);
-//		
-//		frame.setResizable(false);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.pack();
-//
-//	}
-	
 	public PlayerDisplayPanel(List<Player> players) {
 		this.panel = new JPanel();
-		panel.setBounds(0, 0, 100, 100);
+		panel.setPreferredSize(new Dimension(100, 100));
 		for (Player p : players) {
 			IndividualPlayerPanel iPP = new IndividualPlayerPanel(p);
 			this.panel.add(iPP);

@@ -13,36 +13,14 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private final int MINNUMOFPLAYERS = 3;
-	private final int MAXNUMOFPLAYERS = 6;
-	private final int NUMOFTERRITORIES = 3;
+	private final int MIN_NUM_OF_PLAYERS = 3;
+	private final int MAX_NUM_OF_PLAYERS = 6;
+	private final int NUM_OF_TERRITORIES = 3;
 	
 	private List<Player> players;
 	private List<Territory> territories;
 	private RiskUI ui;
 	private int currTurn;
-
-	//	public static void main(String[] args) {
-	//		RiskGUI rG = new RiskGUI();
-	//		Game g = new Game(rG);
-	//		rG.initializeUI(null);
-	//		g.createPlayers();
-	//		g.randomizeOrder();
-	//		g.initializeReinforcements();
-	//		
-	//		PlayerDisplayPanel pDp = new PlayerDisplayPanel(g.players);
-	//		JFrame frame = new JFrame("Players");
-	//		frame.setLayout(new FlowLayout());
-	//		frame.add(pDp.getPanel());
-	//		frame.setSize(800, 200);
-	//		frame.setVisible(true);
-	//		
-	//		frame.setResizable(false);
-	//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	//		frame.pack();
-	//		
-	//		
-	//	}
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
@@ -53,7 +31,7 @@ public class Game {
 
 	public boolean gameIsWon() {
 		for (Player player : players) {
-			if (player.getNumOfTerritories() == NUMOFTERRITORIES) {
+			if (player.getNumOfTerritories() == NUM_OF_TERRITORIES) {
 				return true;
 			}
 		}
@@ -71,7 +49,7 @@ public class Game {
 	public void createPlayers() {
 		players = new ArrayList<>();
 		int numPlayers = 0;
-		while (numPlayers < MINNUMOFPLAYERS || numPlayers > MAXNUMOFPLAYERS) {
+		while (numPlayers < MIN_NUM_OF_PLAYERS || numPlayers > MAX_NUM_OF_PLAYERS) {
 			numPlayers = ui.playerCountPrompt();
 		}
 
@@ -104,7 +82,7 @@ public class Game {
 	}
 
 	public void switchTurn() {
-		this.currTurn = (currTurn + 1)%players.size();
+		this.currTurn = (currTurn + 1) % players.size();
 
 	}
 
@@ -112,6 +90,7 @@ public class Game {
 		createPlayers();
 		randomizeOrder();
 		initializeReinforcements();
+		ui.initializeUI(null);
 		ui.createPlayerDisplay(players);
 		ui.updatePlayerDisplay();
 	}
@@ -125,7 +104,7 @@ public class Game {
 	}
 
 	public void placeInitialReinforcements() {
-		for(int NumOfTurns = 0; NumOfTurns < NUMOFTERRITORIES; NumOfTurns++) {
+		for(int NumOfTurns = 0; NumOfTurns < NUM_OF_TERRITORIES; NumOfTurns++) {
 			ui.territoryPrompt("");
 			players.get(currTurn).addTerritory();
 			switchTurn();

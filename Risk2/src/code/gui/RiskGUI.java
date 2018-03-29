@@ -1,5 +1,6 @@
 package code.gui;
 
+import java.awt.FlowLayout;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -11,18 +12,22 @@ import code.game.Territory;
 public class RiskGUI implements RiskUI{
 	private JFrame frame; 
 	
-
-	
 	@Override
 	public void initializeUI(List<Territory> territories) {
-		this.frame = new JFrame();
-		
+		frame = new JFrame("Risk");
+		frame.setLayout(new FlowLayout());
+		frame.setSize(800, 200);
+		frame.setVisible(true);
+				
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
 	}
 
 	@Override
 	public int playerCountPrompt() {
 		Object[] possibilities = {"3", "4", "5", "6"};
-		int s = Integer.parseInt((String)JOptionPane.showInputDialog(
+		int numOfPlayers = Integer.parseInt((String)JOptionPane.showInputDialog(
 		                    frame,
 		                    "Please select the number of players:\n",
 		                    "RISK",
@@ -31,31 +36,28 @@ public class RiskGUI implements RiskUI{
 		                    possibilities,
 		                    "3"));
 
-		return s;
+		return numOfPlayers;
 	}
 
 	@Override
 	public void createPlayerDisplay(List<Player> players) {
-				
+		PlayerDisplayPanel playerPanel = new PlayerDisplayPanel(players);
+		frame.add(playerPanel.getPanel());
+		frame.pack();
 	}
 
 	@Override
 	public void updatePlayerDisplay() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Player display updated!");
 	}
 
 	@Override
 	public void updateTerritoryDisplay(Territory territory) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Territory display updated: " + territory);
 	}
 
 	@Override
 	public Territory territoryPrompt(String message) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-	
-
 }
