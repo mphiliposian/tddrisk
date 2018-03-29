@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +36,7 @@ public class MapPanel extends JPanel {
 		LabeledButton lButton;
 		for (Territory t : territories) {
 			lButton = new LabeledButton(this, t.getName(), "0"); 
-			lButton.setName(t.getTerritoryID());
-			System.out.println(t.getName());
-			lButton.addActionListener(new ButtonListener());
+			lButton.setID(t.getTerritoryID());
 			this.territoryMap.put(t, lButton);
 			lButton.setBounds(new Double(t.getX()*width).intValue(), new Double(t.getY()*height).intValue(), 55, 20);
 		}
@@ -62,4 +61,11 @@ public class MapPanel extends JPanel {
 	public Dimension getPreferredSize() {
 		return new Dimension(width, height);
 	}
+	
+	public void addSelectionListeners(RiskGUI ui) {
+		for (Territory t : territoryMap.keySet()) {
+			territoryMap.get(t).addActionListener(new TerritorySelectionListener(ui, t));
+		}
+	}
+	
 }
