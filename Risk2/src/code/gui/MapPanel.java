@@ -27,29 +27,6 @@ public class MapPanel extends JPanel {
 	
 	private Image mapImage;
 	
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("hello, world!");
-		
-		Dimension screenResolution = Toolkit.getDefaultToolkit().getScreenSize();
-		
-		double width = screenResolution.getWidth();
-		double height = screenResolution.getHeight();
-		
-		Double scaledWidth = width * 0.9;
-		Double scaledHeight = height * 0.9;
-		int windowWidth = scaledWidth.intValue();
-		int windowHeight = scaledHeight.intValue();
-		
-		TerritoryReader tr = new TerritoryReader();
-		List<Territory> nt = tr.readTerritories("TerritoryMap.txt");
-		
-		frame.setBounds(0, 0, windowWidth, windowHeight);
-		MapPanel mp = new MapPanel(windowWidth, windowHeight, nt);
-		frame.add(mp);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-	
 	public MapPanel(int width, int height, List<Territory> territories) {
 		this.width = width;
 		this.height = height;
