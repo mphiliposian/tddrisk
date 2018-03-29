@@ -14,7 +14,7 @@ public class LabeledButton {
 	private JLabel label;
 	private JButton button;
 	private String value;
-	private String name;
+	private String id;
 
 	public LabeledButton(JPanel panel, String labelName, String value) {
 		this.value = value;
@@ -36,12 +36,12 @@ public class LabeledButton {
 		this.value = newValue;
 	}
 	
-	public String getName() {
-		return name;
+	public String getID() {
+		return id;
 	}
 	
-	public void setName(String name) {
-		this.button.setName(name);
+	public void setID(String id) {
+		this.button.setName(id);
 	}
 	
 	public void addActionListener(ActionListener l) {

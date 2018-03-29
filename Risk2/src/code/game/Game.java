@@ -108,7 +108,7 @@ public class Game {
 
 	public void placeInitialReinforcements() {
 		for(int NumOfTurns = 0; NumOfTurns < NUM_OF_TERRITORIES; NumOfTurns++) {
-			ui.territoryPrompt("");
+			ui.territoryPrompt("helloworld");
 			players.get(currTurn).addTerritory();
 			switchTurn();
 		}

@@ -16,7 +16,8 @@ import code.game.Territory;
 public class RiskGUI implements RiskUI{
 	private JFrame frame;
 	private JPanel playerPanel;
-	private JPanel mapPanel;
+	private MapPanel mapPanel;
+	private Territory latestSelectedTerritory ;
 	
 	@Override
 	public void initializeUI(List<Territory> territories) {
@@ -66,6 +67,7 @@ public class RiskGUI implements RiskUI{
 		int windowHeight = scaledHeight.intValue();
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
 		
+		mapPanel.addSelectionListeners(this);
 		frame.add(mapPanel);
 		frame.pack();
 	}
@@ -82,6 +84,19 @@ public class RiskGUI implements RiskUI{
 
 	@Override
 	public Territory territoryPrompt(String message) {
-		return null;
+		this.latestSelectedTerritory  = null;
+		while(this.latestSelectedTerritory == null) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		Territory temp = this.latestSelectedTerritory ;
+		return temp;
+	}
+	
+	public void setLatestTerritory(Territory territory) {
+		this.latestSelectedTerritory  = territory;
 	}
 }
