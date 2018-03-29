@@ -1,27 +1,34 @@
 package code.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import code.game.Territory;
+import code.game.TerritoryReader;
 
-public class MapPanel {
+public class MapPanel extends JPanel {
 	
 	private int width;
 	private int height;
 	private Map<Territory, LabeledButton> territoryMap;
 	
-	private JPanel mapPanel;
+	private Image mapImage;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("hello, world!");
+		
 		Dimension screenResolution = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		double width = screenResolution.getWidth();
@@ -32,17 +39,12 @@ public class MapPanel {
 		int windowWidth = scaledWidth.intValue();
 		int windowHeight = scaledHeight.intValue();
 		
-		Double centerxd = ((width - scaledWidth) / 2);
-		Double centeryd = ((height - scaledHeight) / 2);
-		int centerX = centerxd.intValue();
-		int centerY = centeryd.intValue();
+		TerritoryReader tr = new TerritoryReader();
+		List<Territory> nt = tr.readTerritories("TerritoryMap.txt");
 		
-		ArrayList<Territory> nt = new ArrayList<>();
-		//nt.add(new Territory());
-		
+		frame.setBounds(0, 0, windowWidth, windowHeight);
 		MapPanel mp = new MapPanel(windowWidth, windowHeight, nt);
-		frame.add(mp.getPanel());
-		frame.pack();
+		frame.add(mp);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -50,17 +52,37 @@ public class MapPanel {
 	public MapPanel(int width, int height, List<Territory> territories) {
 		this.width = width;
 		this.height = height;
-		this.mapPanel = new JPanel();
-		this.mapPanel.setBounds(0, 0, width, height);
-		this.mapPanel.setPreferredSize(new Dimension(width, height));
-		
+		this.setBounds(0, 0, width, height);
+		ListenerManager manager = new ListenerManager();
 		this.territoryMap = new HashMap<>();
+		LabeledButton lButton;
 		for (Territory t : territories) {
-			this.territoryMap.put(t, new LabeledButton(this.mapPanel, t.getName(), "0"));
+			lButton = new LabeledButton(this, t.getName(), "0"); 
+			lButton.setName(t.getTerritoryID());
+			System.out.println(t.getName());
+			this.territoryMap.put(t, lButton);
+			manager.addListener(lButton);
+			lButton.setBounds(new Double(t.getX()*width).intValue(), new Double(t.getY()*height).intValue(), 55, 20);
 		}
+		
+		this.setBackground(Color.black);
+		this.setLayout(null);
+		mapImage = new ImageIcon("map.png").getImage();
 	}
 	
-	public JPanel getPanel() {
-		return this.mapPanel;
+	@Override
+	public void paintComponent(Graphics g) {
+        Dimension size = new Dimension(width, height);
+        this.setPreferredSize(size);
+        this.setMinimumSize(size);
+        this.setMaximumSize(size);
+        this.setSize(size);
+        this.setLayout(null);
+        g.drawImage(mapImage, 0, 0, this.getWidth(), this.getHeight(), this);
+    }
+	
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(width, height);
 	}
 }

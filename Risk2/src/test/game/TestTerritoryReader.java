@@ -8,14 +8,9 @@ import java.util.List;
 import org.junit.Test;
 
 import code.game.Territory;
+import code.game.TerritoryReader;
 
 public class TestTerritoryReader {
-
-//	@Test
-//	public void readTerritories() {
-//		TerritoryReader tr = new TerritoryReader();
-//		List<Territory> tl = tr.readTerritories("foo");
-//	}
 	
 	@Test
 	public void parseTerritory() {
