@@ -13,6 +13,8 @@ import code.gui.RiskUI;
 
 public class Game {
 
+	private final String TERRITORY_MAP_FILE = "TerritoryMap.txt"; 
+	
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
 	private final int NUM_OF_TERRITORIES = 3;
@@ -24,9 +26,9 @@ public class Game {
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
-		this.territories = new ArrayList<Territory>();
 		this.ui = ui;
 		this.currTurn = 0;
+		territories = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
 	}
 
 	public boolean gameIsWon() {
@@ -90,7 +92,8 @@ public class Game {
 		createPlayers();
 		randomizeOrder();
 		initializeReinforcements();
-		ui.initializeUI(null);
+		ui.initializeUI(territories);
+		ui.createMapDisplay(territories);
 		ui.createPlayerDisplay(players);
 		ui.updatePlayerDisplay();
 	}

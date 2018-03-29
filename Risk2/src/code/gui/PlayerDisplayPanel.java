@@ -21,9 +21,9 @@ public class PlayerDisplayPanel{
 	
 	private JPanel panel;
 	
-	public PlayerDisplayPanel(List<Player> players) {
+	public PlayerDisplayPanel(List<Player> players, int width, int height) {
 		this.panel = new JPanel();
-		panel.setPreferredSize(new Dimension(100, 100));
+		panel.setPreferredSize(new Dimension(width, height));
 		for (Player p : players) {
 			IndividualPlayerPanel iPP = new IndividualPlayerPanel(p);
 			this.panel.add(iPP);

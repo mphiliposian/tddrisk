@@ -13,6 +13,8 @@ public interface RiskUI {
 	
 	void createPlayerDisplay(List<Player> players);
 	
+	void createMapDisplay(List<Territory> territories);
+	
 	void updatePlayerDisplay();
 	
 	void updateTerritoryDisplay(Territory territory);

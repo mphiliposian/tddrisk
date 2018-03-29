@@ -15,7 +15,7 @@ public class TestPlaceUnits {
 	public void placeInitialReinforcementsWith3Players() {
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
-		EasyMock.expect(ui.territoryPrompt("")).andReturn(new Territory()).atLeastOnce();
+		EasyMock.expect(ui.territoryPrompt("")).andReturn(new Territory(null, null, 0, null, 0, 0)).atLeastOnce();
 		Game game = new Game(ui);
 	
 		EasyMock.replay(ui);

@@ -20,6 +20,7 @@ import code.game.TerritoryReader;
 
 public class MapPanel extends JPanel {
 	
+	private static final long serialVersionUID = 3214096693616901520L;
 	private int width;
 	private int height;
 	private Map<Territory, LabeledButton> territoryMap;
@@ -53,15 +54,14 @@ public class MapPanel extends JPanel {
 		this.width = width;
 		this.height = height;
 		this.setBounds(0, 0, width, height);
-		ListenerManager manager = new ListenerManager();
 		this.territoryMap = new HashMap<>();
 		LabeledButton lButton;
 		for (Territory t : territories) {
 			lButton = new LabeledButton(this, t.getName(), "0"); 
 			lButton.setName(t.getTerritoryID());
 			System.out.println(t.getName());
+			lButton.addActionListener(new ButtonListener());
 			this.territoryMap.put(t, lButton);
-			manager.addListener(lButton);
 			lButton.setBounds(new Double(t.getX()*width).intValue(), new Double(t.getY()*height).intValue(), 55, 20);
 		}
 		
