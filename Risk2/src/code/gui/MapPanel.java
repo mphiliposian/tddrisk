@@ -36,7 +36,6 @@ public class MapPanel extends JPanel {
 		LabeledButton lButton;
 		for (Territory t : territories) {
 			lButton = new LabeledButton(this, t.getName(), "0"); 
-			lButton.setID(t.getTerritoryID());
 			this.territoryMap.put(t, lButton);
 			lButton.setBounds(new Double(t.getX()*width).intValue(), new Double(t.getY()*height).intValue(), 55, 20);
 		}
@@ -44,6 +43,12 @@ public class MapPanel extends JPanel {
 		this.setBackground(Color.black);
 		this.setLayout(null);
 		mapImage = new ImageIcon("map.png").getImage();
+	}
+	
+	public void updateTerritory(Territory territory, Color color) {
+		LabeledButton lButton = this.territoryMap.get(territory);
+		lButton.setText(territory.getYield());
+		lButton.setColor(color);
 	}
 	
 	@Override

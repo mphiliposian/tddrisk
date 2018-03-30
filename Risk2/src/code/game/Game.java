@@ -103,7 +103,8 @@ public class Game {
 		ui.initializeUI(territories);
 		ui.createMapDisplay(territories);
 		ui.createPlayerDisplay(players);
-		ui.updatePlayerDisplay();
+		ui.updatePlayerDisplay(0);
+		placeInitialReinforcements();
 	}
 
 	public Player getPlayerByID(int playerID) {
@@ -116,7 +117,7 @@ public class Game {
 		reinforceTerritories();
 	}
 
-	private void reinforceTerritories() {
+	public void reinforceTerritories() {
 		int totalReinforcements = 0;
 		for (Player player : players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements(); 
@@ -127,13 +128,15 @@ public class Game {
 				Territory territory = ui.territoryPrompt("");
 				if (playerOwnsTerritory(territory)) {
 					placeOneUnit(territory);
+					switchTurn();
+					ui.updatePlayerDisplay(currTurn);
 					ownedByPlayer = true;
 				}
 			}
 		}	
 	}
 
-	private boolean playerOwnsTerritory(Territory territory) {
+	public boolean playerOwnsTerritory(Territory territory) {
 		Set<Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
 		return ownedTerritories.contains(territory);
 	}
@@ -141,11 +144,9 @@ public class Game {
 	public void placeOneUnit(Territory territory) {
 		Player curPlayer = players.get(currTurn);
 		territory.setYield(territory.getYield() + 1);
-		ui.updateTerritoryDisplay(territory);
+		ui.updateTerritoryDisplay(territory, curPlayer.getColor());
 		curPlayer.setReinforcements(curPlayer.getReinforcements()-1);
 		curPlayer.addTerritory();
-		switchTurn();
-		//ui.updatePlayerDisplay();
 	}
 
 	public void claimTerritories() {
@@ -159,6 +160,8 @@ public class Game {
 					ownedTerritories.add(territory);
 					playersTerritories.put(players.get(currTurn), ownedTerritories);
 					uniqueTerritory = true;
+					switchTurn();
+					ui.updatePlayerDisplay(currTurn);
 				}
 			}
 		}

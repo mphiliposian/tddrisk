@@ -13,11 +13,9 @@ import javax.swing.JPanel;
 public class LabeledButton {
 	private JLabel label;
 	private JButton button;
-	private String value;
-	private String id;
 
 	public LabeledButton(JPanel panel, String labelName, String value) {
-		this.value = value;
+
 		this.label = new JLabel(labelName);
 		this.button = new JButton(value);
 		this.label.setForeground(Color.RED);
@@ -32,19 +30,19 @@ public class LabeledButton {
 		this.button.setBounds(x, y, width, height);
 	}
 	
-	public void updateValue(String newValue) {
-		this.value = newValue;
-	}
-	
-	public String getID() {
-		return id;
-	}
-	
 	public void setID(String id) {
 		this.button.setName(id);
 	}
 	
 	public void addActionListener(ActionListener l) {
 		this.button.addActionListener(l);
+	}
+
+	public void setText(int yield) {
+		this.button.setText("" + yield);
+	}
+	
+	public void setColor(Color color) {
+		this.button.setBackground(color);
 	}
 }

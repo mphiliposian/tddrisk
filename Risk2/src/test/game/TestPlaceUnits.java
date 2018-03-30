@@ -3,6 +3,7 @@ package test.game;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class TestPlaceUnits {
 			}
 			else {
 				EasyMock.expect(ui.territoryPrompt("")).andReturn(territory);
-				ui.updateTerritoryDisplay(territory);
+				ui.updateTerritoryDisplay(territory, Color.RED);
 				EasyMock.expectLastCall();
 			}
 			currTerritory++;

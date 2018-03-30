@@ -1,5 +1,6 @@
 package code.gui;
 
+import java.awt.Color;
 import java.util.List;
 
 import code.game.Player;
@@ -15,9 +16,9 @@ public interface RiskUI {
 	
 	void createMapDisplay(List<Territory> territories);
 	
-	void updatePlayerDisplay();
+	void updatePlayerDisplay(int activePlayer);
 	
-	void updateTerritoryDisplay(Territory territory);
+	void updateTerritoryDisplay(Territory territory, Color color);
 	
 	Territory territoryPrompt(String message);
 	

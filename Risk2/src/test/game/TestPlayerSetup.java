@@ -136,6 +136,8 @@ public class TestPlayerSetup {
 				.addMockedMethod("createPlayers")
 				.addMockedMethod("randomizeOrder")
 				.addMockedMethod("initializeReinforcements")
+				.addMockedMethod("claimTerritories")
+				.addMockedMethod("reinforceTerritories")
 				.createStrictMock();
 		
 		g.createPlayers();
@@ -145,9 +147,18 @@ public class TestPlayerSetup {
 		g.initializeReinforcements();
 		EasyMock.expectLastCall();
 		
-		fakeUI.createPlayerDisplay(new ArrayList<>());
+		fakeUI.initializeUI(EasyMock.anyObject());
 		EasyMock.expectLastCall();
-		fakeUI.updatePlayerDisplay();
+		
+		fakeUI.createMapDisplay(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+		
+		fakeUI.createPlayerDisplay(EasyMock.anyObject());
+		EasyMock.expectLastCall();
+		fakeUI.updatePlayerDisplay(0);
+		EasyMock.expectLastCall();
+		
+		g.placeInitialReinforcements();
 		EasyMock.expectLastCall();
 		
 		EasyMock.replay(fakeUI);

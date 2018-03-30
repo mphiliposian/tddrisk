@@ -1,5 +1,6 @@
 package code.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -16,6 +17,7 @@ import code.game.Territory;
 public class RiskGUI implements RiskUI{
 	private JFrame frame;
 	private JPanel playerPanel;
+	private PlayerDisplayPanel playerDisplayPanel;
 	private MapPanel mapPanel;
 	private Territory latestSelectedTerritory ;
 	
@@ -48,7 +50,7 @@ public class RiskGUI implements RiskUI{
 
 	@Override
 	public void createPlayerDisplay(List<Player> players) {
-		PlayerDisplayPanel playerDisplayPanel = new PlayerDisplayPanel(players, 100, 500);
+		playerDisplayPanel = new PlayerDisplayPanel(players, 100, 500);
 		playerPanel = playerDisplayPanel.getPanel();
 		frame.add(playerPanel);
 		frame.pack();
@@ -73,15 +75,13 @@ public class RiskGUI implements RiskUI{
 	}
 
 	@Override
-	public void updatePlayerDisplay() {
-		
-		//for (Player p : players)
-		//System.out.println(
+	public void updatePlayerDisplay(int activePlayer) {
+		playerDisplayPanel.updatePlayerPanel(activePlayer);
 	}
 
 	@Override
-	public void updateTerritoryDisplay(Territory territory) {
-		System.out.println("Territory display updated: " + territory);
+	public void updateTerritoryDisplay(Territory territory, Color color) {
+		mapPanel.updateTerritory(territory, color);
 	}
 
 	@Override
