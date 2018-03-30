@@ -27,11 +27,13 @@ public class TestPlaceUnits {
 		EasyMock.replay(ui);
 		game.createPlayers();
 		game.initializeReinforcements();
-		game.placeInitialReinforcements();
+		int startingReinforcements = game.getPlayerByID(0).getReinforcements();
+		game.claimTerritories();
 
+		
 		EasyMock.verify(ui);
 		for (int playerID = 0; playerID < game.numPlayers(); playerID++) {
-			assertEquals(game.getPlayerByID(playerID).getReinforcements(), 0);
+			assertTrue(game.getPlayerByID(playerID).getReinforcements() < startingReinforcements);
 			assertEquals(game.getPlayerByID(playerID).getNumOfTerritories(), 14);
 		}
 		for (int territoryID = 0; territoryID < 42; territoryID++) {
@@ -50,6 +52,7 @@ public class TestPlaceUnits {
 	private void createMockedTerritores(RiskUI ui) {
 		List<Territory> territories = new TerritoryReader().readTerritories("TerritoryTestMap.txt");
 		int currTerritory = 0;
+		System.out.println(territories);
 		for(Territory territory : territories) {
 			if (currTerritory == 1|| currTerritory == 15 || currTerritory == 43 || currTerritory == 44) {
 				territory.setYield(1);
@@ -57,7 +60,11 @@ public class TestPlaceUnits {
 			}
 			else {
 				EasyMock.expect(ui.territoryPrompt("")).andReturn(territory);
-				ui.updateTerritoryDisplay(territory, Color.RED);
+				
+				ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
+				EasyMock.expectLastCall();
+				
+				ui.updatePlayerDisplay(EasyMock.anyInt());
 				EasyMock.expectLastCall();
 			}
 			currTerritory++;
