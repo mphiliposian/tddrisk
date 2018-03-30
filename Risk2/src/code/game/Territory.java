@@ -49,5 +49,10 @@ public class Territory {
 	public double getY() {
 		return this.yScale;
 	}
+	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 
 }
