@@ -1,0 +1,22 @@
+RiskUI, Milestone 1:
+
+void initializeUI(List<Territory>)
+
+int playerNumPrompt()
+
+void createPlayerDisplay(List<Player>)
+
+void updatePlayerDisplay(Player)
+	- Updating reinforcement count
+	- Updating the "is my turn" indicator
+	- Eventually cards
+
+void updateTerritoryDisplay(Territory)
+	- Updates territory color & unit display
+	- Switches to a number after # of reinforcements gets large?
+
+Territory territoryPrompt(String)
+	- String is displayed at top of map during selection
+
+Notes:
+Player, Territory need equals()
