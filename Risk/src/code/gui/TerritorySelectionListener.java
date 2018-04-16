@@ -11,14 +11,14 @@ public class TerritorySelectionListener implements ActionListener {
 	private RiskGUI gui;
 	private Territory territory;
 	
-	public TerritorySelectionListener(RiskGUI gui, Territory t) {
+	public TerritorySelectionListener(RiskGUI gui, Territory territory) {
 		this.gui = gui;
-		this.territory = t;
+		this.territory = territory;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		gui.setLatestTerritory(territory);
+		gui.selectTerritory(this.territory);
 	}
 
 }

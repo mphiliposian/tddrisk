@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,7 +21,7 @@ public class RiskGUI implements RiskUI{
 	private JPanel playerPanel;
 	private PlayerDisplayPanel playerDisplayPanel;
 	private MapPanel mapPanel;
-	private Territory latestSelectedTerritory ;
+	private CompletableFuture<Territory> selectedTerritory;
 	
 	@Override
 	public void initializeUI(List<Territory> territories) {
@@ -86,19 +88,19 @@ public class RiskGUI implements RiskUI{
 
 	@Override
 	public Territory territoryPrompt(String message) {
-		this.latestSelectedTerritory  = null;
-		while(this.latestSelectedTerritory == null) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		try {
+			return this.waitForTerritory();
+		} catch (Exception e) {
+			throw new RuntimeException("Runtime exception occurred while waiting for territory selection.", e);
 		}
-		Territory temp = this.latestSelectedTerritory ;
-		return temp;
 	}
 	
-	public void setLatestTerritory(Territory territory) {
-		this.latestSelectedTerritory  = territory;
+	public void selectTerritory(Territory territory) {
+		this.selectedTerritory.complete(territory);
+	}
+	
+	private Territory waitForTerritory() throws InterruptedException, ExecutionException {
+		selectedTerritory = new CompletableFuture<>();
+		return selectedTerritory.get();
 	}
 }
