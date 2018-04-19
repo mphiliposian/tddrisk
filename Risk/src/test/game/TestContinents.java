@@ -37,9 +37,9 @@ public class TestContinents {
 			
 			Game game = new Game(ui, players, playersTerritories);
 			
-			assertEquals(game.getReinforcementsFromContinents(), 5);
-			
-			
+			assertEquals(game.getReinforcementsFromContinents(), 5);			
 		}
+		
+		
 	
 }
