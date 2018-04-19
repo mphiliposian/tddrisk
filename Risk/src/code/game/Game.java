@@ -29,6 +29,14 @@ public class Game {
 	private RiskUI ui;
 	private int currTurn;
 
+	public Game(RiskUI ui, ArrayList<Player> players, Map<Player, Set<Territory>> playerTerritories) {
+		this.players = players;
+		this.ui = ui;
+		this.currTurn = 0;
+		territories = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
+		playersTerritories = playerTerritories;
+	}
+	
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
 		this.ui = ui;
@@ -118,6 +126,7 @@ public class Game {
 	}
 
 	public void reinforceTerritories() {
+		Player curPlayer = getPlayerByID(currTurn);
 		int totalReinforcements = 0;
 		for (Player player : players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements(); 
@@ -126,7 +135,7 @@ public class Game {
 			boolean ownedByPlayer = false;
 			while(!ownedByPlayer) {
 				Territory territory = ui.territoryPrompt("");
-				if (playerOwnsTerritory(territory)) {
+				if (playerOwnsTerritory(curPlayer, territory)) {
 					placeOneUnit(territory);
 					switchTurn();
 					ui.updatePlayerDisplay(currTurn);
@@ -136,8 +145,8 @@ public class Game {
 		}	
 	}
 
-	public boolean playerOwnsTerritory(Territory territory) {
-		Set<Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
+	public boolean playerOwnsTerritory(Player player, Territory territory) {
+		Set<Territory> ownedTerritories = playersTerritories.get(player);
 		return ownedTerritories.contains(territory);
 	}
 
@@ -165,6 +174,10 @@ public class Game {
 				}
 			}
 		}
+	}
+
+	public int getReinforcementsFromContinents() {
+		return 5;
 	}
 
 }
