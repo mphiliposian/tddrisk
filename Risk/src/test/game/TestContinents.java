@@ -21,6 +21,20 @@ import code.gui.RiskUI;
 public class TestContinents {
 		
 		@Test
+		public void PlayerOwnsNothing() {
+			RiskUI ui = EasyMock.mock(RiskUI.class);
+			Player player = new Player(0);
+			Set<Territory> ownedTerritories = new HashSet<>();
+			ArrayList<Player> players = new ArrayList<>();
+			players.add(player);
+			Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+			playersTerritories.put(player, ownedTerritories);
+			Game game = new Game(ui, players, playersTerritories);
+			
+			assertEquals(game.getReinforcementsFromContinents(), 0);	
+		}
+		
+		@Test
 		public void PlayerOwnsAmerica() {
 			RiskUI ui = EasyMock.mock(RiskUI.class);
 			Player player = new Player(0);
@@ -39,6 +53,7 @@ public class TestContinents {
 			
 			assertEquals(game.getReinforcementsFromContinents(), 5);			
 		}
+
 		
 		
 	

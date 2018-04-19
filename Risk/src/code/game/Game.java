@@ -177,7 +177,18 @@ public class Game {
 	}
 
 	public int getReinforcementsFromContinents() {
-		return 5;
+		Player currPlayer = getPlayerByID(currTurn);
+		Set<Territory> currPlayersTerritories = playersTerritories.get(currPlayer);
+		int pairedTerritories = 0;
+		for(Territory t : currPlayersTerritories) {
+			if (t.getTerritoryID().contains("NA")) {
+				pairedTerritories++;
+			}
+		}
+		if(pairedTerritories == 9) {
+			return 5;
+		}
+		return 0;
 	}
 
 }
