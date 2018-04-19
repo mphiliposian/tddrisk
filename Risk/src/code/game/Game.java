@@ -184,6 +184,12 @@ public class Game {
 			if (t.getTerritoryID().contains("NA")) {
 				pairedTerritories++;
 			}
+			if (t.getTerritoryID().contains("AS")) {
+				pairedTerritories++;
+			}
+		}
+		if(pairedTerritories == 12) {
+			return 7;
 		}
 		if(pairedTerritories == 9) {
 			return 5;

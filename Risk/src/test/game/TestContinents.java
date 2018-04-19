@@ -50,11 +50,26 @@ public class TestContinents {
 			
 			
 			Game game = new Game(ui, players, playersTerritories);
-			
 			assertEquals(game.getReinforcementsFromContinents(), 5);			
 		}
 
 		
+		@Test
+		public void PlayerOwnsAsia() {
+			RiskUI ui = EasyMock.mock(RiskUI.class);
+			Player player = new Player(0);
+			Set<Territory> ownedTerritories = new HashSet<>();
+			for( int i = 1; i < 13; i++) {
+				ownedTerritories.add(new Territory("AS" + i, "Asia" + i, 0, new ArrayList<String>(), 0, 0));
+			}
+			ArrayList<Player> players = new ArrayList<>();
+			players.add(player);
+			Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+			playersTerritories.put(player, ownedTerritories);
+					
+			Game game = new Game(ui, players, playersTerritories);
+			assertEquals(game.getReinforcementsFromContinents(), 7);			
+		}
 		
 	
 }
