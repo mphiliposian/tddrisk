@@ -122,5 +122,22 @@ public class TestContinents {
 			assertEquals(game.getReinforcementsFromContinents(), 2);			
 		}
 		
+		@Test
+		public void PlayerOwnsEurope() {
+			RiskUI ui = EasyMock.mock(RiskUI.class);
+			Player player = new Player(0);
+			Set<Territory> ownedTerritories = new HashSet<>();
+			for( int i = 1; i < 8; i++) {
+				ownedTerritories.add(new Territory("EU" + i, "Europe" + i, 0, new ArrayList<String>(), 0, 0));
+			}
+			ArrayList<Player> players = new ArrayList<>();
+			players.add(player);
+			Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+			playersTerritories.put(player, ownedTerritories);
+					
+			Game game = new Game(ui, players, playersTerritories);
+			assertEquals(game.getReinforcementsFromContinents(), 5);			
+		}
+		
 	
 }
