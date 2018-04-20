@@ -55,4 +55,30 @@ public class Territory {
 		return this.name;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((territoryID == null) ? 0 : territoryID.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Territory other = (Territory) obj;
+		if (territoryID == null) {
+			if (other.territoryID != null)
+				return false;
+		} else if (!territoryID.equals(other.territoryID))
+			return false;
+		return true;
+	}
+
+
 }

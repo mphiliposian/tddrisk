@@ -5,7 +5,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
@@ -50,7 +54,9 @@ public class TestPlaceUnits {
 	}
 
 	private void createMockedTerritores(RiskUI ui) {
-		List<Territory> territories = new TerritoryReader().readTerritories("TerritoryTestMap.txt");
+		Map<String, Set<Territory>> continents = new TerritoryReader().readTerritories("TerritoryTestMap.txt");
+		List<Territory> territories = new ArrayList<>();
+		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
 		int currTerritory = 0;
 		System.out.println(territories);
 		for(Territory territory : territories) {

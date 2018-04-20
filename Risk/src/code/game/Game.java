@@ -2,6 +2,7 @@ package code.game;
 
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,20 +29,30 @@ public class Game {
 	private Map<Player, Set<Territory>> playersTerritories;
 	private RiskUI ui;
 	private int currTurn;
+	private Map<String, Set<Territory>> continents;
+	private Map<String, Integer> continentValues;
 
 	public Game(RiskUI ui, ArrayList<Player> players, Map<Player, Set<Territory>> playerTerritories) {
 		this.players = players;
 		this.ui = ui;
 		this.currTurn = 0;
-		territories = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
+		continents = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
+		territories = new ArrayList<>();
+		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
+		continentValues = intializeContinentValues();
 		playersTerritories = playerTerritories;
 	}
 	
+
+
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
 		this.ui = ui;
 		this.currTurn = 0;
-		territories = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
+		continents = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
+		territories = new ArrayList<>();
+		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
+		continentValues = intializeContinentValues();
 		playersTerritories = new HashMap<>();
 	}
 
@@ -176,25 +187,27 @@ public class Game {
 		}
 	}
 
+	private Map<String, Integer> intializeContinentValues() {
+		Map<String, Integer> continentVals = new HashMap<>();
+		continentVals.put("NA", 5);
+		continentVals.put("SA", 2);
+		continentVals.put("EU", 5);
+		continentVals.put("AF", 3);
+		continentVals.put("AS", 7);
+		continentVals.put("AU", 2);
+		return continentVals;
+	}
+	
 	public int getReinforcementsFromContinents() {
 		Player currPlayer = getPlayerByID(currTurn);
 		Set<Territory> currPlayersTerritories = playersTerritories.get(currPlayer);
-		int pairedTerritories = 0;
-		for(Territory t : currPlayersTerritories) {
-			if (t.getTerritoryID().contains("NA")) {
-				pairedTerritories++;
-			}
-			if (t.getTerritoryID().contains("AS")) {
-				pairedTerritories++;
+		int reinforcements = 0;
+		for (String continentName : continents.keySet()) {
+			if (currPlayersTerritories.containsAll(continents.get(continentName))) {
+				reinforcements = reinforcements + continentValues.get(continentName);
 			}
 		}
-		if(pairedTerritories == 12) {
-			return 7;
-		}
-		if(pairedTerritories == 9) {
-			return 5;
-		}
-		return 0;
+		return reinforcements;
 	}
 
 }
