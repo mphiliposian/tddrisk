@@ -94,7 +94,7 @@ public class TestContinents {
 			Player player = new Player(0);
 			Set<Territory> ownedTerritories = new HashSet<>();
 			for( int i = 1; i < 7; i++) {
-				ownedTerritories.add(new Territory("AF" + i, "SouthAmerica" + i, 0, new ArrayList<String>(), 0, 0));
+				ownedTerritories.add(new Territory("AF" + i, "Africa" + i, 0, new ArrayList<String>(), 0, 0));
 			}
 			ArrayList<Player> players = new ArrayList<>();
 			players.add(player);
@@ -103,6 +103,23 @@ public class TestContinents {
 					
 			Game game = new Game(ui, players, playersTerritories);
 			assertEquals(game.getReinforcementsFromContinents(), 3);			
+		}
+		
+		@Test
+		public void PlayerOwnsAustralia() {
+			RiskUI ui = EasyMock.mock(RiskUI.class);
+			Player player = new Player(0);
+			Set<Territory> ownedTerritories = new HashSet<>();
+			for( int i = 1; i < 5; i++) {
+				ownedTerritories.add(new Territory("AU" + i, "Australia" + i, 0, new ArrayList<String>(), 0, 0));
+			}
+			ArrayList<Player> players = new ArrayList<>();
+			players.add(player);
+			Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+			playersTerritories.put(player, ownedTerritories);
+					
+			Game game = new Game(ui, players, playersTerritories);
+			assertEquals(game.getReinforcementsFromContinents(), 2);			
 		}
 		
 	
