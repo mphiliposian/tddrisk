@@ -21,12 +21,13 @@ public class RiskGUI implements RiskUI{
 	private JPanel playerPanel;
 	private PlayerDisplayPanel playerDisplayPanel;
 	private MapPanel mapPanel;
+	private MessagePanel messagePanel;
 	private CompletableFuture<Territory> selectedTerritory;
 	
 	@Override
 	public void initializeUI(List<Territory> territories) {
 		frame = new JFrame("Risk");
-		GridLayout layout = new GridLayout(2, 0);
+		GridLayout layout = new GridLayout(3, 0);
 		frame.setLayout(layout);
 		frame.setVisible(true);
 				
@@ -69,9 +70,13 @@ public class RiskGUI implements RiskUI{
 		Double scaledHeight = height * 0.6;
 		int windowWidth = scaledWidth.intValue();
 		int windowHeight = scaledHeight.intValue();
+		messagePanel = new MessagePanel(100, 200);
+		messagePanel.updateMessage("Gud dag gu digg!");
+		messagePanel.setButtonVisible(false);
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
 		
 		mapPanel.addSelectionListeners(this);
+		frame.add(messagePanel);
 		frame.add(mapPanel);
 		frame.pack();
 	}
