@@ -1,8 +1,8 @@
-	package test.game;
+package test.game;
 
-	import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-	import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.easymock.EasyMock;
-	import org.junit.Test;
+import org.junit.Test;
 
-	import code.game.Game;
-	import code.game.Player;
+import code.game.Game;
+import code.game.Player;
 import code.game.Territory;
 import code.gui.RiskUI;
 
