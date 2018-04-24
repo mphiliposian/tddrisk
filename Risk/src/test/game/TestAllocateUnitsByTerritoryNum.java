@@ -17,8 +17,7 @@ import code.game.Territory;
 import code.gui.RiskUI;
 
 public class TestAllocateUnitsByTerritoryNum {
-	//Test 1, 8, 9 ,41 ,42
-	
+
 	@Test
 	public void Playerhas1Territory() {
 		RiskUI ui = EasyMock.mock(RiskUI.class);

@@ -222,4 +222,10 @@ public class Game {
 		return reinforcements;
 	}
 
+
+
+	public Object getTotalReinforcements() {
+		return getReinforcementsFromContinents() + getReinforcementsFromTerritories();
+	}
+
 }
