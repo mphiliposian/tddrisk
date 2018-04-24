@@ -90,6 +90,44 @@ public class TestAllocateUnits {
 		Game game = new Game(ui, players, playersTerritories);
 		assertEquals(game.getTotalReinforcements(), 15);			
 	}
+	
+	@Test
+	public void PlayerOwnsAllTerritories() {
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set<Territory> ownedTerritories = new HashSet<>();
+		for( int i = 1; i < 13; i++) {
+			ownedTerritories.add(new Territory("AS" + i, "Asia" + i, 0, new ArrayList<String>(), 0, 0));
+			player.addTerritory();
+			if (i < 5) {
+				ownedTerritories.add(new Territory("SA" + i, "South America" + i, 0, new ArrayList<String>(), 0, 0));
+				player.addTerritory();
+			}
+			if (i < 10) {
+				ownedTerritories.add(new Territory("NA" + i, "America" + i, 0, new ArrayList<String>(), 0, 0));
+				player.addTerritory();
+			}
+			if (i < 8) {
+				ownedTerritories.add(new Territory("EU" + i, "Europe" + i, 0, new ArrayList<String>(), 0, 0));
+				player.addTerritory();
+			}
+			if (i < 7) {
+				ownedTerritories.add(new Territory("AF" + i, "Africa" + i, 0, new ArrayList<String>(), 0, 0));
+				player.addTerritory();
+			}
+			if (i < 5) {
+				ownedTerritories.add(new Territory("AU" + i, "Australia" + i, 0, new ArrayList<String>(), 0, 0));
+				player.addTerritory();
+			}
+		}
+		ArrayList<Player> players = new ArrayList<>();
+		players.add(player);
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, ownedTerritories);
+				
+		Game game = new Game(ui, players, playersTerritories);
+		assertEquals(game.getTotalReinforcements(), 38);			
+	}
 
 	
 }
