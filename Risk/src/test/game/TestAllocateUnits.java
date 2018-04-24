@@ -87,6 +87,23 @@ public class TestAllocateUnits {
 		assertEquals(13,game.getReinforcementsFromTerritories());	
 	}
 	
+	@Test
+	public void PlayerhasAllTerritories() {
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set<Territory> ownedTerritories = new HashSet<>();
+		for( int i = 0; i < 42; i++) {
+			player.addTerritory();
+		}
+		ArrayList<Player> players = new ArrayList<>();
+		players.add(player);
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories);
+		
+		assertEquals(14,game.getReinforcementsFromTerritories());	
+	}
+	
 
 	
 }

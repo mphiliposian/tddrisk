@@ -215,7 +215,6 @@ public class Game {
 
 	public int getReinforcementsFromTerritories() {
 		Player currPlayer = getPlayerByID(currTurn);
-		System.out.println(currPlayer.getNumOfTerritories());
 		int reinforcements = (int)(currPlayer.getNumOfTerritories() / 3);
 		if (MIN_NUM_OF_UNITS_PER_TURN > reinforcements) {
 			return MIN_NUM_OF_UNITS_PER_TURN;
