@@ -33,11 +33,11 @@ public class TestAllocateUnits {
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
 		
-		assertEquals(game.getReinforcementsFromTerritories(), 3);	
+		assertEquals(3, game.getReinforcementsFromTerritories());	
 	}
 	
 	@Test
-	public void Playerhas8Territory() {
+	public void Playerhas8Territories() {
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		Player player = new Player(0);
 		Set<Territory> ownedTerritories = new HashSet<>();
@@ -50,7 +50,24 @@ public class TestAllocateUnits {
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
 		
-		assertEquals(game.getReinforcementsFromTerritories(), 3);	
+		assertEquals(3, game.getReinforcementsFromTerritories());	
+	}
+	
+	@Test
+	public void Playerhas12Territories() {
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set<Territory> ownedTerritories = new HashSet<>();
+		for( int i = 0; i < 12; i++) {
+			player.addTerritory();
+		}
+		ArrayList<Player> players = new ArrayList<>();
+		players.add(player);
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories);
+		
+		assertEquals(4,game.getReinforcementsFromTerritories());	
 	}
 	
 

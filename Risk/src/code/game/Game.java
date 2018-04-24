@@ -23,6 +23,7 @@ public class Game {
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
 	private final int NUM_OF_TERRITORIES = 42;
+	private final int MIN_NUM_OF_UNITS_PER_TURN = 3;
 
 	private List<Player> players;
 	private List<Territory> territories;
@@ -213,7 +214,13 @@ public class Game {
 
 
 	public int getReinforcementsFromTerritories() {
-		return 3;
+		Player currPlayer = getPlayerByID(currTurn);
+		System.out.println(currPlayer.getNumOfTerritories());
+		int reinforcements = (int)(currPlayer.getNumOfTerritories() / 3);
+		if (MIN_NUM_OF_UNITS_PER_TURN > reinforcements) {
+			return MIN_NUM_OF_UNITS_PER_TURN;
+		}
+		return reinforcements;
 	}
 
 }
