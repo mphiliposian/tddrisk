@@ -3,12 +3,15 @@ package code.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,17 +26,29 @@ public class RiskGUI implements RiskUI{
 	private MapPanel mapPanel;
 	private MessagePanel messagePanel;
 	private CompletableFuture<Territory> selectedTerritory;
+	private GridBagLayout gridbag;
+	private GridBagConstraints constraints;
 	
 	@Override
 	public void initializeUI(List<Territory> territories) {
 		frame = new JFrame("Risk");
-		GridLayout layout = new GridLayout(3, 0);
-		frame.setLayout(layout);
+		gridbag = new GridBagLayout();
+		constraints = new GridBagConstraints();
+		frame.setLayout(gridbag);
 		frame.setVisible(true);
 				
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
+	}
+	
+	public void addComponentToFrame(JComponent component, int x, int y, int width, int height) {
+		constraints.gridx = x;
+		constraints.gridy = y;
+		constraints.gridwidth = width;
+		constraints.gridheight = height;
+		gridbag.setConstraints(component, constraints);
+        frame.add(component);
 	}
 
 	@Override
@@ -53,9 +68,9 @@ public class RiskGUI implements RiskUI{
 
 	@Override
 	public void createPlayerDisplay(List<Player> players) {
-		playerDisplayPanel = new PlayerDisplayPanel(players, 100, 500);
+		playerDisplayPanel = new PlayerDisplayPanel(players, 100, 400);
 		playerPanel = playerDisplayPanel.getPanel();
-		frame.add(playerPanel);
+		this.addComponentToFrame(playerPanel, 0, 2, 2, 1);
 		frame.pack();
 	}
 	
@@ -70,14 +85,17 @@ public class RiskGUI implements RiskUI{
 		Double scaledHeight = height * 0.6;
 		int windowWidth = scaledWidth.intValue();
 		int windowHeight = scaledHeight.intValue();
-		messagePanel = new MessagePanel(100, 200);
+		messagePanel = new MessagePanel(100, 50);
 		messagePanel.updateMessage("Gud dag gu digg!");
 		messagePanel.setButtonVisible(false);
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
 		
 		mapPanel.addSelectionListeners(this);
-		frame.add(messagePanel);
-		frame.add(mapPanel);
+		this.addComponentToFrame(messagePanel, 0, 0, 3, 1);
+//		frame.add(messagePanel);
+		
+		this.addComponentToFrame(mapPanel, 0, 1, 1, 1);
+//		frame.add(mapPanel);
 		frame.pack();
 	}
 

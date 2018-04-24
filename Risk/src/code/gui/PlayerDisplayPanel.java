@@ -3,6 +3,7 @@ package code.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Label;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class PlayerDisplayPanel{
 	
 	public PlayerDisplayPanel(List<Player> players, int width, int height) {
 		this.panel = new JPanel();
+		this.panel.setLayout(new GridLayout(1, 3));
 		panel.setPreferredSize(new Dimension(width, height));
 		playerPanels = new ArrayList<>();
 		for (Player player : players) {
@@ -82,6 +84,7 @@ public class PlayerDisplayPanel{
 		public void setAsActiveTurn() {
 			this.setBorder(BorderFactory.createLineBorder(Color.black, 10));
 		}
+
 		
 	}
 
