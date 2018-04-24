@@ -210,4 +210,10 @@ public class Game {
 		return reinforcements;
 	}
 
+
+
+	public int getReinforcementsFromTerritories() {
+		return 3;
+	}
+
 }
