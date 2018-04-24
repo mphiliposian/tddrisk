@@ -43,7 +43,7 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = playerTerritories;
 	}
-	
+
 
 
 	public Game(RiskUI ui) {
@@ -198,7 +198,7 @@ public class Game {
 		continentVals.put("AU", 2);
 		return continentVals;
 	}
-	
+
 	public int getReinforcementsFromContinents() {
 		Player currPlayer = getPlayerByID(currTurn);
 		Set<Territory> currPlayersTerritories = playersTerritories.get(currPlayer);
@@ -227,5 +227,19 @@ public class Game {
 	public int getTotalReinforcements() {
 		return getReinforcementsFromContinents() + getReinforcementsFromTerritories();
 	}
+
+
+
+	public void AllocatePhase() {
+		Player currPlayer = getPlayerByID(currTurn);
+		while(currPlayer.getReinforcements() > 0) {
+			Territory territory = ui.territoryPrompt("");
+			if (playerOwnsTerritory(currPlayer, territory)) {
+				placeOneUnit(territory);
+				ui.updatePlayerDisplay(currTurn);
+			}
+		}	
+	}
+	
 
 }
