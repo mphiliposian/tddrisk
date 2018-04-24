@@ -224,7 +224,7 @@ public class Game {
 
 
 
-	public Object getTotalReinforcements() {
+	public int getTotalReinforcements() {
 		return getReinforcementsFromContinents() + getReinforcementsFromTerritories();
 	}
 
