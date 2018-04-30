@@ -26,7 +26,7 @@ public class TestAllocateUnitPhase {
 		}
 		return stubs;
 	}
-	
+
 	@Test
 	public void allocateWith1Territory() {
 		// Setup
@@ -45,21 +45,21 @@ public class TestAllocateUnitPhase {
 
 		// Record
 		EasyMock.expect(ui.territoryPrompt(""))
-			.andReturn(expectedTerritory).times(3);
+		.andReturn(expectedTerritory).times(3);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall().times(3);
 		ui.updatePlayerDisplay(0);
 		EasyMock.expectLastCall().times(3);
-		
+
 		// Replay
 		EasyMock.replay(ui);
 		game.allocatePhase();
-		
+
 		// Verify
 		EasyMock.verify(ui);
 		assertEquals(0, player.getReinforcements());
 	}
-	
+
 	@Test
 	public void allocateWithAsia() {
 		Set<Territory> asia = asiaStubs(12);
@@ -75,22 +75,59 @@ public class TestAllocateUnitPhase {
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		Game game = new Game(ui, players, playersTerritories);
 		int totalReinforcements = 11;
-		
+
 		// Record
 		EasyMock.expect(ui.territoryPrompt(""))
-			.andReturn(expectedTerritory).times(totalReinforcements);
+		.andReturn(expectedTerritory).times(totalReinforcements);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall().times(totalReinforcements);
 		ui.updatePlayerDisplay(0);
 		EasyMock.expectLastCall().times(totalReinforcements);
-		
+
 		// Replay
 		EasyMock.replay(ui);
 		game.allocatePhase();
-		
+
 		// Verify
 		EasyMock.verify(ui);
 		assertEquals(0, player.getReinforcements());
 	}
-	
-}
+
+	@Test
+	public void allocateNotOwned() {
+		// Setup
+		Set<Territory> ownedTerritories = new HashSet<>();
+		Territory expectedTerritory =
+				new Territory("NA1", null, null, 0, 0);
+		Territory unownedTerritory =
+				new Territory("NA9001", null, null, 0, 0);
+				
+		ownedTerritories.add(expectedTerritory);
+		ArrayList<Player> players = new ArrayList<>();
+		Player player = new Player(0);
+		player.addTerritory();
+		players.add(player);
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, ownedTerritories);
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Game game = new Game(ui, players, playersTerritories);
+
+		// Record
+		EasyMock.expect(ui.territoryPrompt(""))
+			.andReturn(unownedTerritory);
+		EasyMock.expect(ui.territoryPrompt(""))
+			.andReturn(expectedTerritory).times(3);
+		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
+		EasyMock.expectLastCall().times(3);
+		ui.updatePlayerDisplay(0);
+		EasyMock.expectLastCall().times(3);
+
+		// Replay
+		EasyMock.replay(ui);
+		game.allocatePhase();
+
+		// Verify
+		EasyMock.verify(ui);
+		assertEquals(0, player.getReinforcements());
+	}
+}	
