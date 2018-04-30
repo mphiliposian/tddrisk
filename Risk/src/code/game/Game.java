@@ -45,11 +45,7 @@ public class Game {
 		}
 		return false;
 	}
-
-	public void randomizeOrder() {
-		Collections.shuffle(players);
-	}
-
+	
 	public int numPlayers() {
 		return players.size();
 	}
@@ -98,7 +94,6 @@ public class Game {
 
 	public void setup() {
 		createPlayers();
-		randomizeOrder();
 		initializeReinforcements();
 		ui.initializeUI(territories);
 		ui.createMapDisplay(territories);
