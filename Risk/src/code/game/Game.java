@@ -225,13 +225,17 @@ public class Game {
 
 
 	public int getTotalReinforcements() {
-		return getReinforcementsFromContinents() + getReinforcementsFromTerritories();
+		return getReinforcementsFromContinents() 
+				+ getReinforcementsFromTerritories();
 	}
 
 
 
-	public void AllocatePhase() {
+	public void allocatePhase() {
 		Player currPlayer = getPlayerByID(currTurn);
+		int initialReinforcements = currPlayer.getReinforcements() 
+				+ this.getTotalReinforcements();
+		currPlayer.setReinforcements(initialReinforcements);
 		while(currPlayer.getReinforcements() > 0) {
 			Territory territory = ui.territoryPrompt("");
 			if (playerOwnsTerritory(currPlayer, territory)) {
