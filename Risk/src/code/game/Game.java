@@ -17,7 +17,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private final String TERRITORY_MAP_FILE = "TerritoryMap.txt"; 
+	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");  //$NON-NLS-1$
 
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -120,7 +120,7 @@ public class Game {
 		for(int NumOfTurns = 0; NumOfTurns < totalReinforcements; NumOfTurns++) {
 			boolean ownedByPlayer = false;
 			while(!ownedByPlayer) {
-				Territory territory = ui.territoryPrompt("");
+				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory")); //$NON-NLS-1$
 				if (playerOwnsTerritory(territory)) {
 					placeOneUnit(territory);
 					switchTurn();
@@ -148,7 +148,7 @@ public class Game {
 		for(int NumOfTurns = 0; NumOfTurns < NUM_OF_TERRITORIES; NumOfTurns++) {
 			boolean uniqueTerritory = false;
 			while(!uniqueTerritory) {
-				Territory territory = ui.territoryPrompt("");
+				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory")); //$NON-NLS-1$
 				if (territory.getYield() == 0) {
 					placeOneUnit(territory);
 					Set<Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));

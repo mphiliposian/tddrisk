@@ -56,10 +56,10 @@ public class TestPlaceUnits {
 		for(Territory territory : territories) {
 			if (currTerritory == 1|| currTerritory == 15 || currTerritory == 43 || currTerritory == 44) {
 				territory.setYield(1);
-				EasyMock.expect(ui.territoryPrompt("")).andReturn(territory);
+				EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(territory);
 			}
 			else {
-				EasyMock.expect(ui.territoryPrompt("")).andReturn(territory);
+				EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(territory);
 				
 				ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 				EasyMock.expectLastCall();
