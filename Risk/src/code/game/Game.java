@@ -2,7 +2,10 @@ package code.game;
 
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Collection;
+=======
+>>>>>>> string_extraction
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,7 +21,11 @@ import code.gui.RiskUI;
 
 public class Game {
 
+<<<<<<< HEAD
 	private final String TERRITORY_MAP_FILE = "TerritoryMap.txt"; 
+=======
+	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");  //$NON-NLS-1$
+>>>>>>> string_extraction
 
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -29,6 +36,7 @@ public class Game {
 	private Map<Player, Set<Territory>> playersTerritories;
 	private RiskUI ui;
 	private int currTurn;
+<<<<<<< HEAD
 	private Map<String, Set<Territory>> continents;
 	private Map<String, Integer> continentValues;
 
@@ -44,15 +52,21 @@ public class Game {
 	}
 	
 
+=======
+>>>>>>> string_extraction
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
 		this.ui = ui;
 		this.currTurn = 0;
+<<<<<<< HEAD
 		continents = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
 		territories = new ArrayList<>();
 		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
 		continentValues = intializeContinentValues();
+=======
+		territories = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
+>>>>>>> string_extraction
 		playersTerritories = new HashMap<>();
 	}
 
@@ -64,11 +78,15 @@ public class Game {
 		}
 		return false;
 	}
+<<<<<<< HEAD
 
 	public void randomizeOrder() {
 		Collections.shuffle(players);
 	}
 
+=======
+	
+>>>>>>> string_extraction
 	public int numPlayers() {
 		return players.size();
 	}
@@ -117,7 +135,10 @@ public class Game {
 
 	public void setup() {
 		createPlayers();
+<<<<<<< HEAD
 		randomizeOrder();
+=======
+>>>>>>> string_extraction
 		initializeReinforcements();
 		ui.initializeUI(territories);
 		ui.createMapDisplay(territories);
@@ -137,7 +158,10 @@ public class Game {
 	}
 
 	public void reinforceTerritories() {
+<<<<<<< HEAD
 		Player curPlayer = getPlayerByID(currTurn);
+=======
+>>>>>>> string_extraction
 		int totalReinforcements = 0;
 		for (Player player : players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements(); 
@@ -145,8 +169,13 @@ public class Game {
 		for(int NumOfTurns = 0; NumOfTurns < totalReinforcements; NumOfTurns++) {
 			boolean ownedByPlayer = false;
 			while(!ownedByPlayer) {
+<<<<<<< HEAD
 				Territory territory = ui.territoryPrompt("");
 				if (playerOwnsTerritory(curPlayer, territory)) {
+=======
+				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory")); //$NON-NLS-1$
+				if (playerOwnsTerritory(territory)) {
+>>>>>>> string_extraction
 					placeOneUnit(territory);
 					switchTurn();
 					ui.updatePlayerDisplay(currTurn);
@@ -156,8 +185,13 @@ public class Game {
 		}	
 	}
 
+<<<<<<< HEAD
 	public boolean playerOwnsTerritory(Player player, Territory territory) {
 		Set<Territory> ownedTerritories = playersTerritories.get(player);
+=======
+	public boolean playerOwnsTerritory(Territory territory) {
+		Set<Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
+>>>>>>> string_extraction
 		return ownedTerritories.contains(territory);
 	}
 
@@ -173,7 +207,11 @@ public class Game {
 		for(int NumOfTurns = 0; NumOfTurns < NUM_OF_TERRITORIES; NumOfTurns++) {
 			boolean uniqueTerritory = false;
 			while(!uniqueTerritory) {
+<<<<<<< HEAD
 				Territory territory = ui.territoryPrompt("");
+=======
+				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory")); //$NON-NLS-1$
+>>>>>>> string_extraction
 				if (territory.getYield() == 0) {
 					placeOneUnit(territory);
 					Set<Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
@@ -187,6 +225,7 @@ public class Game {
 		}
 	}
 
+<<<<<<< HEAD
 	private Map<String, Integer> intializeContinentValues() {
 		Map<String, Integer> continentVals = new HashMap<>();
 		continentVals.put("NA", 5);
@@ -210,4 +249,6 @@ public class Game {
 		return reinforcements;
 	}
 
+=======
+>>>>>>> string_extraction
 }

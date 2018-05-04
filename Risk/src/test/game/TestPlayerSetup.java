@@ -134,15 +134,12 @@ public class TestPlayerSetup {
 		Game g = EasyMock.partialMockBuilder(Game.class)
 				.withConstructor(fakeUI)
 				.addMockedMethod("createPlayers")
-				.addMockedMethod("randomizeOrder")
 				.addMockedMethod("initializeReinforcements")
 				.addMockedMethod("claimTerritories")
 				.addMockedMethod("reinforceTerritories")
 				.createStrictMock();
 		
 		g.createPlayers();
-		EasyMock.expectLastCall();
-		g.randomizeOrder();
 		EasyMock.expectLastCall();
 		g.initializeReinforcements();
 		EasyMock.expectLastCall();

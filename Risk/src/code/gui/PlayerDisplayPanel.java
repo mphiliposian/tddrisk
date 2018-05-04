@@ -64,15 +64,15 @@ public class PlayerDisplayPanel{
 			super();
 			this.player = player;
 			this.setBackground(this.player.getColor());
-			JLabel playerName = new JLabel("Player " + (player.ID + 1));
+			JLabel playerName = new JLabel(Messages.getString("PlayerDisplayPanel.Player") + (player.ID + 1)); //$NON-NLS-1$
 			this.add(playerName);
-			this.reinforcement = new JLabel("R~: " + player.getReinforcements());
+			this.reinforcement = new JLabel("R~: " + player.getReinforcements()); //$NON-NLS-1$
 			this.add(reinforcement);
 			this.setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 
 		public void updateValues() {
-			reinforcement.setText("R~: " + player.getReinforcements());
+			reinforcement.setText("R~: " + player.getReinforcements()); //$NON-NLS-1$
 		}
 		
 		public void setAsInactiveTurn() {
