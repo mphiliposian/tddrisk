@@ -20,18 +20,7 @@ public class TestAllocateUnitPhase {
 
 	@Test
 	public void Turnwith1Territory() {
-		RiskUI ui = EasyMock.mock(RiskUI.class);
-		Player player = new Player(0);
-		Set<Territory> ownedTerritories = new HashSet<>();
-		ownedTerritories.add(new Territory("NA1", "America1", 0, new ArrayList<String>(), 0, 0));
-		player.addTerritory();
-		ArrayList<Player> players = new ArrayList<>();
-		players.add(player);
-		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
-		playersTerritories.put(player, ownedTerritories);
-		Game game = new Game(ui, players, playersTerritories);
-		game.AllocatePhase();
-		assertEquals(0, player.getReinforcements());
+		
 	}
 	
 }
