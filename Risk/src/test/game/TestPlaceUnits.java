@@ -16,6 +16,21 @@ import code.game.TerritoryReader;
 import code.gui.RiskUI;
 
 public class TestPlaceUnits {
+	
+	@Test
+	public void placeFirstUnit() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
+		Game game = new Game(ui);
+		Territory territory = new Territory("NA1", "murica", 0, null, 0, 0);
+
+		EasyMock.replay(ui);
+		game.createPlayers();
+		game.placeOneUnit(territory);
+		
+		assertEquals(territory.getYield(), 1);
+		EasyMock.verify(ui);
+	}
 
 	@Test
 	public void placeInitialReinforcementsWith3Players() {
