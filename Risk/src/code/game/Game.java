@@ -44,6 +44,8 @@ public class Game {
 		playersTerritories = playerTerritories;
 	}
 
+
+
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
 		this.ui = ui;
@@ -223,15 +225,17 @@ public class Game {
 
 
 	public int getTotalReinforcements() {
-		return getReinforcementsFromContinents() + getReinforcementsFromTerritories();
+		return getReinforcementsFromContinents() 
+				+ getReinforcementsFromTerritories();
 	}
 
 
 
-	public void AllocatePhase() {
+	public void allocatePhase() {
 		Player currPlayer = getPlayerByID(currTurn);
-		currPlayer.setReinforcements(getTotalReinforcements());
-		System.out.println(currPlayer.getReinforcements());
+		int initialReinforcements = currPlayer.getReinforcements() 
+				+ this.getTotalReinforcements();
+		currPlayer.setReinforcements(initialReinforcements);
 		while(currPlayer.getReinforcements() > 0) {
 			Territory territory = ui.territoryPrompt("");
 			if (playerOwnsTerritory(currPlayer, territory)) {
@@ -240,4 +244,6 @@ public class Game {
 			}
 		}	
 	}
+	
+
 }
