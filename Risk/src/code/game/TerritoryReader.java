@@ -27,16 +27,13 @@ public class TerritoryReader {
 	public List<Territory> readTerritories(String fileName) {
 		List<Territory> territories = new ArrayList<>();
 		String line = null;
-		try {
-			FileReader fileReader = new FileReader(fileName);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			bufferedReader.readLine();
-			while (((line = bufferedReader.readLine()) != null)) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+			reader.readLine();
+			while (((line = reader.readLine()) != null)) {
 				if(!line.isEmpty()) {
 					territories.add(this.parseTerritory(line));
 				}
 			}
-			bufferedReader.close();
 		} catch (FileNotFoundException ex1) {
 			System.out.println("Unable to open file '" + fileName + "'");
 		} catch (IOException ex) {

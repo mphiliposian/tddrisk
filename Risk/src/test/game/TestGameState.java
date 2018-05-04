@@ -74,4 +74,22 @@ public class TestGameState {
 		Game g = new Game(mockUI);
 		assertFalse(g.gameIsWon());
 	}
+	
+	@Test
+	public void placeInitialReinforcements() {
+		RiskUI riskGui = mockGui();
+		Game partialGame = EasyMock.partialMockBuilder(Game.class)
+				.withConstructor(riskGui)
+				.addMockedMethod("claimTerritories")
+				.addMockedMethod("reinforceTerritories")
+				.createStrictMock();
+		partialGame.claimTerritories();
+		EasyMock.expectLastCall();
+		partialGame.reinforceTerritories();
+		EasyMock.expectLastCall();
+		
+		EasyMock.replay(partialGame);
+		partialGame.placeInitialReinforcements();
+		EasyMock.verify(partialGame);
+	}
 }
