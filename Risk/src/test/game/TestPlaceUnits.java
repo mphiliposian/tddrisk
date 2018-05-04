@@ -5,16 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-=======
 import java.util.List;
->>>>>>> string_extraction
-
 import org.easymock.EasyMock;
 import org.junit.Test;
 
@@ -58,30 +54,18 @@ public class TestPlaceUnits {
 	}
 
 	private void createMockedTerritores(RiskUI ui) {
-<<<<<<< HEAD
 		Map<String, Set<Territory>> continents = new TerritoryReader().readTerritories("TerritoryTestMap.txt");
 		List<Territory> territories = new ArrayList<>();
 		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
-=======
-		List<Territory> territories = new TerritoryReader().readTerritories("TerritoryTestMap.txt");
->>>>>>> string_extraction
 		int currTerritory = 0;
 		System.out.println(territories);
 		for(Territory territory : territories) {
 			if (currTerritory == 1|| currTerritory == 15 || currTerritory == 43 || currTerritory == 44) {
 				territory.setYield(1);
-<<<<<<< HEAD
-				EasyMock.expect(ui.territoryPrompt("")).andReturn(territory);
-			}
-			else {
-				EasyMock.expect(ui.territoryPrompt("")).andReturn(territory);
-=======
 				EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(territory);
 			}
 			else {
-				EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(territory);
->>>>>>> string_extraction
-				
+				EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(territory);			
 				ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 				EasyMock.expectLastCall();
 				
