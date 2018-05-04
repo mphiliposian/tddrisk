@@ -6,11 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class TerritoryReader {
 
@@ -28,36 +24,21 @@ public class TerritoryReader {
 				xScale, yScale);
 	}
 
-	public Map<String, Set<Territory>> readTerritories(String fileName) {
-		Set<Territory> territories = new HashSet<>();
-		Map<String, Set<Territory>> continents = new HashMap<>();
-		String currContinent = "NA";
+	public List<Territory> readTerritories(String fileName) {
+		List<Territory> territories = new ArrayList<>();
 		String line = null;
-		try {
-			FileReader fileReader = new FileReader(fileName);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			bufferedReader.readLine();
-			while (((line = bufferedReader.readLine()) != null)) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+			reader.readLine();
+			while (((line = reader.readLine()) != null)) {
 				if(!line.isEmpty()) {
-					Territory territory = this.parseTerritory(line);
-					if (territory.getTerritoryID().contains(currContinent)){
-						territories.add(territory);
-					}
-					else {
-						continents.put(currContinent, territories);
-						territories = new HashSet<>();
-						currContinent = territory.getTerritoryID().substring(0, 2);
-						territories.add(territory);
-					}
+					territories.add(this.parseTerritory(line));
 				}
 			}
-			bufferedReader.close();
 		} catch (FileNotFoundException ex1) {
 			System.out.println("Unable to open file '" + fileName + "'");
 		} catch (IOException ex) {
 			System.out.println("Error reading file '" + fileName + "'");
 		}
-		continents.put(currContinent, territories);
-		return continents;
+		return territories;
 	}
 }

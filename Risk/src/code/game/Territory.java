@@ -50,10 +50,6 @@ public class Territory {
 		return this.yScale;
 	}
 	
-	@Override
-	public String toString() {
-		return this.name;
-	}
 
 	@Override
 	public int hashCode() {

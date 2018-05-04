@@ -54,9 +54,7 @@ public class TestPlaceUnits {
 	}
 
 	private void createMockedTerritores(RiskUI ui) {
-		Map<String, Set<Territory>> continents = new TerritoryReader().readTerritories("TerritoryTestMap.txt");
-		List<Territory> territories = new ArrayList<>();
-		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
+		List<Territory> territories = new TerritoryReader().readTerritories("TerritoryTestMap.txt");
 		int currTerritory = 0;
 		System.out.println(territories);
 		for(Territory territory : territories) {
@@ -65,7 +63,8 @@ public class TestPlaceUnits {
 				EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(territory);
 			}
 			else {
-				EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(territory);			
+				EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(territory);
+				
 				ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 				EasyMock.expectLastCall();
 				
@@ -75,4 +74,5 @@ public class TestPlaceUnits {
 			currTerritory++;
 		}
 	}
+
 }
