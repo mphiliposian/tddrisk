@@ -46,7 +46,7 @@ public class Game {
 		playersTerritories = new HashMap<>();
 		rand = new Random();
 	}
-	
+
 	public Game(RiskUI ui, ArrayList<Player> players, Map<Player, Set<Territory>> playerTerritories) {
 		this.players = players;
 		this.ui = ui;
@@ -58,7 +58,7 @@ public class Game {
 		playersTerritories = playerTerritories;
 		rand = new Random();
 	}
-	
+
 	public Game(RiskUI ui, ArrayList<Player> players, Map<Player, Set<Territory>> playerTerritories, int selectedRandom) {
 		this.players = players;
 		this.ui = ui;
@@ -208,7 +208,7 @@ public class Game {
 		continentVals.put("AU", 2);
 		return continentVals;
 	}
-	
+
 	public int getReinforcementsFromContinents() {
 		Player currPlayer = getPlayerByID(currTurn);
 		Set<Territory> currPlayersTerritories = playersTerritories.get(currPlayer);
@@ -242,17 +242,40 @@ public class Game {
 		Territory attackingTerritory = ui.territoryPrompt("Select one of your territories to attack with");
 		Territory defendingTerritory = ui.territoryPrompt("Select an enemy territories to attack");
 		if (canAttack(attackingTerritory, defendingTerritory)) {
-			int attackerRoll = rollDice();
-			int defenderRoll = rollDice();
 			
-			if (attackerRoll > defenderRoll) {
-				defendingTerritory.setYield(defendingTerritory.getYield() - 1);
-			} else {
-				attackingTerritory.setYield(attackingTerritory.getYield() - 1);
+			List<Integer> attackingPlayerRolls = new ArrayList<Integer>();
+			List<Integer> defendingPlayerRolls = new ArrayList<Integer>();
+			int attackingDiceRolls = Math.min(attackingTerritory.getYield(),3);
+			for(int currRoll = 0; currRoll < attackingDiceRolls;currRoll++) {
+				attackingPlayerRolls.add(rollDice());
+			}
+
+			int defendingDiceRolls = Math.min(defendingTerritory.getYield(),2);
+			for(int currRoll = 0; currRoll < defendingDiceRolls;currRoll++) {
+				defendingPlayerRolls.add(rollDice());
+			}
+
+			for (int rolls = 0; rolls < defendingDiceRolls; rolls ++) {
+				
+				//System.out.println(attackingPlayerRolls);
+				//System.out.println(defendingPlayerRolls);
+				
+				int maxAttack = Collections.max(attackingPlayerRolls);
+				int maxDefend = Collections.max(defendingPlayerRolls);
+				if (maxAttack > maxDefend) {
+					defendingTerritory.setYield(defendingTerritory.getYield() - 1);
+				} else {
+					attackingTerritory.setYield(attackingTerritory.getYield() - 1);
+				}
+				int idMaxAtk = attackingPlayerRolls.indexOf(maxAttack);
+				int idMaxDef = defendingPlayerRolls.indexOf(maxDefend);
+				attackingPlayerRolls.remove(idMaxAtk);
+				defendingPlayerRolls.remove(idMaxDef);
+				
 			}
 		}
 	}
-	
+
 	public int rollDice() {
 		return rand.nextInt(6)+1;
 	}
