@@ -49,11 +49,7 @@ public class TestAttacking {
 		playersTerritories.put(player, ownedTerritories);	
 		Game game = new Game(ui, players, playersTerritories);
 
-		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
-		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player2Territory);
-		EasyMock.replay(ui);
-		assertTrue(game.attack());
-		EasyMock.verify(ui);
+		assertTrue(game.canAttack(player1Territory, player2Territory));
 	}
 	
 	@Test
@@ -70,15 +66,8 @@ public class TestAttacking {
 		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
 		playersTerritories.put(player, ownedTerritories);	
 		Game game = new Game(ui, players, playersTerritories);
-				
-		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
-		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player2Territory);
-		EasyMock.replay(ui);
-
 		
-		assertFalse(game.attack());
-		EasyMock.verify(ui);
-		
+		assertFalse(game.canAttack(player1Territory, player2Territory));	
 	}
 	
 	@Test
@@ -86,9 +75,9 @@ public class TestAttacking {
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		Player player = new Player(0);
 		Set<Territory> ownedTerritories = new HashSet<>();
-		ArrayList<String> territoriesConnectedToNA2 = new ArrayList<String>();
-		territoriesConnectedToNA2.add("NA1");
-		territoriesConnectedToNA2.add("NA3");
+		Territory player3Territory = new Territory("NA1", "murica", 2, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA3", "murica2", 1, territoriesConnectedToNA3, 0, 0);
+		
 		ownedTerritories.add(new Territory("NA2", "America", 0, territoriesConnectedToNA2, 0, 0));
 		ArrayList<Player> players = new ArrayList<>();
 		players.add(player);
@@ -96,14 +85,9 @@ public class TestAttacking {
 		playersTerritories.put(player, ownedTerritories);	
 		Game game = new Game(ui, players, playersTerritories);
 
-		Territory player1Territory = new Territory("NA1", "murica", 2, territoriesConnectedToNA1, 0, 0);
-		Territory player2Territory = new Territory("NA3", "murica2", 1, territoriesConnectedToNA3, 0, 0);
 
-		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
-		EasyMock.replay(ui);
 
-		assertFalse(game.attack());
-		EasyMock.verify(ui);
+		assertFalse(game.canAttack(player3Territory, player2Territory));
 	}
 	
 	@Test
@@ -123,12 +107,7 @@ public class TestAttacking {
 		playersTerritories.put(player, ownedTerritories);	
 		Game game = new Game(ui, players, playersTerritories);
 
-		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
-		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(alsoPlayer1Territory);
-		EasyMock.replay(ui);
-
-		assertFalse(game.attack());
-		EasyMock.verify(ui);
+		assertFalse(game.canAttack(player1Territory, alsoPlayer1Territory));
 	}
 
 

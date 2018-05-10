@@ -207,14 +207,12 @@ public class Game {
 	}
 
 
-	public boolean attack() {
+	public boolean canAttack(Territory attackingTerritory, Territory defendingTerritory) {
 		Player curPlayer = players.get(currTurn);
-		Territory attackingTerritory = ui.territoryPrompt("Select one of your territories");
 		Set<Territory> curPlayersOwnedTerritories = playersTerritories.get(curPlayer);
 		if (!curPlayersOwnedTerritories.contains(attackingTerritory)) {
 			return false;
 		}
-		Territory defendingTerritory = ui.territoryPrompt("Select a territory to attack");
 		if (curPlayersOwnedTerritories.contains(defendingTerritory)) {
 			return false;
 		}
@@ -222,5 +220,6 @@ public class Game {
 			
 		return connectedTerritories.contains(defendingTerritory.getTerritoryID());
 	}
+	
 
 }
