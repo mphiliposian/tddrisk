@@ -109,6 +109,25 @@ public class TestAttacking {
 
 		assertFalse(game.canAttack(player1Territory, alsoPlayer1Territory));
 	}
+	
+	@Test
+	public void attackWithOnly1Unit() {
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set<Territory> ownedTerritories = new HashSet<>();
+		Territory player1Territory = new Territory("NA2", "murica", 1, territoriesConnectedToNA2, 0, 0);
+		Territory player2Territory = new Territory("NA3", "murica2", 1, territoriesConnectedToNA3, 0, 0);
+		
+		ownedTerritories.add(player1Territory);
+		
+		ArrayList<Player> players = new ArrayList<>();
+		players.add(player);
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, ownedTerritories);	
+		Game game = new Game(ui, players, playersTerritories);
+
+		assertFalse(game.canAttack(player1Territory, player2Territory));
+	}
 
 
 }

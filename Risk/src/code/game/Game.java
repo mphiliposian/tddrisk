@@ -224,6 +224,9 @@ public class Game {
 
 	public boolean canAttack(Territory attackingTerritory, Territory defendingTerritory) {
 		Player curPlayer = players.get(currTurn);
+		if (attackingTerritory.getYield() < 2) {
+			return false;
+		}
 		Set<Territory> curPlayersOwnedTerritories = playersTerritories.get(curPlayer);
 		if (!curPlayersOwnedTerritories.contains(attackingTerritory)) {
 			return false;
@@ -231,10 +234,23 @@ public class Game {
 		if (curPlayersOwnedTerritories.contains(defendingTerritory)) {
 			return false;
 		}
-		List<String> connectedTerritories = attackingTerritory.getBorderingTerritories();
-			
+		List<String> connectedTerritories = attackingTerritory.getBorderingTerritories();	
 		return connectedTerritories.contains(defendingTerritory.getTerritoryID());
 	}
+
+	public void battle() {
+		Territory attackingTerritory = ui.territoryPrompt("Select one of your territories to attack with");
+		Territory defendingTerritory = ui.territoryPrompt("Select an enemy territories to attack");
+		if (canAttack(attackingTerritory, defendingTerritory)) {
+			List<Integer> attackingPlayerRolls = new ArrayList<Integer>();
+			List<Integer> defendingPlayerRolls = new ArrayList<Integer>();
+			int diceRolls = Math.min(attackingTerritory.getYield(),3);
+			//for 
+		}
+	}
 	
+	public int rollDice() {
+		return rand.nextInt(6)+1;
+	}
 
 }

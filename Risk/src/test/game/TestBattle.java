@@ -50,8 +50,11 @@ public class TestBattle {
 			EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
 			EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player2Territory);
 			EasyMock.replay(ui);
+			
+			game.battle();
 
 			assertEquals(player1Territory.getYield(), 10);
 			assertEquals(player2Territory.getYield(), 7);
+			EasyMock.verify(ui);
 		}
 }

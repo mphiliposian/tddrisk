@@ -16,6 +16,7 @@ public class Territory {
 		this.borderingTerritories = borderingTerritories;
 		this.xScale = x;
 		this.yScale = y;
+		this.yield = yield;
 	}
 	
 	public Territory(String territoryID, String name, List<String> borderingTerritories, double x, double y) {
