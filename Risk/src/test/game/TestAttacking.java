@@ -24,8 +24,8 @@ public class TestAttacking {
 		territoriesConnectedToNA1.add("NA2");
 		ArrayList<String> territoriesConnectedToNA2 = new ArrayList<String>();
 		territoriesConnectedToNA1.add("NA1");
-		Territory player1Territory = new Territory("NA1", "murica", 2, null, 0, 0);
-		Territory player2Territory = new Territory("NA2", "murica2", 1, null, 0, 0);
+		Territory player1Territory = new Territory("NA1", "murica", 2, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 
 		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
 		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player2Territory);
@@ -47,8 +47,8 @@ public class TestAttacking {
 		territoriesConnectedToNA1.add("NA2");
 		ArrayList<String> territoriesConnectedToNA3 = new ArrayList<String>();
 		territoriesConnectedToNA3.add("NA2");
-		Territory player1Territory = new Territory("NA1", "murica", 2, null, 0, 0);
-		Territory player2Territory = new Territory("NA3", "murica2", 1, null, 0, 0);
+		Territory player1Territory = new Territory("NA1", "murica", 2, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA3", "murica2", 1, territoriesConnectedToNA3, 0, 0);
 
 		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
 		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player2Territory);

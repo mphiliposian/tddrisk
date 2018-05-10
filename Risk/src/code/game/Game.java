@@ -211,7 +211,9 @@ public class Game {
 		
 		Territory attackingTerritory = ui.territoryPrompt("Select one of your territories");
 		Territory defendingTerritory = ui.territoryPrompt("Select a territory to attack");
-		return true;
+		List<String> connectedTerritories = attackingTerritory.getBorderingTerritories();
+			
+		return connectedTerritories.contains(defendingTerritory.getTerritoryID());
 	}
 
 }
