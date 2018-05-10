@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -32,18 +33,7 @@ public class Game {
 	private int currTurn;
 	private Map<String, Set<Territory>> continents;
 	private Map<String, Integer> continentValues;
-
-	public Game(RiskUI ui, ArrayList<Player> players, Map<Player, Set<Territory>> playerTerritories) {
-		this.players = players;
-		this.ui = ui;
-		this.currTurn = 0;
-		continents = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
-		territories = new ArrayList<>();
-		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
-		continentValues = intializeContinentValues();
-		playersTerritories = playerTerritories;
-	}
-	
+	private Random rand;
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
@@ -54,6 +44,31 @@ public class Game {
 		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
 		continentValues = intializeContinentValues();
 		playersTerritories = new HashMap<>();
+		rand = new Random();
+	}
+	
+	public Game(RiskUI ui, ArrayList<Player> players, Map<Player, Set<Territory>> playerTerritories) {
+		this.players = players;
+		this.ui = ui;
+		this.currTurn = 0;
+		continents = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
+		territories = new ArrayList<>();
+		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
+		continentValues = intializeContinentValues();
+		playersTerritories = playerTerritories;
+		rand = new Random();
+	}
+	
+	public Game(RiskUI ui, ArrayList<Player> players, Map<Player, Set<Territory>> playerTerritories, int selectedRandom) {
+		this.players = players;
+		this.ui = ui;
+		this.currTurn = 0;
+		continents = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
+		territories = new ArrayList<>();
+		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
+		continentValues = intializeContinentValues();
+		playersTerritories = playerTerritories;
+		rand = new Random(selectedRandom);
 	}
 
 	public boolean gameIsWon() {
