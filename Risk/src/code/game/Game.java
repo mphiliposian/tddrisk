@@ -208,8 +208,13 @@ public class Game {
 
 
 	public boolean attack() {
-		
+		Player curPlayer = players.get(currTurn);
 		Territory attackingTerritory = ui.territoryPrompt("Select one of your territories");
+		Set<Territory> curPlayersOwnedTerritories = playersTerritories.get(curPlayer);
+		//System.out.println(attackingTerritory.getTerritoryID());
+		if (!curPlayersOwnedTerritories.contains(attackingTerritory)) {
+			return false;
+		}
 		Territory defendingTerritory = ui.territoryPrompt("Select a territory to attack");
 		List<String> connectedTerritories = attackingTerritory.getBorderingTerritories();
 			
