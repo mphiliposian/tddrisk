@@ -42,7 +42,6 @@ public class TestAttacking {
 		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
 		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player2Territory);
 		EasyMock.replay(ui);
-		
 		assertTrue(game.attack());
 		EasyMock.verify(ui);
 	}
