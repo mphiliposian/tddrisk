@@ -242,10 +242,14 @@ public class Game {
 		Territory attackingTerritory = ui.territoryPrompt("Select one of your territories to attack with");
 		Territory defendingTerritory = ui.territoryPrompt("Select an enemy territories to attack");
 		if (canAttack(attackingTerritory, defendingTerritory)) {
-			List<Integer> attackingPlayerRolls = new ArrayList<Integer>();
-			List<Integer> defendingPlayerRolls = new ArrayList<Integer>();
-			int diceRolls = Math.min(attackingTerritory.getYield(),3);
-			//for 
+			int attackerRoll = rollDice();
+			int defenderRoll = rollDice();
+			
+			if (attackerRoll > defenderRoll) {
+				defendingTerritory.setYield(defendingTerritory.getYield() - 1);
+			} else {
+				attackingTerritory.setYield(attackingTerritory.getYield() - 1);
+			}
 		}
 	}
 	
