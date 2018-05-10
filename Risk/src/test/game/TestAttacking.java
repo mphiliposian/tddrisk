@@ -1,6 +1,8 @@
 package test.game;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -32,8 +34,10 @@ public class TestAttacking {
 		game.createPlayers();
 		
 
-		assertEquals(game.attack());
+		assertTrue(game.attack());
 		EasyMock.verify(ui);
 	}
+	
+
 
 }

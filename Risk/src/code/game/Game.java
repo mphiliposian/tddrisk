@@ -206,4 +206,12 @@ public class Game {
 		return reinforcements;
 	}
 
+
+	public boolean attack() {
+		
+		Territory attackingTerritory = ui.territoryPrompt("Select one of your territories");
+		Territory defendingTerritory = ui.territoryPrompt("Select a territory to attack");
+		return true;
+	}
+
 }
