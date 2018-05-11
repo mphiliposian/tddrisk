@@ -14,7 +14,7 @@ public class TestTerritoryReader {
 		Territory t = tr.parseTerritory("NA1 | Alaska | [NA2,NA6,AS6] | (0.0567,0.1211)");
 		assertEquals(t.getTerritoryID(), "NA1");
 		assertEquals(t.getName(), "Alaska");
-		ArrayList < String > neighboors = new ArrayList < String > ();
+		ArrayList < String > neighboors = new ArrayList <String> ();
 		neighboors.add("NA2");
 		neighboors.add("NA6");
 		neighboors.add("AS6");
