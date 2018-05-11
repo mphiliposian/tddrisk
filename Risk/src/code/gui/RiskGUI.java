@@ -10,9 +10,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import code.game.Player;
 import code.game.Territory;
@@ -126,5 +133,33 @@ public class RiskGUI implements RiskUI{
 	public void setCancelButtonVisible(boolean isVisible) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public int reinforcementCountPrompt(int max, String title, String message) {
+		JOptionPane sliderPane = new JOptionPane();
+		JSlider slider = new JSlider();
+		slider.setMaximum(max);
+		slider.setValue(0);
+		slider.setMajorTickSpacing(10);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		
+		JLabel countLabel = new JLabel(message + ": 0");
+		sliderPane.setMessage(new Object[] {
+				countLabel, slider } );
+		
+		slider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				countLabel.setText(message + ": " + slider.getValue());
+				sliderPane.setInputValue(slider.getValue());
+			}
+			
+		});
+		JDialog sliderDialog = sliderPane.createDialog(frame, title);
+		sliderDialog.setVisible(true);
+		
+		return slider.getValue();	
 	}
 }
