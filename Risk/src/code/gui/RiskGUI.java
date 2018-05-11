@@ -27,7 +27,6 @@ public class RiskGUI implements RiskUI{
 	private CompletableFuture<Territory> selectedTerritory;
 	private GridBagLayout gridbag;
 	private GridBagConstraints constraints;
-	private JButton cancelButton;
 	
 	@Override
 	public void initializeUI(List<Territory> territories) {
@@ -84,20 +83,13 @@ public class RiskGUI implements RiskUI{
 		Double scaledHeight = height * 0.6;
 		int windowWidth = scaledWidth.intValue();
 		int windowHeight = scaledHeight.intValue();
-		messagePanel = new MessagePanel(100, 30);
+		messagePanel = new MessagePanel(100, 30, this);
 		messagePanel.updateMessage("Goddag til dig!");
-		
-		cancelButton = new JButton("Cancel");
-		cancelButton.setForeground(Color.WHITE);
-		cancelButton.setBackground(Color.RED);
-		cancelButton.setOpaque(true);
-		this.setCancelButtonVisible(true);
 		
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
 		mapPanel.addSelectionListeners(this);
 		
 		this.addComponentToFrame(messagePanel, 0, 0, 2, 1);
-		this.addComponentToFrame(cancelButton, 2, 0, 1, 1);
 		this.addComponentToFrame(mapPanel, 0, 1, 2, 1);
 		frame.pack();
 	}
@@ -130,8 +122,4 @@ public class RiskGUI implements RiskUI{
 		return selectedTerritory.get();
 	}
 
-	@Override
-	public void setCancelButtonVisible(boolean isVisible) {
-		cancelButton.setVisible(isVisible);
-	}
 }

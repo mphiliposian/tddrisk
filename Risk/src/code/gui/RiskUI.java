@@ -22,6 +22,4 @@ public interface RiskUI {
 	
 	Territory territoryPrompt(String message);
 	
-	void setCancelButtonVisible(boolean isVisible);
-	
 }
