@@ -46,7 +46,7 @@
 - [x] If the defender has a higher dice roll, then the attacker loses one unit.
 - [x] If the defender and the attacker tie for the highest roll, then the attacker loses one unit.
 - [x] If each player rolled more than one dice, then compare the two next
-- [x]highest dice and repeat the above win conditions.
+- [x] highest dice and repeat the above win conditions.
 
 #### Capturing a territory
 - [ ] After defeating all units on a territory, the attacking player must occupy the territory imediately by moving units that attacked onto that territory.
