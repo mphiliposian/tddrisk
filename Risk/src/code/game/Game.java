@@ -207,7 +207,6 @@ public class Game {
 		return reinforcements;
 	}
 
-
 	public boolean canAttack(Territory attackingTerritory, Territory defendingTerritory) {
 		Player curPlayer = players.get(currTurn);
 		if (attackingTerritory.getYield() <2) {
@@ -238,7 +237,6 @@ public class Game {
 			for (int currRoll = 0; currRoll <defendingDiceRolls; currRoll++) {
 				defendingPlayerRolls.add(rollDice());
 			}
-
 			for (int rolls = 0; rolls <defendingDiceRolls; rolls++) {
 				int maxAttack = Collections.max(attackingPlayerRolls);
 				int maxDefend = Collections.max(defendingPlayerRolls);
