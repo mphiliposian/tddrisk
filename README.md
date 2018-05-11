@@ -34,18 +34,18 @@
 
 ### Attacking:
 - [ ] Players can choose to attack or continue to the fortifying phase.
-- [x] Players can only attack territores that are adjacent or connected to territories that the attacknig player owns.
-- [x] A territory must have atleast two units to declare an attack on another territory
-- [x] The attacking player may continue to attack one country until he has elimated the enemy units on the territory or until he has only one unit left.
+- [x] Players can only attack territores that are adjacent or connected to territories that the attacknig player owns. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/f037677dd24b9bb776abdbc37442dfdb5a38d300
+- [x] A territory must have atleast two units to declare an attack on another territory https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/b752c3e7fc795bc45b54f6ad8ee9be4906bd6630
+- [ ] The attacking player may continue to attack one country until he has elimated the enemy units on the territory or until he has only one unit left.
 - [ ] The attacking player may also choose to attack a new territory as much as they'd like durring there attacking phase.
 
 
 #### Deciding the Winner of a battle
-- [x] A winner is declared by the higher dice roll.
-- [x] If the attacker has a higher dice roll, then the defender loses one unit.
-- [x] If the defender has a higher dice roll, then the attacker loses one unit.
-- [x] If the defender and the attacker tie for the highest roll, then the attacker loses one unit.
-- [x] If each player rolled more than one dice, then compare the two next highest dice and repeat the above win conditions.
+- [x] A winner is declared by the higher dice roll. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/72cb4ab6dad6da6a7c08fe300547d45e51400829
+- [x] If the attacker has a higher dice roll, then the defender loses one unit. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/72cb4ab6dad6da6a7c08fe300547d45e51400829
+- [x] If the defender has a higher dice roll, then the attacker loses one unit. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/fa48ae511135f56f4469f79f60d02a814f376e54
+- [x] If the defender and the attacker tie for the highest roll, then the attacker loses one unit. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/fa48ae511135f56f4469f79f60d02a814f376e54
+- [x] If each player rolled more than one dice, then compare the two next highest dice and repeat the above win conditions. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/28cacd8204592dd8adbfdffdc627e8a6f9fa0d86
 
 #### Capturing a territory
 - [ ] After defeating all units on a territory, the attacking player must occupy the territory imediately by moving units that attacked onto that territory.
@@ -131,11 +131,11 @@ Turns continue until one player elimates all opponents by capturing all 42 terri
 
 ## Appendix C: Starting Units
 | Players | Units |
-|     |       |
-| 3	  | 35    |
-| 4	  | 30    |
-| 5	  | 25    |
-| 6	  | 20    |
+|         |       |
+| 3	      | 35    |
+| 4	      | 30    |
+| 5	      | 25    |
+| 6	      | 20    |
 
 ## Appendix D: Cards
 - [ ] There are 42 unique risk cards, each associated with specific territory.
