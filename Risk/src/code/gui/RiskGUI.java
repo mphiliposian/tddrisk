@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ public class RiskGUI implements RiskUI{
 	private CompletableFuture<Territory> selectedTerritory;
 	private GridBagLayout gridbag;
 	private GridBagConstraints constraints;
+	private JButton cancelButton;
 	
 	@Override
 	public void initializeUI(List<Territory> territories) {
@@ -84,13 +86,19 @@ public class RiskGUI implements RiskUI{
 		int windowHeight = scaledHeight.intValue();
 		messagePanel = new MessagePanel(100, 30);
 		messagePanel.updateMessage("Goddag til dig!");
-		messagePanel.setButtonVisible(false);
+		
+		cancelButton = new JButton("Cancel");
+		cancelButton.setForeground(Color.WHITE);
+		cancelButton.setBackground(Color.RED);
+		cancelButton.setOpaque(true);
+		this.setCancelButtonVisible(true);
+		
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
-		
 		mapPanel.addSelectionListeners(this);
-		this.addComponentToFrame(messagePanel, 0, 0, 3, 1);
 		
-		this.addComponentToFrame(mapPanel, 0, 1, 1, 1);
+		this.addComponentToFrame(messagePanel, 0, 0, 2, 1);
+		this.addComponentToFrame(cancelButton, 2, 0, 1, 1);
+		this.addComponentToFrame(mapPanel, 0, 1, 2, 1);
 		frame.pack();
 	}
 
@@ -124,7 +132,6 @@ public class RiskGUI implements RiskUI{
 
 	@Override
 	public void setCancelButtonVisible(boolean isVisible) {
-		// TODO Auto-generated method stub
-		
+		cancelButton.setVisible(isVisible);
 	}
 }
