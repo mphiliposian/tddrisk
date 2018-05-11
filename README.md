@@ -1,10 +1,10 @@
 # Definition of Done
-- [ ] The program is "done" when it can determine a winner according to the rules and procedures of the game risk.
-- [ ] A player is determined to be the winner when that player controls all 42 of the game's territories.
-- [ ] A territory is defined as a cell which must contain at least one unit, and may only contain one player's units. The player whose units occupy a territory is said to control this territory.
-- [ ] Territories are connected by routes. Routes are listed in appendix A.
-- [ ] A unit is an abstract representation of a player's military force. Units are measured and represented as integers.
-- [ ] A continent is a set of territories. Continents are listed in Appendix B.
+The program is "done" when it can determine a winner according to the rules and procedures of the game risk.
+A player is determined to be the winner when that player controls all 42 of the game's territories.
+A territory is defined as a cell which must contain at least one unit, and may only contain one player's units. The player whose units occupy a territory is said to control this territory.
+Territories are connected by routes. Routes are listed in appendix A.
+A unit is an abstract representation of a player's military force. Units are measured and represented as integers.
+A continent is a set of territories. Continents are listed in Appendix B.
 
 ## Setup
 - [x] There are 3 to 6 players. The program assigns each player a unique identifier. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/1d97918c38b85e5ab496571d85f4e0eddfea512c
