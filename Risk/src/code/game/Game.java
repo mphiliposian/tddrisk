@@ -18,12 +18,12 @@ import code.gui.RiskUI;
 
 public class Game {
 
-
-	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName"); 
+	private final String TERRITORY_MAP_FILE = "TerritoryMap.txt"; 
 
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
 	private final int NUM_OF_TERRITORIES = 42;
+	private final int MIN_NUM_OF_UNITS_PER_TURN = 3;
 
 	private List<Player> players;
 	private List<Territory> territories;
@@ -43,7 +43,8 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = playerTerritories;
 	}
-	
+
+
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
@@ -63,6 +64,10 @@ public class Game {
 			}
 		}
 		return false;
+	}
+
+	public void randomizeOrder() {
+		Collections.shuffle(players);
 	}
 
 	public int numPlayers() {
@@ -113,6 +118,7 @@ public class Game {
 
 	public void setup() {
 		createPlayers();
+		randomizeOrder();
 		initializeReinforcements();
 		ui.initializeUI(territories);
 		ui.createMapDisplay(territories);
@@ -133,7 +139,6 @@ public class Game {
 
 	public void reinforceTerritories() {
 		Player curPlayer = getPlayerByID(currTurn);
-
 		int totalReinforcements = 0;
 		for (Player player : players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements(); 
@@ -141,8 +146,8 @@ public class Game {
 		for(int NumOfTurns = 0; NumOfTurns < totalReinforcements; NumOfTurns++) {
 			boolean ownedByPlayer = false;
 			while(!ownedByPlayer) {
-				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory"));
-				if (playerOwnsTerritory(territory)) {
+				Territory territory = ui.territoryPrompt("");
+				if (playerOwnsTerritory(curPlayer, territory)) {
 					placeOneUnit(territory);
 					switchTurn();
 					ui.updatePlayerDisplay(currTurn);
@@ -152,8 +157,8 @@ public class Game {
 		}	
 	}
 
-	public boolean playerOwnsTerritory(Territory territory) {
-		Set<Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
+	public boolean playerOwnsTerritory(Player player, Territory territory) {
+		Set<Territory> ownedTerritories = playersTerritories.get(player);
 		return ownedTerritories.contains(territory);
 	}
 
@@ -169,7 +174,7 @@ public class Game {
 		for(int NumOfTurns = 0; NumOfTurns < NUM_OF_TERRITORIES; NumOfTurns++) {
 			boolean uniqueTerritory = false;
 			while(!uniqueTerritory) {
-				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory"));
+				Territory territory = ui.territoryPrompt("");
 				if (territory.getYield() == 0) {
 					placeOneUnit(territory);
 					Set<Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
@@ -193,7 +198,7 @@ public class Game {
 		continentVals.put("AU", 2);
 		return continentVals;
 	}
-	
+
 	public int getReinforcementsFromContinents() {
 		Player currPlayer = getPlayerByID(currTurn);
 		Set<Territory> currPlayersTerritories = playersTerritories.get(currPlayer);
@@ -205,5 +210,40 @@ public class Game {
 		}
 		return reinforcements;
 	}
+
+
+
+	public int getReinforcementsFromTerritories() {
+		Player currPlayer = getPlayerByID(currTurn);
+		int reinforcements = (int)(currPlayer.getNumOfTerritories() / 3);
+		if (MIN_NUM_OF_UNITS_PER_TURN > reinforcements) {
+			return MIN_NUM_OF_UNITS_PER_TURN;
+		}
+		return reinforcements;
+	}
+
+
+
+	public int getTotalReinforcements() {
+		return getReinforcementsFromContinents() 
+				+ getReinforcementsFromTerritories();
+	}
+
+
+
+	public void allocatePhase() {
+		Player currPlayer = getPlayerByID(currTurn);
+		int initialReinforcements = currPlayer.getReinforcements() 
+				+ this.getTotalReinforcements();
+		currPlayer.setReinforcements(initialReinforcements);
+		while(currPlayer.getReinforcements() > 0) {
+			Territory territory = ui.territoryPrompt("");
+			if (playerOwnsTerritory(currPlayer, territory)) {
+				placeOneUnit(territory);
+				ui.updatePlayerDisplay(currTurn);
+			}
+		}	
+	}
+	
 
 }
