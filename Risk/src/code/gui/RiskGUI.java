@@ -103,4 +103,10 @@ public class RiskGUI implements RiskUI{
 		selectedTerritory = new CompletableFuture<>();
 		return selectedTerritory.get();
 	}
+
+	@Override
+	public void setCancelButtonVisible(boolean isVisible) {
+		// TODO Auto-generated method stub
+		
+	}
 }
