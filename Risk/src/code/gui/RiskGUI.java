@@ -83,14 +83,14 @@ public class RiskGUI implements RiskUI{
 		Double scaledHeight = height * 0.6;
 		int windowWidth = scaledWidth.intValue();
 		int windowHeight = scaledHeight.intValue();
-		messagePanel = new MessagePanel(100, 30, this);
+		messagePanel = new MessagePanel(windowWidth, 30, this);
 		messagePanel.updateMessage("Goddag til dig!");
 		
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
 		mapPanel.addSelectionListeners(this);
 		
-		this.addComponentToFrame(messagePanel, 0, 0, 2, 1);
-		this.addComponentToFrame(mapPanel, 0, 1, 2, 1);
+		this.addComponentToFrame(messagePanel, 0, 0, 1, 1);
+		this.addComponentToFrame(mapPanel, 0, 1, 1, 1);
 		frame.pack();
 	}
 
