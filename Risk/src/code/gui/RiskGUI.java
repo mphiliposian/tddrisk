@@ -90,8 +90,9 @@ public class RiskGUI implements RiskUI {
 		int windowWidth = scaledWidth.intValue();
 		int windowHeight = scaledHeight.intValue();
 		messagePanel = new MessagePanel(windowWidth, 30);
-		messagePanel.updateMessage("Goddag til dig!");
+		messagePanel.updateMessage("Welcome to Risk.");
 		messagePanel.setCancelButtonVisible(false);
+		messagePanel.addCancelButtonListener(new CancelButtonListener(this));
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
 		mapPanel.addSelectionListeners(this);
 		this.addComponentToFrame(messagePanel, 0, 0, 3, 1);
@@ -111,6 +112,7 @@ public class RiskGUI implements RiskUI {
 
 	@Override
 	public Territory territoryPrompt(String message) {
+		this.messagePanel.updateMessage(message);
 		try {
 			return this.waitForTerritory();
 		} catch (Exception e) {

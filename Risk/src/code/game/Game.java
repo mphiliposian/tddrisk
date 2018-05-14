@@ -16,7 +16,7 @@ import org.easymock.EasyMock;
 import code.gui.RiskUI;
 
 public class Game {
-	
+
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -40,7 +40,7 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = new HashMap <> ();
 		rand = new Random();
- 	}
+	}
 
 	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories) {
 		this.players = players;
@@ -93,16 +93,16 @@ public class Game {
 		}
 	}
 
-	 public void initializeReinforcements() {
+	public void initializeReinforcements() {
 		int reinforcements = 35;
 		switch (players.size()) {
-			case 4:
+		case 4:
 			reinforcements = 30;
 			break;
-			case 5:
+		case 5:
 			reinforcements = 25;
 			break;
-			case 6:
+		case 6:
 			reinforcements = 20;
 			break;
 		}
@@ -217,6 +217,7 @@ public class Game {
 
 
 	public boolean canAttack(Territory attackingTerritory, Territory defendingTerritory) {
+		
 		Player curPlayer = players.get(currTurn);
 		if (attackingTerritory.getYield() <2) {
 			return false;
@@ -233,40 +234,68 @@ public class Game {
 	}
 
 	public void battle() {
-		Territory attackingTerritory = ui.territoryPrompt("Select one of your territories to attack with");
-		Territory defendingTerritory = ui.territoryPrompt("Select an enemy territories to attack");
-		if (canAttack(attackingTerritory, defendingTerritory)) {
-			List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
-			List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
-			int attackingDiceRolls = Math.min(attackingTerritory.getYield(), 3);
-			for (int currRoll = 0; currRoll <attackingDiceRolls; currRoll++) {
-				attackingPlayerRolls.add(rollDice());
+		while(true) {
+			ui.setCancelButtonVisible(false);
+			Player curPlayer = players.get(currTurn);
+			Territory attackingTerritory = ui.territoryPrompt("Select one of your territories to attack with");
+			if (attackingTerritory.equals(Territory.END_TERRITORY)){
+				break;
 			}
-			int defendingDiceRolls = Math.min(defendingTerritory.getYield(), 2);
-			for (int currRoll = 0; currRoll <defendingDiceRolls; currRoll++) {
-				defendingPlayerRolls.add(rollDice());
+			ui.setCancelButtonVisible(true);
+			Territory defendingTerritory = ui.territoryPrompt("Select an enemy territories to attack");
+			if (defendingTerritory.equals(Territory.CANCEL_TERRITORY)){
+				continue;
 			}
-
-			for (int rolls = 0; rolls <defendingDiceRolls; rolls++) {
-				int maxAttack = Collections.max(attackingPlayerRolls);
-				int maxDefend = Collections.max(defendingPlayerRolls);
-				if (maxAttack> maxDefend) {
-					defendingTerritory.setYield(defendingTerritory.getYield() - 1);
-				} else {
-					attackingTerritory.setYield(attackingTerritory.getYield() - 1);
+			if (defendingTerritory.equals(Territory.END_TERRITORY)){
+				break;
+			}
+			if (canAttack(attackingTerritory, defendingTerritory)) {
+				List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
+				List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
+				int attackingDiceRolls = Math.min(attackingTerritory.getYield(), 3);
+				for (int currRoll = 0; currRoll <attackingDiceRolls; currRoll++) {
+					attackingPlayerRolls.add(rollDice());
 				}
-				int idMaxAtk = attackingPlayerRolls.indexOf(maxAttack);
-				int idMaxDef = defendingPlayerRolls.indexOf(maxDefend);
-				attackingPlayerRolls.remove(idMaxAtk);
-				defendingPlayerRolls.remove(idMaxDef);
+				int defendingDiceRolls = Math.min(defendingTerritory.getYield(), 2);
+				for (int currRoll = 0; currRoll <defendingDiceRolls; currRoll++) {
+					defendingPlayerRolls.add(rollDice());
+				}
+				System.out.println(attackingPlayerRolls);
+				System.out.println(defendingPlayerRolls);
+				for (int rolls = 0; rolls <defendingDiceRolls; rolls++) {
+					int maxAttack = Collections.max(attackingPlayerRolls);
+					int maxDefend = Collections.max(defendingPlayerRolls);
+					if (maxAttack> maxDefend) {
+						defendingTerritory.setYield(defendingTerritory.getYield() - 1);
+					} else {
+						attackingTerritory.setYield(attackingTerritory.getYield() - 1);
+					}
+					int idMaxAtk = attackingPlayerRolls.indexOf(maxAttack);
+					int idMaxDef = defendingPlayerRolls.indexOf(maxDefend);
+					attackingPlayerRolls.remove(idMaxAtk);
+					defendingPlayerRolls.remove(idMaxDef);
+				}
+				ui.updateTerritoryDisplay(attackingTerritory, curPlayer.getColor());
+				Player defendingPlayer = findOwnerOfterritory(defendingTerritory);
+				ui.updateTerritoryDisplay(defendingTerritory, defendingPlayer.getColor());
 			}
 		}
+	}
+
+	private Player findOwnerOfterritory(Territory defendingTerritory) {
+		for(Player player : players){
+			Set<Territory> ownedTerritories = this.playersTerritories.get(player);
+			if (ownedTerritories.contains(defendingTerritory)) {
+				return player;
+			}
+		}
+		return null;
 	}
 
 	public int rollDice() {
 		return rand.nextInt(6) + 1;
 	}
-	
+
 	public void autoClaim() {
 		RiskUI temp = this.ui;
 		this.ui = EasyMock.niceMock(RiskUI.class);
@@ -283,11 +312,11 @@ public class Game {
 		EasyMock.verify(this.ui);
 		this.ui = temp;
 	}
-	
+
 	public void autoReinforce() {
 		for (Player p : players) {
-		List <Territory>curPlayerTerritories = new ArrayList<>();
-		curPlayerTerritories.addAll(this.playersTerritories.get(p));
+			List <Territory>curPlayerTerritories = new ArrayList<>();
+			curPlayerTerritories.addAll(this.playersTerritories.get(p));
 			while (p.getReinforcements() > 0) {
 				int territoryId = rand.nextInt(curPlayerTerritories.size());
 				this.placeOneUnit(curPlayerTerritories.get(territoryId));
@@ -299,7 +328,7 @@ public class Game {
 			this.ui.updateTerritoryDisplay(t, Player.COLORS[curPlayer % players.size()]);
 			curPlayer++;
 		}
-			this.ui.updatePlayerDisplay(0);
+		this.ui.updatePlayerDisplay(0);
 
 	}
 }
