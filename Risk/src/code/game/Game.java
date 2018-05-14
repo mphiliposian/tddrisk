@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+
+import org.easymock.EasyMock;
+
 import code.gui.RiskUI;
 
 public class Game {
@@ -124,6 +127,7 @@ public class Game {
 		ui.createPlayerDisplay(players);
 		ui.updatePlayerDisplay(0);
 		placeInitialReinforcements();
+		battle();
 	}
 
 	public Player getPlayerByID(int playerID) {
@@ -132,8 +136,10 @@ public class Game {
 
 
 	public void placeInitialReinforcements() {
-		claimTerritories();
-		reinforceTerritories();
+		// claimTerritories
+		autoClaim();
+		//reinforceTerritories();
+		autoReinforce();
 	}
 
 	public void reinforceTerritories() {
@@ -259,5 +265,41 @@ public class Game {
 
 	public int rollDice() {
 		return rand.nextInt(6) + 1;
+	}
+	
+	public void autoClaim() {
+		RiskUI temp = this.ui;
+		this.ui = EasyMock.niceMock(RiskUI.class);
+		for (Territory t : territories) {
+			EasyMock.expect(this.ui.territoryPrompt(EasyMock.anyString())).andReturn(t);
+		}
+		EasyMock.replay(this.ui);
+		this.claimTerritories();
+		int curPlayer = 0;
+		for (Territory t : territories) {
+			temp.updateTerritoryDisplay(t, Player.COLORS[curPlayer % players.size()]);
+			curPlayer++;
+		}
+		EasyMock.verify(this.ui);
+		this.ui = temp;
+	}
+	
+	public void autoReinforce() {
+		for (Player p : players) {
+		List <Territory>curPlayerTerritories = new ArrayList<>();
+		curPlayerTerritories.addAll(this.playersTerritories.get(p));
+			while (p.getReinforcements() > 0) {
+				int territoryId = rand.nextInt(curPlayerTerritories.size());
+				this.placeOneUnit(curPlayerTerritories.get(territoryId));
+			}
+			this.switchTurn();
+		}
+		int curPlayer = 0;
+		for (Territory t : territories) {
+			this.ui.updateTerritoryDisplay(t, Player.COLORS[curPlayer % players.size()]);
+			curPlayer++;
+		}
+			this.ui.updatePlayerDisplay(0);
+
 	}
 }

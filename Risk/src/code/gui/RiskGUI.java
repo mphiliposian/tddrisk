@@ -119,7 +119,9 @@ public class RiskGUI implements RiskUI {
 	}
 
 	public void selectTerritory(Territory territory) {
-		this.selectedTerritory.complete(territory);
+		if (!this.selectedTerritory.isDone()) {
+			this.selectedTerritory.complete(territory);
+		}
 	}
 
 	private Territory waitForTerritory() throws InterruptedException, ExecutionException {
@@ -162,6 +164,4 @@ public class RiskGUI implements RiskUI {
 	public void addCancelButtonListener(ActionListener listener) {
 		this.messagePanel.addCancelButtonListener(listener);
 	}
-	
-	
 }
