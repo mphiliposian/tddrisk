@@ -137,7 +137,6 @@ public class Game {
 	}
 
 	public void reinforceTerritories() {
-		Player curPlayer = getPlayerByID(currTurn);
 		int totalReinforcements = 0;
 		for (Player player: players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements();
