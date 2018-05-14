@@ -5,10 +5,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -133,14 +136,15 @@ public class RiskGUI implements RiskUI {
 
 	@Override
 	public int reinforcementCountPrompt(int max, String title, String message) {
-		JOptionPane sliderPane = new JOptionPane();
+		JOptionPane sliderPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
 		JSlider slider = new JSlider();
+		slider.setMinimum(1);
 		slider.setMaximum(max);
-		slider.setValue(0);
-		slider.setMajorTickSpacing(10);
+		slider.setValue(1);
+		slider.setMajorTickSpacing(1);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
-		JLabel countLabel = new JLabel(message + ": 0");
+		JLabel countLabel = new JLabel(message + ": 1");
 		sliderPane.setMessage(new Object[] {
 			countLabel,
 			slider
@@ -154,6 +158,9 @@ public class RiskGUI implements RiskUI {
 		});
 		JDialog sliderDialog = sliderPane.createDialog(frame, title);
 		sliderDialog.setVisible(true);
+		if ((int) sliderPane.getValue() == JOptionPane.CANCEL_OPTION) {
+			return -1;
+		}
 		return slider.getValue();
 	}
 

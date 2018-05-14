@@ -252,7 +252,12 @@ public class Game {
 			if (canAttack(attackingTerritory, defendingTerritory)) {
 				List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
 				List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
-				int attackingDiceRolls = Math.min(attackingTerritory.getYield(), 3);
+				int minUnits = Math.min(attackingTerritory.getYield()-1, 3);
+				int selectedAttackingUnits = ui.reinforcementCountPrompt(minUnits, "Select number of units to attack with.", "Reinforcements");
+				if (selectedAttackingUnits < 1) {
+					continue;
+				}
+				int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
 				for (int currRoll = 0; currRoll <attackingDiceRolls; currRoll++) {
 					attackingPlayerRolls.add(rollDice());
 				}
@@ -262,7 +267,8 @@ public class Game {
 				}
 				System.out.println(attackingPlayerRolls);
 				System.out.println(defendingPlayerRolls);
-				for (int rolls = 0; rolls <defendingDiceRolls; rolls++) {
+				int minRolls = Math.min(attackingDiceRolls,defendingDiceRolls);
+				for (int rolls = 0; rolls < minRolls; rolls++) {
 					int maxAttack = Collections.max(attackingPlayerRolls);
 					int maxDefend = Collections.max(defendingPlayerRolls);
 					if (maxAttack> maxDefend) {
