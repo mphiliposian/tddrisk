@@ -17,6 +17,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
+	private static final boolean DEBUG = false;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -136,10 +137,14 @@ public class Game {
 
 
 	public void placeInitialReinforcements() {
-		// claimTerritories
-		autoClaim();
-		//reinforceTerritories();
-		autoReinforce();
+		if (DEBUG) {
+			autoClaim();
+			autoReinforce();
+		} else {
+		claimTerritories();
+		reinforceTerritories();
+		}
+		
 	}
 
 	public void reinforceTerritories() {
