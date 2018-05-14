@@ -5,12 +5,12 @@ import java.util.List;
 public class Territory {
 	private String territoryID;
 	private String name;
-	private List<String> borderingTerritories;
+	private List <String> borderingTerritories;
 	private double xScale;
 	private double yScale;
 	private int yield;
-	
-	public Territory(String territoryID, String name, int yield, List<String> borderingTerritories, double x, double y) {
+
+	public Territory(String territoryID, String name, int yield, List <String> borderingTerritories, double x, double y) {
 		this.territoryID = territoryID;
 		this.name = name;
 		this.borderingTerritories = borderingTerritories;
@@ -18,8 +18,8 @@ public class Territory {
 		this.yScale = y;
 		this.yield = yield;
 	}
-	
-	public Territory(String territoryID, String name, List<String> borderingTerritories, double x, double y) {
+
+	public Territory(String territoryID, String name, List <String> borderingTerritories, double x, double y) {
 		this(territoryID, name, 0, borderingTerritories, x, y);
 	}
 
@@ -30,7 +30,7 @@ public class Territory {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public int getYield() {
 		return this.yield;
 	}
@@ -39,7 +39,7 @@ public class Territory {
 		this.yield = yield;
 	}
 
-	public List<String> getBorderingTerritories() {
+	public List <String> getBorderingTerritories() {
 		return this.borderingTerritories;
 	}
 
@@ -50,7 +50,7 @@ public class Territory {
 	public double getY() {
 		return this.yScale;
 	}
-	
+
 
 	@Override
 	public int hashCode() {
@@ -71,11 +71,9 @@ public class Territory {
 		Territory other = (Territory) obj;
 		if (territoryID == null) {
 			if (other.territoryID != null)
-				return false;
-		} else if (!territoryID.equals(other.territoryID))
 			return false;
-		return true;
+			} else if (!territoryID.equals(other.territoryID))
+				return false;
+			return true;
 	}
-
-
 }

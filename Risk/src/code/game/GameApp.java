@@ -10,5 +10,4 @@ public class GameApp {
 		Game g = new Game(gui);
 		g.setup();
 	}
-
 }

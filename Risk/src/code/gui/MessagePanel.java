@@ -1,7 +1,6 @@
 package code.gui;
 
 import java.awt.Dimension;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,7 +11,7 @@ public class MessagePanel extends JPanel {
 	private int height;
 	private JLabel label;
 	private JButton cancel;
-	
+
 	public MessagePanel(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -21,19 +20,18 @@ public class MessagePanel extends JPanel {
 		this.add(this.label);
 		this.add(this.cancel);
 	}
-	
+
 	public void updateMessage(String message) {
 		this.label.setText(message);
 		this.add(this.label);
 	}
-	
+
 	public void setButtonVisible(boolean isVisible) {
 		this.cancel.setVisible(isVisible);
 	}
-	
+
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(this.width, this.height);
 	}
-	
 }
