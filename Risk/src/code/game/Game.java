@@ -11,7 +11,7 @@ import java.util.Set;
 import code.gui.RiskUI;
 
 public class Game {
-
+	
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -135,6 +135,7 @@ public class Game {
 	}
 
 	public void reinforceTerritories() {
+		Player curPlayer = getPlayerByID(currTurn);
 		int totalReinforcements = 0;
 		for (Player player: players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements();
@@ -207,6 +208,7 @@ public class Game {
 		return reinforcements;
 	}
 
+
 	public boolean canAttack(Territory attackingTerritory, Territory defendingTerritory) {
 		Player curPlayer = players.get(currTurn);
 		if (attackingTerritory.getYield() <2) {
@@ -237,6 +239,7 @@ public class Game {
 			for (int currRoll = 0; currRoll <defendingDiceRolls; currRoll++) {
 				defendingPlayerRolls.add(rollDice());
 			}
+
 			for (int rolls = 0; rolls <defendingDiceRolls; rolls++) {
 				int maxAttack = Collections.max(attackingPlayerRolls);
 				int maxDefend = Collections.max(defendingPlayerRolls);
