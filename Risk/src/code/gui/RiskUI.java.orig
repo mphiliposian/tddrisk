@@ -1,12 +1,16 @@
 package code.gui;
 
 import java.awt.Color;
-import java.awt.event.ActionListener;
 import java.util.List;
+<<<<<<< HEAD
+=======
+
+>>>>>>> cancelButton
 import code.game.Player;
 import code.game.Territory;
 
 public interface RiskUI {
+<<<<<<< HEAD
 	void initializeUI(List <Territory> territories);
 	int playerCountPrompt();
 	void createPlayerDisplay(List <Player> players);
@@ -15,6 +19,22 @@ public interface RiskUI {
 	void updateTerritoryDisplay(Territory territory, Color color);
 	Territory territoryPrompt(String message);
 	void setCancelButtonVisible(boolean isVisible);
-	void addCancelButtonListener(ActionListener listener);
 	int reinforcementCountPrompt(int max, String title, String message);
+=======
+
+	void initializeUI(List<Territory> territories);
+	
+	int playerCountPrompt();
+	
+	void createPlayerDisplay(List<Player> players);
+	
+	void createMapDisplay(List<Territory> territories);
+	
+	void updatePlayerDisplay(int activePlayer);
+	
+	void updateTerritoryDisplay(Territory territory, Color color);
+	
+	Territory territoryPrompt(String message);
+	
+>>>>>>> cancelButton
 }
