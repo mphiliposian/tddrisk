@@ -15,12 +15,12 @@ public class TerritoryReader {
 
 	public Territory parseTerritory(String string) {
 		String[] territoryInfo = string.split(" \\| ");
-		String coordinates = territoryInfo[3].replace("(", "").replace(")", "").replace(" ", "");
+		String coordinates = territoryInfo[2].replace("(", "").replace(")", "").replace(" ", "");
 		Double xScale = Double.parseDouble(coordinates.substring(0, coordinates.indexOf(",")));
 		Double yScale = Double.parseDouble(coordinates.substring(coordinates.indexOf(",") + 1, coordinates.length()));
 		return new Territory(territoryInfo[0],
-			territoryInfo[1],
-			new ArrayList <String> (Arrays.asList(territoryInfo[2]
+			Messages.getTerritoryString("Game."+territoryInfo[0]),
+			new ArrayList <String> (Arrays.asList(territoryInfo[1]
 				.replace("[", "")
 				.replace("]", "")
 				.split(","))),
@@ -33,7 +33,6 @@ public class TerritoryReader {
 		String currContinent = "NA";
 		String line = null;
 		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-			reader.readLine();
 			while (((line = reader.readLine()) != null)) {
 				if (!line.isEmpty()) {
 					Territory territory = this.parseTerritory(line);
