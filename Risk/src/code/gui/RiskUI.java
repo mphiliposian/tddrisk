@@ -17,4 +17,5 @@ public interface RiskUI {
 	void setCancelButtonVisible(boolean isVisible);
 	void addCancelButtonListener(ActionListener listener);
 	int reinforcementCountPrompt(int max, String title, String message);
+	void displayMessage(String message);
 }

@@ -42,7 +42,7 @@ public class TestAttacking {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertTrue(game.canAttack(player1Territory, player2Territory));
+		assertTrue(game.canAttack(player1Territory) && game.attackable(player1Territory , player2Territory));
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class TestAttacking {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertFalse(game.canAttack(player1Territory, player2Territory));
+		assertFalse(game.canAttack(player1Territory) && game.attackable(player1Territory , player2Territory));
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class TestAttacking {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertFalse(game.canAttack(player3Territory, player2Territory));
+		assertFalse(game.canAttack(player3Territory) && game.attackable(player3Territory , player2Territory));
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class TestAttacking {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertFalse(game.canAttack(player1Territory, alsoPlayer1Territory));
+		assertFalse(game.canAttack(player1Territory) && game.attackable(player1Territory , alsoPlayer1Territory));
 	}
 
 	@Test
@@ -107,6 +107,6 @@ public class TestAttacking {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertFalse(game.canAttack(player1Territory, player2Territory));
+		assertFalse(game.canAttack(player1Territory) && game.attackable(player1Territory , player2Territory));
 	}
 }

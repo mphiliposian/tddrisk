@@ -116,6 +116,7 @@ public class TestPlayerSetup {
 			.addMockedMethod("initializeReinforcements")
 			.addMockedMethod("claimTerritories")
 			.addMockedMethod("reinforceTerritories")
+			.addMockedMethod("battlePhase")
 			.createStrictMock();
 		g.createPlayers();
 		EasyMock.expectLastCall();
@@ -130,6 +131,8 @@ public class TestPlayerSetup {
 		fakeUI.updatePlayerDisplay(0);
 		EasyMock.expectLastCall();
 		g.placeInitialReinforcements();
+		EasyMock.expectLastCall();
+		g.battlePhase();
 		EasyMock.expectLastCall();
 		EasyMock.replay(fakeUI);
 		EasyMock.replay(g);

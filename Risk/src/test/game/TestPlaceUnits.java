@@ -47,7 +47,7 @@ public class TestPlaceUnits {
 	}
 
 	private void createMockedTerritores(RiskUI ui) {
-		Map <String, Set <Territory>> continents = new TerritoryReader().readTerritories("TerritoryTestMap.txt");
+		Map <String, Set <Territory>> continents = new TerritoryReader().readTerritories("Testmap.txt");
 		List <Territory> territories = new ArrayList <> ();
 		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
 		int currTerritory = 0;

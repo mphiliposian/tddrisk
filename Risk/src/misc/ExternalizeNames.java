@@ -17,9 +17,9 @@ import code.game.Territory;
 public class ExternalizeNames {
 
 	public static void main(String[] args) {
-		String fileName = "TerritoryMap.txt";
-		String mapName = "map.txt";
-		String names = "names.properties";
+		String fileName = "TerritoryTestMap.txt";
+		String mapName = "Testmap.txt";
+		String names = "Testnames.properties";
 		String line = null;
 		String[] ps = null;
 		String territoryName;

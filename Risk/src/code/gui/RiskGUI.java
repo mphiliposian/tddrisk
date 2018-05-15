@@ -173,4 +173,9 @@ public class RiskGUI implements RiskUI {
 	public void addCancelButtonListener(ActionListener listener) {
 		this.messagePanel.addCancelButtonListener(listener);
 	}
+
+	@Override
+	public void displayMessage(String message) {
+		this.messagePanel.updateMessage(message);
+	}
 }

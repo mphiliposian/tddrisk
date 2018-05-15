@@ -17,7 +17,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -128,7 +128,7 @@ public class Game {
 		ui.createPlayerDisplay(players);
 		ui.updatePlayerDisplay(0);
 		placeInitialReinforcements();
-		battle();
+		battlePhase();
 	}
 
 	public Player getPlayerByID(int playerID) {
@@ -141,10 +141,10 @@ public class Game {
 			autoClaim();
 			autoReinforce();
 		} else {
-		claimTerritories();
-		reinforceTerritories();
+			claimTerritories();
+			reinforceTerritories();
 		}
-		
+
 	}
 
 	public void reinforceTerritories() {
@@ -221,16 +221,25 @@ public class Game {
 	}
 
 
-	public boolean canAttack(Territory attackingTerritory, Territory defendingTerritory) {
-		
+	public boolean canAttack(Territory attackingTerritory) {
 		Player curPlayer = players.get(currTurn);
-		if (attackingTerritory.getYield() <2) {
+
+		if (attackingTerritory.getYield() < 2) {
 			return false;
 		}
+
 		Set <Territory> curPlayersOwnedTerritories = playersTerritories.get(curPlayer);
 		if (!curPlayersOwnedTerritories.contains(attackingTerritory)) {
 			return false;
 		}
+
+		return true;
+	}
+
+	public boolean attackable(Territory attackingTerritory, Territory defendingTerritory) {
+		Player curPlayer = players.get(currTurn);
+		Set <Territory> curPlayersOwnedTerritories = playersTerritories.get(curPlayer);
+
 		if (curPlayersOwnedTerritories.contains(defendingTerritory)) {
 			return false;
 		}
@@ -238,58 +247,65 @@ public class Game {
 		return connectedTerritories.contains(defendingTerritory.getTerritoryID());
 	}
 
-	public void battle() {
+	public void battlePhase() {
 		while(true) {
 			ui.setCancelButtonVisible(false);
-			Player curPlayer = players.get(currTurn);
-			Territory attackingTerritory = ui.territoryPrompt("Select one of your territories to attack with");
-			if (attackingTerritory.equals(Territory.END_TERRITORY)){
+			Territory attacker = ui.territoryPrompt("Select one of your territories to attack with");
+			if (attacker.equals(Territory.END_TERRITORY)){
 				break;
 			}
-			ui.setCancelButtonVisible(true);
-			Territory defendingTerritory = ui.territoryPrompt("Select an enemy territories to attack");
-			if (defendingTerritory.equals(Territory.CANCEL_TERRITORY)){
+			if (!canAttack(attacker)) {
 				continue;
 			}
-			if (defendingTerritory.equals(Territory.END_TERRITORY)){
+			ui.setCancelButtonVisible(true);
+			Territory defender = ui.territoryPrompt("Select an enemy territories to attack");
+			if (defender.equals(Territory.CANCEL_TERRITORY)){
+				continue;
+			}
+			if (defender.equals(Territory.END_TERRITORY)){
 				break;
 			}
-			if (canAttack(attackingTerritory, defendingTerritory)) {
-				List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
-				List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
-				int minUnits = Math.min(attackingTerritory.getYield()-1, 3);
-				int selectedAttackingUnits = ui.reinforcementCountPrompt(minUnits, "Select number of units to attack with.", "Reinforcements");
-				if (selectedAttackingUnits < 1) {
-					continue;
-				}
-				int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
-				for (int currRoll = 0; currRoll <attackingDiceRolls; currRoll++) {
-					attackingPlayerRolls.add(rollDice());
-				}
-				int defendingDiceRolls = Math.min(defendingTerritory.getYield(), 2);
-				for (int currRoll = 0; currRoll <defendingDiceRolls; currRoll++) {
-					defendingPlayerRolls.add(rollDice());
-				}
-				System.out.println(attackingPlayerRolls);
-				System.out.println(defendingPlayerRolls);
-				int minRolls = Math.min(attackingDiceRolls,defendingDiceRolls);
-				for (int rolls = 0; rolls < minRolls; rolls++) {
-					int maxAttack = Collections.max(attackingPlayerRolls);
-					int maxDefend = Collections.max(defendingPlayerRolls);
-					if (maxAttack> maxDefend) {
-						defendingTerritory.setYield(defendingTerritory.getYield() - 1);
-					} else {
-						attackingTerritory.setYield(attackingTerritory.getYield() - 1);
-					}
-					int idMaxAtk = attackingPlayerRolls.indexOf(maxAttack);
-					int idMaxDef = defendingPlayerRolls.indexOf(maxDefend);
-					attackingPlayerRolls.remove(idMaxAtk);
-					defendingPlayerRolls.remove(idMaxDef);
-				}
-				ui.updateTerritoryDisplay(attackingTerritory, curPlayer.getColor());
-				Player defendingPlayer = findOwnerOfterritory(defendingTerritory);
-				ui.updateTerritoryDisplay(defendingTerritory, defendingPlayer.getColor());
+			battle(attacker, defender);
+		}
+	}
+
+	public void battle(Territory attacker, Territory defender) {
+		if (attackable(attacker, defender)) {
+			List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
+			List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
+			int minUnits = Math.min(attacker.getYield()-1, 3);
+			int selectedAttackingUnits = ui.reinforcementCountPrompt(minUnits, "Select number of units to attack with.", "Reinforcements");
+			if (selectedAttackingUnits < 1) {
+				ui.displayMessage("You must have at least 2 units to attack!");
+				return;
 			}
+			int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
+			for (int currRoll = 0; currRoll <attackingDiceRolls; currRoll++) {
+				attackingPlayerRolls.add(rollDice());
+			}
+			int defendingDiceRolls = Math.min(defender.getYield(), 2);
+			for (int currRoll = 0; currRoll <defendingDiceRolls; currRoll++) {
+				defendingPlayerRolls.add(rollDice());
+			}
+			System.out.println(attackingPlayerRolls);
+			System.out.println(defendingPlayerRolls);
+			int minRolls = Math.min(attackingDiceRolls,defendingDiceRolls);
+			for (int rolls = 0; rolls < minRolls; rolls++) {
+				int maxAttack = Collections.max(attackingPlayerRolls);
+				int maxDefend = Collections.max(defendingPlayerRolls);
+				if (maxAttack> maxDefend) {
+					defender.setYield(defender.getYield() - 1);
+				} else {
+					attacker.setYield(attacker.getYield() - 1);
+				}
+				int idMaxAtk = attackingPlayerRolls.indexOf(maxAttack);
+				int idMaxDef = defendingPlayerRolls.indexOf(maxDefend);
+				attackingPlayerRolls.remove(idMaxAtk);
+				defendingPlayerRolls.remove(idMaxDef);
+			}
+			ui.updateTerritoryDisplay(attacker, players.get(currTurn).getColor());
+			Player defendingPlayer = findOwnerOfterritory(defender);
+			ui.updateTerritoryDisplay(defender, defendingPlayer.getColor());
 		}
 	}
 
@@ -300,7 +316,7 @@ public class Game {
 				return player;
 			}
 		}
-		return null;
+		return new Player(0);
 	}
 
 	public int rollDice() {
