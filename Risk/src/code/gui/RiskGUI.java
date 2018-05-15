@@ -158,7 +158,7 @@ public class RiskGUI implements RiskUI {
 		});
 		JDialog sliderDialog = sliderPane.createDialog(frame, title);
 		sliderDialog.setVisible(true);
-		if ((int) sliderPane.getValue() == JOptionPane.CANCEL_OPTION) {
+		if (sliderPane.getValue() == null || (int) sliderPane.getValue() == JOptionPane.CANCEL_OPTION) {
 			return -1;
 		}
 		return slider.getValue();
