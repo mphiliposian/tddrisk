@@ -27,9 +27,17 @@ public class Game {
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
 	private final int NUM_OF_TERRITORIES = 42;
+<<<<<<< Risk/src/code/game/Game.java
+	private final int MIN_NUM_OF_UNITS_PER_TURN = 3;
+
+	private List<Player> players;
+	private List<Territory> territories;
+	private Map<Player, Set<Territory>> playersTerritories;
+=======
 	private List <Player> players;
 	private List <Territory> territories;
 	private Map <Player, Set <Territory>> playersTerritories;
+>>>>>>> Risk/src/code/game/Game.java
 	private RiskUI ui;
 	private int currTurn;
 	private Map <String, Set <Territory>> continents;
@@ -59,6 +67,11 @@ public class Game {
 		playersTerritories = playerTerritories;
 		rand = new Random();
 	}
+<<<<<<< Risk/src/code/game/Game.java
+
+
+=======
+>>>>>>> Risk/src/code/game/Game.java
 
 	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories, int selectedRandom) {
 		this.players = players;
@@ -233,6 +246,43 @@ public class Game {
 	}
 
 
+<<<<<<< Risk/src/code/game/Game.java
+
+	public int getReinforcementsFromTerritories() {
+		Player currPlayer = getPlayerByID(currTurn);
+		int reinforcements = (int)(currPlayer.getNumOfTerritories() / 3);
+		if (MIN_NUM_OF_UNITS_PER_TURN > reinforcements) {
+			return MIN_NUM_OF_UNITS_PER_TURN;
+		}
+		return reinforcements;
+	}
+
+
+
+	public int getTotalReinforcements() {
+		return getReinforcementsFromContinents() 
+				+ getReinforcementsFromTerritories();
+	}
+
+
+
+	public void allocatePhase() {
+		Player currPlayer = getPlayerByID(currTurn);
+		int initialReinforcements = currPlayer.getReinforcements() 
+				+ this.getTotalReinforcements();
+		currPlayer.setReinforcements(initialReinforcements);
+		while(currPlayer.getReinforcements() > 0) {
+			Territory territory = ui.territoryPrompt("");
+			if (playerOwnsTerritory(currPlayer, territory)) {
+				placeOneUnit(territory);
+				ui.updatePlayerDisplay(currTurn);
+			}
+		}	
+	}
+	
+
+}
+=======
 	public boolean canAttack(Territory attackingTerritory) {
 		Player curPlayer = players.get(currTurn);
 
@@ -489,3 +539,4 @@ public class Game {
 
 
 }
+>>>>>>> Risk/src/code/game/Game.java
