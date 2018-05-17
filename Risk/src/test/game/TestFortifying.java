@@ -64,4 +64,21 @@ public class TestFortifying {
 		assertEquals(game.canMoveTo(start, end), false);
 	}
 	
+	@Test
+	public void moveToSameTerritory() {
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set <Territory> ownedTerritories = new HashSet <> ();
+		Territory start = new Territory("NA1", "America1", 0, new ArrayList <String> (), 0, 0);
+		Territory end = new Territory("NA1", "America1", 0, new ArrayList <String> (), 0, 0);
+		ownedTerritories.add(start);
+		ownedTerritories.add(end);
+		ArrayList <Player> players = new ArrayList <> ();
+		players.add(player);
+		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories);
+		assertEquals(game.canMoveTo(start, end), false);
+	}
+	
 }
