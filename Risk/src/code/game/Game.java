@@ -394,6 +394,9 @@ public class Game {
 	}
 
 	public boolean canMoveTo(Territory startingTerritory, Territory endTerritory) {
+		if (startingTerritory.equals(endTerritory)){
+			return false;
+		}
 		List<Territory> passedThrough = new ArrayList<>();
 		Stack<Territory> depthFirstSearch = new Stack<>();
 		depthFirstSearch.push(startingTerritory);
