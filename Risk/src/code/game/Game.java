@@ -393,8 +393,37 @@ public class Game {
 
 	}
 
-	public boolean canMoveto(Territory start, Territory end) {
-		return true;
+	public boolean canMoveTo(Territory startingTerritory, Territory endTerritory) {
+		List<Territory> passedThrough = new ArrayList<>();
+		Stack<Territory> depthFirstSearch = new Stack<>();
+		depthFirstSearch.push(startingTerritory);
+
+		while (!depthFirstSearch.isEmpty()) {
+			Territory curTerritory = depthFirstSearch.pop();
+			if (!passedThrough.contains(curTerritory)) {
+				passedThrough.add(curTerritory);
+				if (curTerritory.equals(endTerritory)){
+					return true;
+				}
+				List<String> connectedTerritories = curTerritory.getBorderingTerritories();
+				for (String territoryId : connectedTerritories) {
+					Territory newTerritory = this.getTerritory(territoryId);
+					if (newTerritory == null) {
+						throw new NullPointerException();
+					}
+					depthFirstSearch.push(newTerritory);
+				}
+			}
+		}
+		return false;
+	}
+
+	private Territory getTerritory(String territoryId) {
+		for(Territory territory : this.territories) {
+			if (territory.getTerritoryID().equals(territoryId))
+				return territory;
+		}
+		return null;
 	}
 
 	
