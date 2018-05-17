@@ -393,7 +393,7 @@ public class Game {
 
 	}
 
-	public boolean canMoveto() {
+	public boolean canMoveto(Territory start, Territory end) {
 		return true;
 	}
 

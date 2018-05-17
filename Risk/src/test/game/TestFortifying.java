@@ -23,14 +23,33 @@ public class TestFortifying {
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		Player player = new Player(0);
 		Set <Territory> ownedTerritories = new HashSet <> ();
-		ownedTerritories.add(new Territory("NA1", "America1", 0, new ArrayList <String> (), 0, 0));
-		ownedTerritories.add(new Territory("NA2", "America1", 0, new ArrayList <String> (), 0, 0));
+		Territory start = new Territory("NA1", "America1", 0, new ArrayList <String> (), 0, 0);
+		Territory end = new Territory("NA2", "America1", 0, new ArrayList <String> (), 0, 0);
+		ownedTerritories.add(start);
+		ownedTerritories.add(end);
 		ArrayList <Player> players = new ArrayList <> ();
 		players.add(player);
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertEquals(game.canMoveto(), true);
+		assertEquals(game.canMoveto(start, end), true);
+	}
+	
+	@Test
+	public void TerritoriesNotConnectedTogether() {
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set <Territory> ownedTerritories = new HashSet <> ();
+		Territory start = new Territory("NA1", "America1", 0, new ArrayList <String> (), 0, 0);
+		Territory end = new Territory("NA3", "America1", 0, new ArrayList <String> (), 0, 0);
+		ownedTerritories.add(start);
+		ownedTerritories.add(end);
+		ArrayList <Player> players = new ArrayList <> ();
+		players.add(player);
+		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories);
+		assertEquals(game.canMoveto(start, end), false);
 	}
 	
 }
