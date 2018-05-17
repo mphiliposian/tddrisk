@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
+import java.util.Stack;
 
 import org.easymock.EasyMock;
 
@@ -315,25 +318,25 @@ public class Game {
 		if (defender.getYield() == 0) {
 			maxUnits = attacker.getYield()-1;
 			int attackingUnits2Move = -1;
-			
+
 			ui.updateTerritoryDisplay(attacker, players.get(currTurn).getColor());
 			ui.updateTerritoryDisplay(defender, players.get(currTurn).getColor());
-			
+
 			while(attackingUnits2Move < 0) {
 				attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements");
 			}
 			defendingPlayer = findOwnerOfterritory(defender);
 			Set<Territory> defendingPlayersTerritories = this.playersTerritories.get(defendingPlayer);
 			defendingPlayersTerritories.remove(defender);
-			
+
 			Player currPlayer = players.get(currTurn);
 			Set<Territory> attackingPlayersTerritories = this.playersTerritories.get(currPlayer);
 			attackingPlayersTerritories.add(defender);
-			
+
 			defender.setYield(attackingUnits2Move);
 			attacker.setYield(attacker.getYield() - attackingUnits2Move);
 		}
-		
+
 		ui.updateTerritoryDisplay(attacker, players.get(currTurn).getColor());
 		defendingPlayer = findOwnerOfterritory(defender);
 		ui.updateTerritoryDisplay(defender, defendingPlayer.getColor());
@@ -389,4 +392,11 @@ public class Game {
 		this.ui.updatePlayerDisplay(0);
 
 	}
+
+	public boolean canMoveto() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
 }
