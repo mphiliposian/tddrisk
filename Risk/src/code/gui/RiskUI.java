@@ -16,6 +16,8 @@ public interface RiskUI {
 	Territory territoryPrompt(String message);
 	void setCancelButtonVisible(boolean isVisible);
 	void addCancelButtonListener(ActionListener listener);
-	int reinforcementCountPrompt(int max, String title, String message);
+	int reinforcementCountPrompt(int max, String title, String message, int jOptionType);
 	void displayMessage(String message);
+	void setEndPhaseButtonVisible(boolean isVisible);
+	void addEndPhaseButtonListener(ActionListener listener);
 }

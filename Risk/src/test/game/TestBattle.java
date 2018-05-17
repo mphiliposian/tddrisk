@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import javax.swing.JOptionPane;
+
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +44,7 @@ public class TestBattle {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories, 2);
-		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements")).andReturn(3);
+		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		EasyMock.replay(ui);
 		game.battle(player1Territory, player2Territory);
 		assertEquals(player1Territory.getYield(), 10);
@@ -63,7 +66,7 @@ public class TestBattle {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories, 9);
-		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements")).andReturn(3);
+		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		EasyMock.replay(ui);
 		game.battle(player1Territory, player2Territory);
 		assertEquals(player1Territory.getYield(), 9);
@@ -84,7 +87,7 @@ public class TestBattle {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories, 4);
-		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements")).andReturn(3);
+		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		EasyMock.replay(ui);
 		game.battle(player1Territory, player2Territory);
 		assertEquals(player1Territory.getYield(), 8);

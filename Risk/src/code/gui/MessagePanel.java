@@ -17,7 +17,7 @@ public class MessagePanel extends JPanel {
 	private int height;
 	private JLabel label;
 	private JButton cancelButton;
-	private JPanel cancelPanel;
+	private JButton endPhaseButton;
 	
 	public MessagePanel(int width, int height) {
 		this.width = width;
@@ -25,14 +25,14 @@ public class MessagePanel extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.add(new JPanel());
 		this.label = new JLabel();
-		this.label.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.add(this.label);
-		cancelPanel = new JPanel();
-		cancelPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		this.cancelButton = createCancelButton();
+		JPanel cancelPanel = new JPanel();
+		cancelPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		cancelPanel.add(cancelButton);
 		this.add(cancelPanel);
-		
+		this.endPhaseButton = createEndPhaseButton();
+		this.add(endPhaseButton);
 	}
 	
 	private JButton createCancelButton() {
@@ -40,9 +40,18 @@ public class MessagePanel extends JPanel {
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setOpaque(true);
-		cancelButton.setVisible(true);
+		cancelButton.setVisible(false);
 		cancelButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		return cancelButton;
+	}
+	
+	private JButton createEndPhaseButton() {
+		JButton endPhaseButton = new JButton("End Phase");
+		endPhaseButton.setForeground(Color.WHITE);
+		endPhaseButton.setBackground(new Color(75 , 200, 75));
+		endPhaseButton.setVisible(false);
+		endPhaseButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		return endPhaseButton;
 	}
 	
 	public void updateMessage(String message) {
@@ -61,5 +70,14 @@ public class MessagePanel extends JPanel {
 	public void addCancelButtonListener(ActionListener listener) {
 		this.cancelButton.addActionListener(listener);
 	}
+	
+	public void setEndPhaseButtonVisible(boolean isVisible) {
+		this.endPhaseButton.setVisible(isVisible);
+	}
+	
+	public void addEndPhaseButtonListener(ActionListener listener) {
+		this.endPhaseButton.addActionListener(listener);
+	}
+	
 	
 }

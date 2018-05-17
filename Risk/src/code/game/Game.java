@@ -14,6 +14,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.swing.JOptionPane;
+
 import org.easymock.EasyMock;
 
 import code.gui.RiskUI;
@@ -118,6 +120,11 @@ public class Game {
 	public int currentTurn() {
 		return currTurn;
 	}
+	
+	public void turn() {
+		battlePhase();
+		fortify();
+	}
 
 	public void switchTurn() {
 		this.currTurn = (currTurn + 1) % players.size();
@@ -131,7 +138,9 @@ public class Game {
 		ui.createPlayerDisplay(players);
 		ui.updatePlayerDisplay(0);
 		placeInitialReinforcements();
-		battlePhase();
+		while(true) {
+		turn();
+		}
 	}
 
 	public Player getPlayerByID(int playerID) {
@@ -253,6 +262,7 @@ public class Game {
 	public void battlePhase() {
 
 		String message = "Select one of your territories to attack with";
+		ui.setEndPhaseButtonVisible(true);
 		while(true) {
 			ui.setCancelButtonVisible(false);
 			Territory attacker = ui.territoryPrompt(message);
@@ -286,7 +296,7 @@ public class Game {
 		List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
 		List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
 		int maxUnits = Math.min(attacker.getYield()-1, 3);
-		int selectedAttackingUnits = ui.reinforcementCountPrompt(maxUnits, "Select number of units to attack with.", "Reinforcements");
+		int selectedAttackingUnits = ui.reinforcementCountPrompt(maxUnits, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION);
 		if (selectedAttackingUnits < 1) {
 			ui.displayMessage("You must have at least 2 units to attack!");
 			return;
@@ -323,7 +333,7 @@ public class Game {
 			ui.updateTerritoryDisplay(defender, players.get(currTurn).getColor());
 
 			while(attackingUnits2Move < 0) {
-				attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements");
+				attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE);
 			}
 			defendingPlayer = findOwnerOfterritory(defender);
 			Set<Territory> defendingPlayersTerritories = this.playersTerritories.get(defendingPlayer);
@@ -392,6 +402,53 @@ public class Game {
 		this.ui.updatePlayerDisplay(0);
 
 	}
+	
+	public void fortify() {
+		String message = "Select one of your territories to move units from";
+		boolean moved = false;
+		while(!moved) {
+			ui.setCancelButtonVisible(false);
+			Territory startingTerritory = ui.territoryPrompt(message);
+			if (startingTerritory.equals(Territory.END_TERRITORY)){
+				break;
+			}
+			if (!canAttack(startingTerritory)) {
+				message = "Invalid order: You must select a territory that you own with at least 2 units!";
+				continue;
+			}
+			ui.setCancelButtonVisible(true);
+			Territory endTerritory = ui.territoryPrompt("Select another owned territory that is connected");
+			if (endTerritory.equals(Territory.CANCEL_TERRITORY)){
+				continue;
+			}
+			if (endTerritory.equals(Territory.END_TERRITORY)){
+				break;
+			}
+			if (canMoveTo(startingTerritory, endTerritory)) {
+				moved = moveUnits(startingTerritory, endTerritory);
+			}
+			else {
+				message = "Invalid order: Select one of your territories to move units from";
+			}
+		}
+		ui.setCancelButtonVisible(false);
+		ui.setEndPhaseButtonVisible(false);
+	}
+
+	private boolean moveUnits(Territory startingTerritory, Territory endTerritory) {
+		int maxUnits = startingTerritory.getYield()-1;
+		int unitsToMove = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION);
+		if (unitsToMove < 1) {
+			ui.displayMessage("Select one of your territories to move units from");
+			return false;
+		}
+		
+		endTerritory.setYield(unitsToMove + endTerritory.getYield());
+		startingTerritory.setYield(startingTerritory.getYield() - unitsToMove);
+		ui.updateTerritoryDisplay(startingTerritory, players.get(currTurn).getColor());
+		ui.updateTerritoryDisplay(endTerritory, players.get(currTurn).getColor());
+		return true;
+	}
 
 	public boolean canMoveTo(Territory startingTerritory, Territory endTerritory) {
 		if (startingTerritory.equals(endTerritory)){
@@ -401,7 +458,7 @@ public class Game {
 		Stack<Territory> depthFirstSearch = new Stack<>();
 		depthFirstSearch.push(startingTerritory);
 		Player curPlayer = players.get(currTurn);
-	Set<Territory> ownedTerritories = playersTerritories.get(curPlayer);
+		Set<Territory> ownedTerritories = playersTerritories.get(curPlayer);
 		while (!depthFirstSearch.isEmpty()) {
 			Territory curTerritory = depthFirstSearch.pop();
 			if (!passedThrough.contains(curTerritory) && ownedTerritories.contains(curTerritory)) {
@@ -430,5 +487,5 @@ public class Game {
 		return null;
 	}
 
-	
+
 }

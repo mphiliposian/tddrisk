@@ -94,8 +94,8 @@ public class RiskGUI implements RiskUI {
 		int windowHeight = scaledHeight.intValue();
 		messagePanel = new MessagePanel(windowWidth, 30);
 		messagePanel.updateMessage("Welcome to Risk.");
-		messagePanel.setCancelButtonVisible(false);
 		messagePanel.addCancelButtonListener(new CancelButtonListener(this));
+		messagePanel.addEndPhaseButtonListener(new EndAttackingPhaseListener(this));
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
 		mapPanel.addSelectionListeners(this);
 		this.addComponentToFrame(messagePanel, 0, 0, 3, 1);
@@ -135,8 +135,8 @@ public class RiskGUI implements RiskUI {
 	}
 
 	@Override
-	public int reinforcementCountPrompt(int max, String title, String message) {
-		JOptionPane sliderPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+	public int reinforcementCountPrompt(int max, String title, String message, int jOptionType) {
+		JOptionPane sliderPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, jOptionType);
 		JSlider slider = new JSlider();
 		slider.setMinimum(1);
 		slider.setMaximum(max);
@@ -177,5 +177,15 @@ public class RiskGUI implements RiskUI {
 	@Override
 	public void displayMessage(String message) {
 		this.messagePanel.updateMessage(message);
+	}
+	
+	@Override
+	public void setEndPhaseButtonVisible(boolean isVisible) {
+		this.messagePanel.setEndPhaseButtonVisible(isVisible);
+	}
+	
+	@Override
+	public void addEndPhaseButtonListener(ActionListener listener) {
+		this.messagePanel.addEndPhaseButtonListener(listener);
 	}
 }
