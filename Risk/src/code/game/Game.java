@@ -400,10 +400,11 @@ public class Game {
 		List<Territory> passedThrough = new ArrayList<>();
 		Stack<Territory> depthFirstSearch = new Stack<>();
 		depthFirstSearch.push(startingTerritory);
-
+		Player curPlayer = players.get(currTurn);
+	Set<Territory> ownedTerritories = playersTerritories.get(curPlayer);
 		while (!depthFirstSearch.isEmpty()) {
 			Territory curTerritory = depthFirstSearch.pop();
-			if (!passedThrough.contains(curTerritory)) {
+			if (!passedThrough.contains(curTerritory) && ownedTerritories.contains(curTerritory)) {
 				passedThrough.add(curTerritory);
 				if (curTerritory.equals(endTerritory)){
 					return true;
