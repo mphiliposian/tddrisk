@@ -394,8 +394,7 @@ public class Game {
 	}
 
 	public boolean canMoveto() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	
