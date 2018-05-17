@@ -5,13 +5,14 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+<<<<<<< HEAD
+=======
 
 import javax.swing.JButton;
+>>>>>>> cancelButton
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -92,13 +93,20 @@ public class RiskGUI implements RiskUI {
 		Double scaledHeight = height * 0.6;
 		int windowWidth = scaledWidth.intValue();
 		int windowHeight = scaledHeight.intValue();
-		messagePanel = new MessagePanel(windowWidth, 30);
-		messagePanel.updateMessage("Welcome to Risk.");
-		messagePanel.addCancelButtonListener(new CancelButtonListener(this));
-		messagePanel.addEndPhaseButtonListener(new EndAttackingPhaseListener(this));
+		messagePanel = new MessagePanel(windowWidth, 30, this);
+		messagePanel.updateMessage("Goddag til dig!");
+<<<<<<< HEAD
+		messagePanel.setButtonVisible(false);
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
 		mapPanel.addSelectionListeners(this);
 		this.addComponentToFrame(messagePanel, 0, 0, 3, 1);
+=======
+		
+		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
+		mapPanel.addSelectionListeners(this);
+		
+		this.addComponentToFrame(messagePanel, 0, 0, 1, 1);
+>>>>>>> cancelButton
 		this.addComponentToFrame(mapPanel, 0, 1, 1, 1);
 		frame.pack();
 	}
@@ -115,7 +123,6 @@ public class RiskGUI implements RiskUI {
 
 	@Override
 	public Territory territoryPrompt(String message) {
-		this.messagePanel.updateMessage(message);
 		try {
 			return this.waitForTerritory();
 		} catch (Exception e) {
@@ -124,9 +131,7 @@ public class RiskGUI implements RiskUI {
 	}
 
 	public void selectTerritory(Territory territory) {
-		if (!this.selectedTerritory.isDone()) {
-			this.selectedTerritory.complete(territory);
-		}
+		this.selectedTerritory.complete(territory);
 	}
 
 	private Territory waitForTerritory() throws InterruptedException, ExecutionException {
@@ -134,17 +139,17 @@ public class RiskGUI implements RiskUI {
 		return selectedTerritory.get();
 	}
 
+<<<<<<< HEAD
 	@Override
-	public int reinforcementCountPrompt(int max, String title, String message, int jOptionType) {
-		JOptionPane sliderPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, jOptionType);
+	public int reinforcementCountPrompt(int max, String title, String message) {
+		JOptionPane sliderPane = new JOptionPane();
 		JSlider slider = new JSlider();
-		slider.setMinimum(1);
 		slider.setMaximum(max);
-		slider.setValue(1);
-		slider.setMajorTickSpacing(1);
+		slider.setValue(0);
+		slider.setMajorTickSpacing(10);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
-		JLabel countLabel = new JLabel(message + ": 1");
+		JLabel countLabel = new JLabel(message + ": 0");
 		sliderPane.setMessage(new Object[] {
 			countLabel,
 			slider
@@ -158,34 +163,13 @@ public class RiskGUI implements RiskUI {
 		});
 		JDialog sliderDialog = sliderPane.createDialog(frame, title);
 		sliderDialog.setVisible(true);
-		if (sliderPane.getValue() == null || (int) sliderPane.getValue() == JOptionPane.CANCEL_OPTION) {
-			return -1;
-		}
 		return slider.getValue();
 	}
 
 	@Override
 	public void setCancelButtonVisible(boolean isVisible) {
-		this.messagePanel.setCancelButtonVisible(isVisible);
+		
 	}
-	
-	@Override
-	public void addCancelButtonListener(ActionListener listener) {
-		this.messagePanel.addCancelButtonListener(listener);
-	}
-
-	@Override
-	public void displayMessage(String message) {
-		this.messagePanel.updateMessage(message);
-	}
-	
-	@Override
-	public void setEndPhaseButtonVisible(boolean isVisible) {
-		this.messagePanel.setEndPhaseButtonVisible(isVisible);
-	}
-	
-	@Override
-	public void addEndPhaseButtonListener(ActionListener listener) {
-		this.messagePanel.addEndPhaseButtonListener(listener);
-	}
+=======
+>>>>>>> cancelButton
 }
