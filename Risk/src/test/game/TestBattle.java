@@ -158,6 +158,31 @@ public class TestBattle {
 		EasyMock.verify(ui);
 	}
 
+	@Test
+	public void PlayerAttacksWith2Units() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		Player player = new Player(0);
+		Set <Territory> ownedTerritories = new HashSet <> ();
+		Territory player1Territory = new Territory("NA1", "murica", 2, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		ownedTerritories.add(player1Territory);
+		ArrayList <Player> players = new ArrayList <> ();
+		players.add(player);
+		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories, 4);
+		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(1);
+		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
+		EasyMock.expectLastCall();
+		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
+		EasyMock.expectLastCall();
+		EasyMock.replay(ui);
+		assertTrue(game.battle(player1Territory, player2Territory));
+		assertEquals(player1Territory.getYield(), 1);
+		assertEquals(player2Territory.getYield(), 1);
+		EasyMock.verify(ui);
+	}
+
 	
 
 	
