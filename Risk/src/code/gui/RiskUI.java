@@ -20,4 +20,6 @@ public interface RiskUI {
 	void displayMessage(String message);
 	void setEndPhaseButtonVisible(boolean isVisible);
 	void addEndPhaseButtonListener(ActionListener listener);
+	void setPhaseText(String phase);
+	void setCardValue(int value);
 }

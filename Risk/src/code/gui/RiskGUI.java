@@ -188,4 +188,14 @@ public class RiskGUI implements RiskUI {
 	public void addEndPhaseButtonListener(ActionListener listener) {
 		this.messagePanel.addEndPhaseButtonListener(listener);
 	}
+
+	@Override
+	public void setPhaseText(String phase) {
+		this.messagePanel.setPhaseText(phase);
+	}
+	
+	@Override
+	public void setCardValue(int value) {
+		this.messagePanel.setCardValue(value);
+	}
 }

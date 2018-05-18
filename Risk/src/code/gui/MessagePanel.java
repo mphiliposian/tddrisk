@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,6 +16,8 @@ public class MessagePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private int width;
 	private int height;
+	private JLabel phaseIndicator;
+	private JLabel cardValueIndicator;
 	private JLabel label;
 	private JButton cancelButton;
 	private JButton endPhaseButton;
@@ -23,6 +26,10 @@ public class MessagePanel extends JPanel {
 		this.width = width;
 		this.height = height;
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		this.phaseIndicator = createPhaseLabel();
+		this.add(phaseIndicator);
+		this.cardValueIndicator = createCardValueLabel();
+		this.add(cardValueIndicator);
 		this.add(new JPanel());
 		this.label = new JLabel();
 		this.add(this.label);
@@ -33,6 +40,18 @@ public class MessagePanel extends JPanel {
 		this.add(cancelPanel);
 		this.endPhaseButton = createEndPhaseButton();
 		this.add(endPhaseButton);
+	}
+	
+	private JLabel createPhaseLabel() {
+		JLabel phaseLabel = new JLabel(" Phase: Default ");
+		phaseLabel.setBorder(BorderFactory.createDashedBorder(null));
+		return phaseLabel;
+	}
+	
+	private JLabel createCardValueLabel() {
+		JLabel cardValueLabel = new JLabel(" Card value: 4 ");
+		cardValueLabel.setBorder(BorderFactory.createDashedBorder(null));
+		return cardValueLabel;
 	}
 	
 	private JButton createCancelButton() {
@@ -79,5 +98,12 @@ public class MessagePanel extends JPanel {
 		this.endPhaseButton.addActionListener(listener);
 	}
 	
+	public void setPhaseText(String phase) {
+		this.phaseIndicator.setText(" Phase: " + phase + " ");
+	}
+	
+	public void setCardValue(int value) {
+		this.cardValueIndicator.setText(" Card value: " + value + " ");
+	}
 	
 }
