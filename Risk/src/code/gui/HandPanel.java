@@ -2,6 +2,7 @@ package code.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class HandPanel extends JPanel {
 		
 		List<Card> cards = new ArrayList<>();
 		for (int i=0; i<4; i++) {
-			cards.add(new Card(new Territory("NA1", "Name", null, 0, 0), CardType.Artillery));
+			cards.add(new Card(new Territory("NA1", "Name", null, 0, 0), CardType.WILD));
 		}
 		frame.add(new HandPanel(cards));
 		frame.pack();
@@ -57,29 +58,41 @@ public class HandPanel extends JPanel {
 			this.card = card;
 			this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 			String type = "";
+			Color color = null;
 			switch(this.card.getCardType()) {
 			case Artillery:
 				type = "A";
+				color = Color.GRAY;
 				break;
 			case Calvary:
 				type = "C";
+				color = Color.GREEN;
 				break;
 			case Infantry:
 				type = "I";
+				color = Color.RED;
 				break;
 			case WILD:
 				type = "W";
+				color = Color.MAGENTA;
 				break;
 			}
+			this.setBackground(color);
 			typeLabel = new JLabel(type);
+			typeLabel.setFont(new Font("Ariel",1,150));
+			typeLabel.setAlignmentX(CENTER_ALIGNMENT);
 			this.add(typeLabel);
+			
 			nameLabel = new JLabel(card.getTerritory().getName());
+			nameLabel.setFont(new Font("Ariel",1,25));
+			nameLabel.setAlignmentX(CENTER_ALIGNMENT);
+			nameLabel.setAlignmentY(CENTER_ALIGNMENT);
 			this.add(nameLabel);
 		}
 		
 		@Override
 		public Dimension getPreferredSize() {
-			return new Dimension(100, 200);
+			return new Dimension(200, 300);
 		}
 	}
 }
