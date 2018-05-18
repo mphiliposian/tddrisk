@@ -176,11 +176,12 @@ public class Game {
 	}
 
 	public void reinforceTerritories() {
-		int totalReinforcements = 0;
+		int totalReinforcements = 0;		
 		for (Player player: players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements();
 		}
-		for (int NumOfTurns = 0; NumOfTurns <totalReinforcements; NumOfTurns++) {
+		
+		for (int NumOfTurns = 0; NumOfTurns < totalReinforcements; NumOfTurns++) {
 			boolean ownedByPlayer = false;
 			while (!ownedByPlayer) {
 				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory"));

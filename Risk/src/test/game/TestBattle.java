@@ -35,6 +35,55 @@ public class TestBattle {
 	}
 
 	@Test
+	public void playerEndsAttackingTurnWithoutPickingTerritory() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		Player player = new Player(0);
+		Set <Territory> ownedTerritories = new HashSet <> ();
+		Territory player1Territory = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA2", "murica2", 8, territoriesConnectedToNA2, 0, 0);
+		ownedTerritories.add(player1Territory);
+		ArrayList <Player> players = new ArrayList <> ();
+		players.add(player);
+		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories, 1);
+		ui.setEndPhaseButtonVisible(true);
+		EasyMock.expectLastCall();
+		ui.setCancelButtonVisible(false);
+		EasyMock.expectLastCall();
+		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(new Territory("End", "null", 0, null, 0, 0));
+		EasyMock.replay(ui);
+		game.battlePhase();
+		EasyMock.verify(ui);
+	}
+	
+	@Test
+	public void playerEndsAttackingTurnAfterPickingTerritory() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		Player player = new Player(0);
+		Set <Territory> ownedTerritories = new HashSet <> ();
+		Territory player1Territory = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA2", "murica2", 8, territoriesConnectedToNA2, 0, 0);
+		ownedTerritories.add(player1Territory);
+		ArrayList <Player> players = new ArrayList <> ();
+		players.add(player);
+		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories, 1);
+		ui.setEndPhaseButtonVisible(true);
+		EasyMock.expectLastCall();
+		ui.setCancelButtonVisible(false);
+		EasyMock.expectLastCall();
+		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
+		ui.setCancelButtonVisible(true);
+		EasyMock.expectLastCall();
+		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(new Territory("End", "null", 0, null, 0, 0));
+		EasyMock.replay(ui);
+		game.battlePhase();
+		EasyMock.verify(ui);
+	}
+	
+	@Test
 	public void player1Wins2Battle() {
 		RiskUI ui = EasyMock.niceMock(RiskUI.class);
 		Player player = new Player(0);
