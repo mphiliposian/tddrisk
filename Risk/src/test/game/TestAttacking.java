@@ -58,7 +58,8 @@ public class TestAttacking {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertFalse(game.canAttack(player1Territory) && game.attackable(player1Territory , player2Territory));
+		assertTrue(game.canAttack(player1Territory));
+		assertFalse(game.attackable(player1Territory , player2Territory));
 	}
 
 	@Test
@@ -66,15 +67,15 @@ public class TestAttacking {
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		Player player = new Player(0);
 		Set <Territory> ownedTerritories = new HashSet <> ();
-		Territory player3Territory = new Territory("NA1", "murica", 2, territoriesConnectedToNA1, 0, 0);
-		Territory player2Territory = new Territory("NA3", "murica2", 1, territoriesConnectedToNA3, 0, 0);
-		ownedTerritories.add(new Territory("NA2", "America", 0, territoriesConnectedToNA2, 0, 0));
+		Territory player3Territory = new Territory("NA1", "murica", 4, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA3", "murica2", 5, territoriesConnectedToNA3, 0, 0);
+		ownedTerritories.add(new Territory("NA2", "America", 3, territoriesConnectedToNA2, 0, 0));
 		ArrayList <Player> players = new ArrayList <> ();
 		players.add(player);
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertFalse(game.canAttack(player3Territory) && game.attackable(player3Territory , player2Territory));
+		assertFalse(game.canAttack(player3Territory)); 
 	}
 
 	@Test
@@ -91,7 +92,8 @@ public class TestAttacking {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertFalse(game.canAttack(player1Territory) && game.attackable(player1Territory , alsoPlayer1Territory));
+		assertTrue(game.canAttack(player1Territory));
+		assertFalse(game.attackable(player1Territory , alsoPlayer1Territory));
 	}
 
 	@Test
@@ -107,6 +109,6 @@ public class TestAttacking {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories);
-		assertFalse(game.canAttack(player1Territory) && game.attackable(player1Territory , player2Territory));
+		assertFalse(game.canAttack(player1Territory));
 	}
 }

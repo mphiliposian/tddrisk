@@ -360,8 +360,8 @@ public class Game {
 			defendingPlayerRolls.add(rollDice());
 			//defendingPlayerRolls.add(1);
 		}
-		System.out.println(attackingPlayerRolls);
-		System.out.println(defendingPlayerRolls);
+		//System.out.println(attackingPlayerRolls);
+		//System.out.println(defendingPlayerRolls);
 		int minRolls = Math.min(attackingDiceRolls,defendingDiceRolls);
 		for (int rolls = 0; rolls < minRolls; rolls++) {
 			int maxAttack = Collections.max(attackingPlayerRolls);
