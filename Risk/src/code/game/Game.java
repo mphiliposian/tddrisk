@@ -1,13 +1,9 @@
 package code.game;
 
-<<<<<<< Risk/src/code/game/Game.java
 import java.util.ArrayList;
-=======
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Collection;
->>>>>>> Risk/src/code/game/Game.java
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,13 +20,10 @@ import code.gui.RiskUI;
 
 public class Game {
 
-<<<<<<< Risk/src/code/game/Game.java
 	private static final boolean DEBUG = false;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
-=======
 	private final String TERRITORY_MAP_FILE = "TerritoryMap.txt"; 
 
->>>>>>> Risk/src/code/game/Game.java
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
 	private final int NUM_OF_TERRITORIES = 42;
@@ -41,14 +34,11 @@ public class Game {
 	private Map<Player, Set<Territory>> playersTerritories;
 	private RiskUI ui;
 	private int currTurn;
-<<<<<<< Risk/src/code/game/Game.java
 	private Map <String, Set <Territory>> continents;
 	private Map <String, Integer> continentValues;
 	private Random rand;
-=======
 	private Map<String, Set<Territory>> continents;
 	private Map<String, Integer> continentValues;
->>>>>>> Risk/src/code/game/Game.java
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList <Player> ();
@@ -74,27 +64,17 @@ public class Game {
 		rand = new Random();
 	}
 
-
-<<<<<<< Risk/src/code/game/Game.java
-	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories, int selectedRandom) {
-		this.players = players;
-=======
-
 	public Game(RiskUI ui) {
 		this.players = new ArrayList<Player>();
->>>>>>> Risk/src/code/game/Game.java
 		this.ui = ui;
 		this.currTurn = 0;
 		continents = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
 		territories = new ArrayList <> ();
 		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
 		continentValues = intializeContinentValues();
-<<<<<<< Risk/src/code/game/Game.java
 		playersTerritories = playerTerritories;
 		rand = new Random(selectedRandom);
-=======
 		playersTerritories = new HashMap<>();
->>>>>>> Risk/src/code/game/Game.java
 	}
 
 	public boolean gameIsWon() {
@@ -108,13 +88,6 @@ public class Game {
 		return false;
 	}
 
-<<<<<<< Risk/src/code/game/Game.java
-=======
-	public void randomizeOrder() {
-		Collections.shuffle(players);
-	}
-
->>>>>>> Risk/src/code/game/Game.java
 	public int numPlayers() {
 		return players.size();
 	}
@@ -167,10 +140,6 @@ public class Game {
 
 	public void setup() {
 		createPlayers();
-<<<<<<< Risk/src/code/game/Game.java
-=======
-		randomizeOrder();
->>>>>>> Risk/src/code/game/Game.java
 		initializeReinforcements();
 		ui.initializeUI(territories);
 		ui.createMapDisplay(territories);
@@ -207,25 +176,15 @@ public class Game {
 	}
 
 	public void reinforceTerritories() {
-<<<<<<< Risk/src/code/game/Game.java
-=======
-		Player curPlayer = getPlayerByID(currTurn);
->>>>>>> Risk/src/code/game/Game.java
 		int totalReinforcements = 0;
 		for (Player player: players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements();
 		}
 		for (int NumOfTurns = 0; NumOfTurns <totalReinforcements; NumOfTurns++) {
 			boolean ownedByPlayer = false;
-<<<<<<< Risk/src/code/game/Game.java
 			while (!ownedByPlayer) {
 				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory"));
 				if (playerOwnsTerritory(territory)) {
-=======
-			while(!ownedByPlayer) {
-				Territory territory = ui.territoryPrompt("");
-				if (playerOwnsTerritory(curPlayer, territory)) {
->>>>>>> Risk/src/code/game/Game.java
 					placeOneUnit(territory);
 					switchTurn();
 					ui.updatePlayerDisplay(currTurn);
@@ -235,13 +194,8 @@ public class Game {
 		}
 	}
 
-<<<<<<< Risk/src/code/game/Game.java
 	public boolean playerOwnsTerritory(Territory territory) {
 		Set <Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
-=======
-	public boolean playerOwnsTerritory(Player player, Territory territory) {
-		Set<Territory> ownedTerritories = playersTerritories.get(player);
->>>>>>> Risk/src/code/game/Game.java
 		return ownedTerritories.contains(territory);
 	}
 
@@ -256,13 +210,8 @@ public class Game {
 	public void claimTerritories() {
 		for (int NumOfTurns = 0; NumOfTurns <NUM_OF_TERRITORIES; NumOfTurns++) {
 			boolean uniqueTerritory = false;
-<<<<<<< Risk/src/code/game/Game.java
 			while (!uniqueTerritory) {
 				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory"));
-=======
-			while(!uniqueTerritory) {
-				Territory territory = ui.territoryPrompt("");
->>>>>>> Risk/src/code/game/Game.java
 				if (territory.getYield() == 0) {
 					placeOneUnit(territory);
 					Set <Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
@@ -276,13 +225,8 @@ public class Game {
 		}
 	}
 
-<<<<<<< Risk/src/code/game/Game.java
 	private Map <String, Integer> intializeContinentValues() {
 		Map <String, Integer> continentVals = new HashMap <> ();
-=======
-	private Map<String, Integer> intializeContinentValues() {
-		Map<String, Integer> continentVals = new HashMap<>();
->>>>>>> Risk/src/code/game/Game.java
 		continentVals.put("NA", 5);
 		continentVals.put("SA", 2);
 		continentVals.put("EU", 5);
@@ -303,11 +247,6 @@ public class Game {
 		}
 		return reinforcements;
 	}
-<<<<<<< Risk/src/code/game/Game.java
-=======
-
->>>>>>> Risk/src/code/game/Game.java
-
 
 	public int getReinforcementsFromTerritories() {
 		Player currPlayer = getPlayerByID(currTurn);
@@ -326,8 +265,6 @@ public class Game {
 				+ getReinforcementsFromTerritories();
 	}
 
-
-
 	public void allocatePhase() {
 		Player currPlayer = getPlayerByID(currTurn);
 		int initialReinforcements = currPlayer.getReinforcements() 
@@ -342,8 +279,6 @@ public class Game {
 			}
 		}	
 	}
-
-<<<<<<< Risk/src/code/game/Game.java
 
 	public boolean canAttack(Territory attackingTerritory) {
 		Player curPlayer = players.get(currTurn);
@@ -372,7 +307,6 @@ public class Game {
 	}
 
 	public void battlePhase() {
-
 		String message = "Select one of your territories to attack with";
 		ui.setEndPhaseButtonVisible(true);
 		while(true) {
@@ -604,9 +538,5 @@ public class Game {
 		}
 		return null;
 	}
-
-
-=======
->>>>>>> Risk/src/code/game/Game.java
 }
 
