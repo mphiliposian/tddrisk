@@ -134,7 +134,7 @@ public class TestBattle {
 		assertEquals(player2Territory.getYield(), 4);
 		EasyMock.verify(ui);
 	}
-	
+
 	@Test
 	public void PlayerCancelsAttack() {
 		RiskUI ui = EasyMock.niceMock(RiskUI.class);
@@ -305,7 +305,7 @@ public class TestBattle {
 				.withConstructor(ui, players, playersTerritories, 5)
 				.addMockedMethod("rollDice").createMock();
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(1);
-		
+
 		EasyMock.expect(game.rollDice()).andReturn(2).times(2);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall();
@@ -317,9 +317,9 @@ public class TestBattle {
 		assertEquals(player2Territory.getYield(), 1);
 		EasyMock.verify(ui,game);
 	}
-	
 
-	
+
+
 	@Test
 	public void testRoll() {
 		RiskUI ui = EasyMock.niceMock(RiskUI.class);
@@ -332,9 +332,9 @@ public class TestBattle {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories, 10);
-		
+
 		assertEquals(game.rollDice(), 4);
 	}
 
-	
+
 }
