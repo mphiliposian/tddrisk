@@ -46,7 +46,7 @@ public class TestBattle {
 		players.add(player);
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
-		Game game = new Game(ui, players, playersTerritories, 2);
+		Game game = new Game(ui, players, playersTerritories, 1);
 		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall();
@@ -72,7 +72,7 @@ public class TestBattle {
 		players.add(player);
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
-		Game game = new Game(ui, players, playersTerritories, 9);
+		Game game = new Game(ui, players, playersTerritories, 3);
 		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall();
@@ -97,7 +97,7 @@ public class TestBattle {
 		players.add(player);
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
-		Game game = new Game(ui, players, playersTerritories, 4);
+		Game game = new Game(ui, players, playersTerritories, 9);
 		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall();
@@ -225,7 +225,7 @@ public class TestBattle {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories1);
 		playersTerritories.put(player2, ownedTerritories2);
-		Game game = new Game(ui, players, playersTerritories, 5);
+		Game game = new Game(ui, players, playersTerritories, 7);
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(1);
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE)).andReturn(1);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
@@ -265,7 +265,7 @@ public class TestBattle {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories1);
 		playersTerritories.put(player2, ownedTerritories2);
-		Game game = new Game(ui, players, playersTerritories, 5);
+		Game game = new Game(ui, players, playersTerritories, 3);
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(1);
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE)).andReturn(1);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
@@ -333,7 +333,7 @@ public class TestBattle {
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories, 10);
 
-		assertEquals(game.rollDice(), 4);
+		assertEquals(game.rollDice(), 1);
 	}
 
 
