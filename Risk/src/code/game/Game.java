@@ -201,10 +201,54 @@ public class Game {
 			Card card1 = cards.get(0);
 			Card card2 = cards.get(1);
 			Card card3 = cards.get(2);
-			
-			if (card1.getCardType().equals(card2.getCardType()) && card2.getCardType().equals(card3.getCardType())) {
+
+			if (allSameCardType(card1, card2, card3)) {
 				return true;
 			}
+
+			if(allUniqueCards(card1,card2,card3)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean allUniqueCards(Card card1, Card card2, Card card3) {
+		if (card1.getCardType().equals(Card.CardType.WILD)) {
+			if (!card2.getCardType().equals(card3.getCardType()) || card2.getCardType().equals(Card.CardType.WILD) || card3.getCardType().equals(Card.CardType.WILD)) {
+				return true;
+			}
+		} else if (card2.getCardType().equals(Card.CardType.WILD)) {
+			if (!card1.getCardType().equals(card3.getCardType()) || card3.getCardType().equals(Card.CardType.WILD)) {
+				return true;
+			}
+		} else if (card3.getCardType().equals(Card.CardType.WILD)) {
+			if (!card1.getCardType().equals(card2.getCardType())) {
+				return true;
+			} 
+		}else if (!card1.getCardType().equals(card2.getCardType()) && !card2.getCardType().equals(card3.getCardType()) && !card1.getCardType().equals(card3.getCardType())){
+			return true;
+		}
+
+		return false;
+	}
+
+
+	private boolean allSameCardType(Card card1, Card card2, Card card3) {
+		if (card1.getCardType().equals(Card.CardType.WILD)) {
+			if (card2.getCardType().equals(card3.getCardType()) || card2.getCardType().equals(Card.CardType.WILD) || card3.getCardType().equals(Card.CardType.WILD)) {
+				return true;
+			}
+		} else if (card2.getCardType().equals(Card.CardType.WILD)) {
+			if (card1.getCardType().equals(card3.getCardType()) || card3.getCardType().equals(Card.CardType.WILD)) {
+				return true;
+			}
+		} else if (card3.getCardType().equals(Card.CardType.WILD)) {
+			if (card1.getCardType().equals(card2.getCardType())) {
+				return true;
+			} 
+		}else if (card1.getCardType().equals(card2.getCardType()) && card2.getCardType().equals(card3.getCardType())){
+			return true;
 		}
 		return false;
 	}
@@ -284,7 +328,7 @@ public class Game {
 		boolean verified = false;
 		Player curPlayer = players.get(currTurn);
 		List<Card> cards = null;
-		
+
 		while(!verified) {
 			cards = ui.selectCards(currTurn, curPlayer.getHand());
 			verified = this.verifyCards(cards);
