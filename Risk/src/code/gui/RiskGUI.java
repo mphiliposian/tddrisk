@@ -77,7 +77,7 @@ public class RiskGUI implements RiskUI {
 
 	@Override
 	public void createPlayerDisplay(List <Player> players) {
-		playerDisplayPanel = new PlayerDisplayPanel(players, 500, 100);
+		playerDisplayPanel = new PlayerDisplayPanel(players, 1000, 100);
 		playerPanel = playerDisplayPanel.getPanel();
 		this.addComponentToFrame(playerPanel, 0, 2, 2, 1);
 		frame.pack();

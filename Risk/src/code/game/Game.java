@@ -18,7 +18,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -348,13 +348,13 @@ public class Game {
 		}
 		int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
 		for (int currRoll = 0; currRoll < attackingDiceRolls; currRoll++) {
-			//attackingPlayerRolls.add(rollDice());
-			attackingPlayerRolls.add(6);
+			attackingPlayerRolls.add(rollDice());
+			//attackingPlayerRolls.add(6);
 		}
 		int defendingDiceRolls = Math.min(defender.getYield(), 2);
 		for (int currRoll = 0; currRoll < defendingDiceRolls; currRoll++) {
-			//defendingPlayerRolls.add(rollDice());
-			defendingPlayerRolls.add(1);
+			defendingPlayerRolls.add(rollDice());
+			//defendingPlayerRolls.add(1);
 		}
 		System.out.println(attackingPlayerRolls);
 		System.out.println(defendingPlayerRolls);
