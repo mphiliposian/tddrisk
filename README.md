@@ -1,18 +1,16 @@
 # Definition of Done
-- [ ] The program is "done" when it can determine a winner according to the rules and procedures of the game risk.
-- [ ] A player is determined to be the winner when that player controls all 42 of the game's territories.
-- [ ] A territory is defined as a cell which must contain at least one unit, and may only contain one player's units. The player whose units occupy a territory is said to control this territory.
-- [ ] Territories are connected by routes. Routes are listed in appendix A.
-- [ ] A unit is an abstract representation of a player's military force. Units are measured and represented as integers.
-- [ ] A continent is a set of territories. Continents are listed in Appendix B.
+The program is "done" when it can determine a winner according to the rules and procedures of the game risk.
+A player is determined to be the winner when that player controls all 42 of the game's territories.
+A territory is defined as a cell which must contain at least one unit, and may only contain one player's units. The player whose units occupy a territory is said to control this territory.
+Territories are connected by routes. Routes are listed in appendix A.
+A unit is an abstract representation of a player's military force. Units are measured and represented as integers.
+A continent is a set of territories. Continents are listed in Appendix B.
 
 ## Setup
-- [x] There are 3 to 6 players. The program assigns each player a unique identifier. 
-- [x] The territories under a player's control will be marked with this identifier. 
-- [x] At the start of the game, each player is provided with a number of units corresponding to the number of players in the game. These values are provided in appendix C. Units which a player owns but has not yet placed are referred to as "reinforcements".
-- [x] The program generates a turn ordering.
-- [x] Starting with the first player in the ordering, each player is prompted to select a territory on which to place a unit. This process repeats in the turn ordering until all territories contain exactly one unit. 
-- [x] Once all territories contain exactly one unit, each player is prompted to select a territory which they already control on which to place an additional unit from their reinforcements. This process continues in the turn ordering until each player has exhausted their supply of reinforcements. 
+- [x] There are 3 to 6 players. The program assigns each player a unique identifier. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/1d97918c38b85e5ab496571d85f4e0eddfea512c
+- [x] At the start of the game, each player is provided with a number of units corresponding to the number of players in the game. These values are provided in appendix C. Units which a player owns but has not yet placed are referred to as "reinforcements". https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/d77c500113388a0dfb23064c40ab782df9465cfc
+- [x] Starting with the first player in the ordering, each player is prompted to select a territory on which to place a unit. This process repeats in the turn ordering until all territories contain exactly one unit. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/1a5ec0802a060345537356145953bc1758469e1b
+- [x] Once all territories contain exactly one unit, each player is prompted to select a territory which they already control on which to place an additional unit from their reinforcements. This process continues in the turn ordering until each player has exhausted their supply of reinforcements.  https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/e4556078105e584b681fba197e71f4b39075b01b
 
 
 ## Turns
@@ -23,8 +21,8 @@
 
 
 ### Allocating reinforcements:
-- [ ] The active player is provided a number of reinforcements equal to 3, or the number of territories they control divided by 3, whichever is greater.
-- [ ] The activate player is provided a number of reinforcements for each continent whose territories the player controls all of. The amount of reinforcements associated with each continent is shown in appendix B next to each continent's name.
+- [x] The active player is provided a number of reinforcements equal to 3, or the number of territories they control divided by 3, whichever is greater. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7ecdd5bbca50e14eae44ef156872a5b10ba84357
+- [x] The activate player is provided a number of reinforcements for each continent whose territories the player controls all of. The amount of reinforcements associated with each continent is shown in appendix B next to each continent's name. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/30853d458a67e27e33e1bb72931ed0d873781f4d
 - [ ] At any point during the allocating reinforcements phase, the player may choose to redeem a set of cards, and this set must contain exactly 3 cards; either 1 from each group, or all 3 from the same group. Card details are explained in appendix D.
 - [ ] When a player redeems a set of cards, the following things happen: The cards are moved to a set of used cards, the player receives a number of reinforcements equal to a set value that the game keeps track of, a redeemed set counter is incremented, and the set value is increased. 
 - [ ] The set counter starts at 0, and the set value starts at 4. For each additional set redeemed, the set value increases by 2. When the set counter reaches 7, the set value increases by 5, and all future sets redeemed also increase the set value by 5.
