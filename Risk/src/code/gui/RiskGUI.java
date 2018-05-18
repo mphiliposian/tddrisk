@@ -21,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import code.game.Card;
 import code.game.Player;
 import code.game.Territory;
 
@@ -197,5 +199,12 @@ public class RiskGUI implements RiskUI {
 	@Override
 	public void setCardValue(int value) {
 		this.messagePanel.setCardValue(value);
+	}
+	
+	@Override
+	public List<Card> selectCards(int playerID, List<Card> hand) {
+		
+		
+		return null;
 	}
 }
