@@ -228,18 +228,4 @@ public class RiskGUI implements RiskUI {
 		}
 		return selectedCards;
 	}
-
-	@Override
-	public void setSelected(boolean selected, Card card) {
-		if (this.handPanel != null) {
-			this.handPanel.setSelected(selected, card);
-		}
-	}
-	
-	@Override
-	public void addCardListener(Card card, ActionListener actionListener) {
-		if (this.handPanel != null) {
-			this.handPanel.addCardListener(card, actionListener);
-		}
-	}
 }

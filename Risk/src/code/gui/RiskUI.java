@@ -25,6 +25,4 @@ public interface RiskUI {
 	void setPhaseText(String phase);
 	void setCardValue(int value);
 	List<Card> selectCards(int playerID, List<Card> hand);
-	void setSelected(boolean selected, Card card);
-	void addCardListener(Card card, ActionListener actionListener);
 }
