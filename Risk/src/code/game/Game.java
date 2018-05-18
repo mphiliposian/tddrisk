@@ -197,7 +197,16 @@ public class Game {
 	}
 
 	public boolean verifyCards(List<Card> cards) {
-		return true;
+		if (cards != null) {
+			Card card1 = cards.get(0);
+			Card card2 = cards.get(1);
+			Card card3 = cards.get(2);
+			
+			if (card1.getCardType().equals(card2.getCardType()) && card2.getCardType().equals(card3.getCardType())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean playerOwnsTerritory(Territory territory) {

@@ -1,6 +1,7 @@
 package test.game;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -168,16 +169,41 @@ public class TestCardLogic {
 		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 		
-		Card infantry = new Card(territory1, Card.CardType.Infantry);
+		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
+		Card infantry2 = new Card(territory1, Card.CardType.Infantry);
+		Card infantry3 = new Card(territory1, Card.CardType.Infantry);
 		Card calvary = new Card(territory2, Card.CardType.Calvary);
 		Card artillery = new Card(territory3, Card.CardType.Artillery);
 		
 		List<Card> cards = new ArrayList<>();
-		cards.add(infantry);
-		cards.add(calvary);
-		cards.add(artillery);
+		cards.add(infantry1);
+		cards.add(infantry2);
+		cards.add(infantry3);
 		
 		assertTrue(game.verifyCards(cards));
+	}
+	
+	@Test 
+	public void invalidVerify() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
+		Game game = new Game(ui);
+		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
+		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		
+		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
+		Card infantry2 = new Card(territory1, Card.CardType.Infantry);
+		Card infantry3 = new Card(territory1, Card.CardType.Infantry);
+		Card calvary = new Card(territory2, Card.CardType.Calvary);
+		Card artillery = new Card(territory3, Card.CardType.Artillery);
+		
+		List<Card> cards = new ArrayList<>();
+		cards.add(infantry1);
+		cards.add(infantry2);
+		cards.add(calvary);
+		
+		assertFalse(game.verifyCards(cards));
 	}
 	
 	
