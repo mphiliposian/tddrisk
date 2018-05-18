@@ -1,5 +1,8 @@
 package code.game;
 
+import java.util.ArrayList;
+
+import code.game.Card.CardType;
 import code.gui.RiskGUI;
 import code.gui.RiskUI;
 

@@ -4,39 +4,25 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import code.game.Card;
-import code.game.Card.CardType;
-import code.game.Territory;
 
 public class HandPanel extends JPanel {
-	
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		
-		List<Card> cards = new ArrayList<>();
-		for (int i=0; i<4; i++) {
-			cards.add(new Card(new Territory("NA1", "Name", null, 0, 0), CardType.WILD));
-		}
-		frame.add(new HandPanel(cards));
-		frame.pack();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 	
 	private static final long serialVersionUID = -1539390589602885907L;
 	private List<CardComponent> cards;
 
 	public HandPanel(List<Card> hand) {
-		this.setLayout(new GridLayout(2,3));
+		this.setLayout(new GridLayout(3,4));
 		cards = new ArrayList<>();
 		CardComponent cc;
 		for (Card card : hand) {
@@ -44,9 +30,18 @@ public class HandPanel extends JPanel {
 			cards.add(cc);
 			this.add(cc);
 		}
+		for (int i=0; i<12 - hand.size(); i++) {
+			this.add(new CardComponent(null));
+		}
 	}
 	
-	private class CardComponent extends JPanel {
+	public void setSelected(boolean selected, Card card) {
+		for (CardComponent cc : cards) {
+			cc.setSelected(selected, card);
+		}
+	}
+	
+	private class CardComponent extends JButton {
 
 		private static final long serialVersionUID = 3174459576465997294L;
 		private Card card;
@@ -58,41 +53,68 @@ public class HandPanel extends JPanel {
 			this.card = card;
 			this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 			String type = "";
-			Color color = null;
-			switch(this.card.getCardType()) {
-			case Artillery:
-				type = "A";
-				color = Color.GRAY;
-				break;
-			case Calvary:
-				type = "C";
-				color = Color.GREEN;
-				break;
-			case Infantry:
-				type = "I";
-				color = Color.RED;
-				break;
-			case WILD:
-				type = "W";
-				color = Color.MAGENTA;
-				break;
+			if (card != null) {
+				switch(this.card.getCardType()) {
+				case Artillery:
+					type = "A";
+					break;
+				case Calvary:
+					type = "C";
+					break;
+				case Infantry:
+					type = "I";
+					break;
+				case WILD:
+					type = "W";
+					break;
+				}
+			} else {
+				type = "";
 			}
-			this.setBackground(color);
+				
+			this.setBackground(Color.GRAY);
 			typeLabel = new JLabel(type);
-			typeLabel.setFont(new Font("Ariel",1,150));
+			typeLabel.setFont(new Font("Ariel",1,125));
 			typeLabel.setAlignmentX(CENTER_ALIGNMENT);
+			typeLabel.setAlignmentY(BOTTOM_ALIGNMENT);
 			this.add(typeLabel);
 			
-			nameLabel = new JLabel(card.getTerritory().getName());
-			nameLabel.setFont(new Font("Ariel",1,25));
+			if (card != null) {
+				nameLabel = new JLabel(card.getTerritory().getName());
+			} else {
+				nameLabel = new JLabel("");
+			}
+			nameLabel.setFont(new Font("Ariel",1,18));
 			nameLabel.setAlignmentX(CENTER_ALIGNMENT);
-			nameLabel.setAlignmentY(CENTER_ALIGNMENT);
+			nameLabel.setAlignmentY(BOTTOM_ALIGNMENT);
 			this.add(nameLabel);
+		}
+		
+		public void setSelected(boolean selected, Card card) {
+			if (this.card == card) {
+				if (selected) {
+					this.setBackground(Color.YELLOW);
+				} else {
+					this.setBackground(Color.GRAY);
+				}
+			}
 		}
 		
 		@Override
 		public Dimension getPreferredSize() {
-			return new Dimension(200, 300);
+			return new Dimension(175, 250);
+		}
+
+		public void addCardListener(Card card, ActionListener actionListener) {
+			if (this.card == card) {
+				this.addActionListener(actionListener);
+			}
+		}
+	}
+
+	public void addCardListener(Card card, ActionListener actionListener) {
+		for (CardComponent cc : cards) {
+			cc.addCardListener(card, actionListener);
 		}
 	}
 }

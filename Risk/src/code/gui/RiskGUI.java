@@ -36,6 +36,7 @@ public class RiskGUI implements RiskUI {
 	private CompletableFuture <Territory> selectedTerritory;
 	private GridBagLayout gridbag;
 	private GridBagConstraints constraints;
+	private HandPanel handPanel;
 
 	@Override
 	public void initializeUI(List <Territory> territories) {
@@ -203,8 +204,27 @@ public class RiskGUI implements RiskUI {
 	
 	@Override
 	public List<Card> selectCards(int playerID, List<Card> hand) {
+		JOptionPane handPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+		this.handPanel = new HandPanel(hand);
+		handPane.setMessage(new Object[] { this.handPanel } );
+		JDialog handDialog = handPane.createDialog("eat a dick");
+		handDialog.setVisible(true);
 		
-		
+		this.handPanel = null;
 		return null;
+	}
+
+	@Override
+	public void setSelected(boolean selected, Card card) {
+		if (this.handPanel != null) {
+			this.handPanel.setSelected(selected, card);
+		}
+	}
+	
+	@Override
+	public void addCardListener(Card card, ActionListener actionListener) {
+		if (this.handPanel != null) {
+			this.handPanel.addCardListener(card, actionListener);
+		}
 	}
 }
