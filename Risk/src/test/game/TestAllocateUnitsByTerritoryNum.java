@@ -41,7 +41,7 @@ public class TestAllocateUnitsByTerritoryNum {
 		Player player = new Player(0);
 		Set<Territory> ownedTerritories = new HashSet<>();
 		for( int i = 0; i < 8; i++) {
-			player.addTerritory();
+			ownedTerritories.add(new Territory("Territory" + i, null, i, null, i, i));
 		}
 		ArrayList<Player> players = new ArrayList<>();
 		players.add(player);
@@ -58,7 +58,7 @@ public class TestAllocateUnitsByTerritoryNum {
 		Player player = new Player(0);
 		Set<Territory> ownedTerritories = new HashSet<>();
 		for( int i = 0; i < 12; i++) {
-			player.addTerritory();
+			ownedTerritories.add(new Territory("Territory" + i, null, i, null, i, i));
 		}
 		ArrayList<Player> players = new ArrayList<>();
 		players.add(player);
@@ -75,7 +75,7 @@ public class TestAllocateUnitsByTerritoryNum {
 		Player player = new Player(0);
 		Set<Territory> ownedTerritories = new HashSet<>();
 		for( int i = 0; i < 41; i++) {
-			player.addTerritory();
+			ownedTerritories.add(new Territory("Territory" + i, null, i, null, i, i));
 		}
 		ArrayList<Player> players = new ArrayList<>();
 		players.add(player);
@@ -92,7 +92,7 @@ public class TestAllocateUnitsByTerritoryNum {
 		Player player = new Player(0);
 		Set<Territory> ownedTerritories = new HashSet<>();
 		for( int i = 0; i < 42; i++) {
-			player.addTerritory();
+			ownedTerritories.add(new Territory("Territory" + i, null, i, null, i, i));
 		}
 		ArrayList<Player> players = new ArrayList<>();
 		players.add(player);
