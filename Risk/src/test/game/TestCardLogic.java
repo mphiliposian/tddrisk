@@ -294,5 +294,38 @@ public class TestCardLogic {
 		assertTrue(game.verifyCards(cards));
 	}
 	
+	@Test 
+	public void UniqueWith1Wildvalid() {		
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
+		Game game = new Game(ui);
+		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
+		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		
+		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
+		Card wild = new Card(territory1, Card.CardType.WILD);
+		Card calvary = new Card(territory1, Card.CardType.Calvary);
+		
+		List<Card> cards = new ArrayList<>();
+		cards.add(wild);
+		cards.add(infantry1);
+		cards.add(calvary);
+		assertTrue(game.verifyCards(cards));
+		
+		cards = new ArrayList<>();
+		cards.add(infantry1);
+		cards.add(wild);
+		cards.add(calvary);
+		assertTrue(game.verifyCards(cards));
+		
+		cards = new ArrayList<>();
+		cards.add(infantry1);
+		cards.add(calvary);
+		cards.add(wild);
+		assertTrue(game.verifyCards(cards));
+		
+	}
+	
 	
 }
