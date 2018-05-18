@@ -20,7 +20,7 @@ import code.gui.RiskUI;
 public class Game {
 
 	private static final boolean DEBUG = false;
-	public final List<Card> deck;
+	public final Deck deck;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 
 	private final int MIN_NUM_OF_PLAYERS = 3;
@@ -47,7 +47,7 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = new HashMap <> ();
 		rand = new Random();
-		deck = initializeDeck();
+		deck = new Deck(territories, rand);
 	}
 
 	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories) {
@@ -60,7 +60,7 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = playerTerritories;
 		rand = new Random();
-		deck = initializeDeck();
+		deck = new Deck(territories, rand);
 	}
 	
 	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories, int seed) {
@@ -73,22 +73,9 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = playerTerritories;
 		rand = new Random(seed);
-		deck = initializeDeck();
+		deck = new Deck(territories, rand);
 	}
-	public List<Card> initializeDeck() {
-		List<Card> deck = new ArrayList<>();
-		for(int i = 0; i < 42; i++) {
-			CardType type = CardType.values()[i%3];
-			Card card = new Card(territories.get(i), type);
-			deck.add(card);
-		}
-		for(int i = 0; i < 2; i++) {
-			Card card = new Card(null, CardType.WILD);
-			deck.add(card);
-		}
-		Collections.shuffle(deck,rand);
-		return deck;
-	}
+
 
 	public boolean gameIsWon() {
 		for (Player player: players) {
@@ -322,6 +309,8 @@ public class Game {
 	public void battlePhase() {
 		String message = "Select one of your territories to attack with";
 		ui.setEndPhaseButtonVisible(true);
+		Player curPlayer = players.get(currTurn); 
+		int numOfOwnedTerritories = playersTerritories.get(curPlayer).size();
 		while(true) {
 			ui.setCancelButtonVisible(false);
 			Territory attacker = ui.territoryPrompt(message);
@@ -348,6 +337,10 @@ public class Game {
 			}
 		}
 
+		if (numOfOwnedTerritories < playersTerritories.get(curPlayer).size()) {
+			curPlayer.addCardToHand(deck.drawCard());
+		}
+		
 	}
 
 	public boolean battle(Territory attacker, Territory defender) {
