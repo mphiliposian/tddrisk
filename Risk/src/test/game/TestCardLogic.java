@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
+import code.game.Card;
 import code.game.Game;
 import code.game.Player;
 import code.game.Territory;
@@ -155,6 +157,27 @@ public class TestCardLogic {
 		game.battlePhase();
 		assertEquals(player.getHand().size(), 1);
 		EasyMock.verify(ui);
+	}
+	
+	@Test 
+	public void validVerify() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
+		Game game = new Game(ui);
+		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
+		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		
+		Card infantry = new Card(territory1, Card.CardType.Infantry);
+		Card calvary = new Card(territory2, Card.CardType.Calvary);
+		Card artillery = new Card(territory3, Card.CardType.Artillery);
+		
+		List<Card> cards = new ArrayList<>();
+		cards.add(infantry);
+		cards.add(calvary);
+		cards.add(artillery);
+		
+		assertTrue(game.verifyCards(cards));
 	}
 	
 	

@@ -3,6 +3,8 @@ package code.gui;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.List;
+
+import code.game.Card;
 import code.game.Player;
 import code.game.Territory;
 
@@ -20,4 +22,5 @@ public interface RiskUI {
 	void displayMessage(String message);
 	void setEndPhaseButtonVisible(boolean isVisible);
 	void addEndPhaseButtonListener(ActionListener listener);
+	List<Card> selectCards(int currTurn, List<Card> hand);
 }

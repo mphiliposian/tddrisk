@@ -21,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import code.game.Card;
 import code.game.Player;
 import code.game.Territory;
 
@@ -187,5 +189,11 @@ public class RiskGUI implements RiskUI {
 	@Override
 	public void addEndPhaseButtonListener(ActionListener listener) {
 		this.messagePanel.addEndPhaseButtonListener(listener);
+	}
+
+	@Override
+	public List<Card> selectCards(int currTurn, List<Card> hand) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

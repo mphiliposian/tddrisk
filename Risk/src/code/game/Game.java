@@ -36,6 +36,7 @@ public class Game {
 	private Map <String, Set <Territory>> continents;
 	private Map <String, Integer> continentValues;
 	private Random rand;
+	private int redeemedSets = 0;
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList <Player> ();
@@ -62,7 +63,7 @@ public class Game {
 		rand = new Random();
 		deck = new Deck(territories, rand);
 	}
-	
+
 	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories, int seed) {
 		this.players = players;
 		this.ui = ui;
@@ -176,11 +177,11 @@ public class Game {
 	}
 
 	public void reinforceTerritories() {
-		int totalReinforcements = 0;		
+		int totalReinforcements = 0;
 		for (Player player: players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements();
 		}
-		
+
 		for (int NumOfTurns = 0; NumOfTurns < totalReinforcements; NumOfTurns++) {
 			boolean ownedByPlayer = false;
 			while (!ownedByPlayer) {
@@ -193,6 +194,10 @@ public class Game {
 				}
 			}
 		}
+	}
+
+	public boolean verifyCards(List<Card> cards) {
+		return false;
 	}
 
 	public boolean playerOwnsTerritory(Territory territory) {
@@ -267,6 +272,28 @@ public class Game {
 	}
 
 	public void allocatePhase() {
+		boolean verified = false;
+		Player curPlayer = players.get(currTurn);
+		List<Card> cards = null;
+		
+		while(!verified) {
+			cards = ui.selectCards(currTurn, curPlayer.getHand());
+			verified = this.verifyCards(cards);
+		}
+
+		if (cards != null){
+
+
+			int setValue = 0;
+			if (redeemedSets == 0) {
+				setValue = 4;
+			} else if(redeemedSets < 6){
+				setValue = 2 + redeemedSets*2;
+			} else {
+				setValue = 15 + (redeemedSets - 6)*5;
+			}
+		}
+
 		Player currPlayer = getPlayerByID(currTurn);
 		int initialReinforcements = currPlayer.getReinforcements() 
 				+ this.getTotalReinforcements();
@@ -341,7 +368,7 @@ public class Game {
 		if (numOfOwnedTerritories < playersTerritories.get(curPlayer).size()) {
 			curPlayer.addCardToHand(deck.drawCard());
 		}
-		
+
 	}
 
 	public boolean battle(Territory attacker, Territory defender) {
@@ -389,7 +416,7 @@ public class Game {
 
 
 			attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE);
-			
+
 			defendingPlayer = findOwnerOfterritory(defender);
 			Set<Territory> defendingPlayersTerritories = this.playersTerritories.get(defendingPlayer);
 			defendingPlayersTerritories.remove(defender);
