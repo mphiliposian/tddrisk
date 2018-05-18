@@ -319,7 +319,22 @@ public class TestBattle {
 	}
 	
 
-
+	
+	@Test
+	public void testRoll() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		Player player = new Player(0);
+		Set <Territory> ownedTerritories = new HashSet <> ();
+		Territory player1Territory = new Territory("NA1", "murica", 3, territoriesConnectedToNA1, 0, 0);
+		ownedTerritories.add(player1Territory);
+		ArrayList <Player> players = new ArrayList <> ();
+		players.add(player);
+		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories, 10);
+		
+		assertEquals(game.rollDice(), 4);
+	}
 
 	
 }
