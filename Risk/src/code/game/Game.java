@@ -329,15 +329,13 @@ public class Game {
 		Player curPlayer = players.get(currTurn);
 		List<Card> cards = null;
 
-		while(!verified) {
-			cards = ui.selectCards(currTurn, curPlayer.getHand());
-			verified = this.verifyCards(cards);
-		}
-
+		//while(!verified) {
+			//cards = ui.selectCards(currTurn, curPlayer.getHand());
+			//verified = this.verifyCards(cards);
+		//}
+		int setValue = 0;
 		if (cards != null){
-
-
-			int setValue = 0;
+			
 			if (redeemedSets == 0) {
 				setValue = 4;
 			} else if(redeemedSets < 6){
@@ -348,6 +346,7 @@ public class Game {
 		}
 
 		Player currPlayer = getPlayerByID(currTurn);
+		currPlayer.setReinforcements(currPlayer.getReinforcements() + setValue);
 		int initialReinforcements = currPlayer.getReinforcements() 
 				+ this.getTotalReinforcements();
 		currPlayer.setReinforcements(initialReinforcements);
