@@ -9,6 +9,7 @@ import java.util.Set;
 import org.easymock.EasyMock;
 import org.junit.Test;
 import code.game.Game;
+import code.game.Messages;
 import code.game.Territory;
 import code.game.TerritoryReader;
 import code.gui.RiskUI;
@@ -30,7 +31,7 @@ public class TestPlaceUnits {
 
 	@Test
 	public void placeInitialReinforcementsWith3Players() {
-		RiskUI ui = EasyMock.mock(RiskUI.class);
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
 		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
 		createMockedTerritores(ui);
 		Game game = new Game(ui);
