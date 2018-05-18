@@ -1,9 +1,7 @@
 package code.game;
 
 import java.util.ArrayList;
-import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +20,6 @@ public class Game {
 
 	private static final boolean DEBUG = false;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
-	private final String TERRITORY_MAP_FILE = "TerritoryMap.txt"; 
 
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -37,8 +34,6 @@ public class Game {
 	private Map <String, Set <Territory>> continents;
 	private Map <String, Integer> continentValues;
 	private Random rand;
-	private Map<String, Set<Territory>> continents;
-	private Map<String, Integer> continentValues;
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList <Player> ();
@@ -63,9 +58,9 @@ public class Game {
 		playersTerritories = playerTerritories;
 		rand = new Random();
 	}
-
-	public Game(RiskUI ui) {
-		this.players = new ArrayList<Player>();
+	
+	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories, int seed) {
+		this.players = players;
 		this.ui = ui;
 		this.currTurn = 0;
 		continents = new TerritoryReader().readTerritories(TERRITORY_MAP_FILE);
@@ -73,8 +68,7 @@ public class Game {
 		territories = continents.values().stream().collect(ArrayList::new, List::addAll, List::addAll);
 		continentValues = intializeContinentValues();
 		playersTerritories = playerTerritories;
-		rand = new Random(selectedRandom);
-		playersTerritories = new HashMap<>();
+		rand = new Random(seed);
 	}
 
 	public boolean gameIsWon() {
