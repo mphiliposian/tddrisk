@@ -197,7 +197,7 @@ public class Game {
 	}
 
 	public boolean verifyCards(List<Card> cards) {
-		return false;
+		return true;
 	}
 
 	public boolean playerOwnsTerritory(Territory territory) {
