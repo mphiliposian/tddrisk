@@ -230,7 +230,8 @@ public class TestCardLogic {
 	}
 	
 	@Test 
-	public void sameWith1Wild() {		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+	public void sameWith1WildValid() {		
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
 		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
 		Game game = new Game(ui);
 		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
@@ -242,10 +243,54 @@ public class TestCardLogic {
 		Card infantry3 = new Card(territory1, Card.CardType.Infantry);
 		
 		List<Card> cards = new ArrayList<>();
+		cards.add(wild);
+		cards.add(infantry1);
+		cards.add(infantry3);
+		assertTrue(game.verifyCards(cards));
+		
+		cards = new ArrayList<>();
 		cards.add(infantry1);
 		cards.add(wild);
 		cards.add(infantry3);
+		assertTrue(game.verifyCards(cards));
 		
+		cards = new ArrayList<>();
+		cards.add(infantry1);
+		cards.add(infantry3);
+		cards.add(wild);
+		assertTrue(game.verifyCards(cards));
+		
+	}
+	
+	@Test 
+	public void sameWith2WildValid() {		
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
+		Game game = new Game(ui);
+		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
+		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		
+		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
+		Card wild = new Card(territory1, Card.CardType.WILD);
+		Card wild2 = new Card(territory1, Card.CardType.WILD);
+		
+		List<Card> cards = new ArrayList<>();
+		cards.add(wild);
+		cards.add(wild2);
+		cards.add(infantry1);
+		assertTrue(game.verifyCards(cards));
+		
+		cards = new ArrayList<>();
+		cards.add(wild);
+		cards.add(infantry1);
+		cards.add(wild2);
+		assertTrue(game.verifyCards(cards));
+		
+		cards = new ArrayList<>();
+		cards.add(infantry1);
+		cards.add(wild);
+		cards.add(wild2);
 		assertTrue(game.verifyCards(cards));
 	}
 	
