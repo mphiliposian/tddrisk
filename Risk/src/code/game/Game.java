@@ -22,22 +22,16 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
 	private final int NUM_OF_TERRITORIES = 42;
-<<<<<<< Risk/src/code/game/Game.java
 	private final int MIN_NUM_OF_UNITS_PER_TURN = 3;
 
 	private List<Player> players;
 	private List<Territory> territories;
 	private Map<Player, Set<Territory>> playersTerritories;
-=======
-	private List <Player> players;
-	private List <Territory> territories;
-	private Map <Player, Set <Territory>> playersTerritories;
->>>>>>> Risk/src/code/game/Game.java
 	private RiskUI ui;
 	private int currTurn;
 	private Map <String, Set <Territory>> continents;
@@ -67,11 +61,7 @@ public class Game {
 		playersTerritories = playerTerritories;
 		rand = new Random();
 	}
-<<<<<<< Risk/src/code/game/Game.java
 
-
-=======
->>>>>>> Risk/src/code/game/Game.java
 
 	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories, int selectedRandom) {
 		this.players = players;
@@ -87,7 +77,9 @@ public class Game {
 
 	public boolean gameIsWon() {
 		for (Player player: players) {
-			if (player.getNumOfTerritories() == NUM_OF_TERRITORIES) {
+			Set<Territory> ownedTerritoriesByPlayer = playersTerritories.get(player);
+			if (ownedTerritoriesByPlayer.size() == NUM_OF_TERRITORIES) {
+				ui.displayMessage("Player " + (player.ID + 1) + " Won!");
 				return true;
 			}
 		}
@@ -133,8 +125,9 @@ public class Game {
 	public int currentTurn() {
 		return currTurn;
 	}
-	
+
 	public void turn() {
+		allocatePhase();
 		battlePhase();
 		fortify();
 	}
@@ -151,8 +144,16 @@ public class Game {
 		ui.createPlayerDisplay(players);
 		ui.updatePlayerDisplay(0);
 		placeInitialReinforcements();
-		while(true) {
-		turn();
+		playGame();
+	}
+
+	public void playGame() {
+		while(!this.gameIsWon()) {
+			Player curplayer = players.get(currTurn);
+			if (playersTerritories.get(curplayer).size() > 0) {
+				turn();
+			}
+			this.switchTurn();
 		}
 	}
 
@@ -246,11 +247,10 @@ public class Game {
 	}
 
 
-<<<<<<< Risk/src/code/game/Game.java
-
 	public int getReinforcementsFromTerritories() {
 		Player currPlayer = getPlayerByID(currTurn);
-		int reinforcements = (int)(currPlayer.getNumOfTerritories() / 3);
+		Set<Territory> ownedTerritories = playersTerritories.get(currPlayer);
+		int reinforcements = (int)(ownedTerritories.size() / 3);
 		if (MIN_NUM_OF_UNITS_PER_TURN > reinforcements) {
 			return MIN_NUM_OF_UNITS_PER_TURN;
 		}
@@ -271,18 +271,17 @@ public class Game {
 		int initialReinforcements = currPlayer.getReinforcements() 
 				+ this.getTotalReinforcements();
 		currPlayer.setReinforcements(initialReinforcements);
+		ui.updatePlayerDisplay(currTurn);
 		while(currPlayer.getReinforcements() > 0) {
 			Territory territory = ui.territoryPrompt("");
-			if (playerOwnsTerritory(currPlayer, territory)) {
+			if (playerOwnsTerritory(territory)) {
 				placeOneUnit(territory);
 				ui.updatePlayerDisplay(currTurn);
 			}
 		}	
 	}
-	
 
-}
-=======
+
 	public boolean canAttack(Territory attackingTerritory) {
 		Player curPlayer = players.get(currTurn);
 
@@ -341,7 +340,7 @@ public class Game {
 
 	}
 
-	public void battle(Territory attacker, Territory defender) {
+	public boolean battle(Territory attacker, Territory defender) {
 		Player defendingPlayer;
 		List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
 		List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
@@ -349,15 +348,17 @@ public class Game {
 		int selectedAttackingUnits = ui.reinforcementCountPrompt(maxUnits, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION);
 		if (selectedAttackingUnits < 1) {
 			ui.displayMessage("You must have at least 2 units to attack!");
-			return;
+			return false;
 		}
 		int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
 		for (int currRoll = 0; currRoll <attackingDiceRolls; currRoll++) {
 			attackingPlayerRolls.add(rollDice());
+			//attackingPlayerRolls.add(6);
 		}
 		int defendingDiceRolls = Math.min(defender.getYield(), 2);
 		for (int currRoll = 0; currRoll <defendingDiceRolls; currRoll++) {
 			defendingPlayerRolls.add(rollDice());
+			//defendingPlayerRolls.add(1);
 		}
 		System.out.println(attackingPlayerRolls);
 		System.out.println(defendingPlayerRolls);
@@ -395,12 +396,16 @@ public class Game {
 
 			defender.setYield(attackingUnits2Move);
 			attacker.setYield(attacker.getYield() - attackingUnits2Move);
+			
+			if (defendingPlayersTerritories.size() < 1) {
+				ui.displayMessage("Player " + defendingPlayer.ID + " was defeated by Player " + currPlayer.ID);
+			}
 		}
 
 		ui.updateTerritoryDisplay(attacker, players.get(currTurn).getColor());
 		defendingPlayer = findOwnerOfterritory(defender);
 		ui.updateTerritoryDisplay(defender, defendingPlayer.getColor());
-
+		return true;
 	}
 
 	private Player findOwnerOfterritory(Territory defendingTerritory) {
@@ -452,7 +457,7 @@ public class Game {
 		this.ui.updatePlayerDisplay(0);
 
 	}
-	
+
 	public void fortify() {
 		String message = "Select one of your territories to move units from";
 		boolean moved = false;
@@ -492,7 +497,7 @@ public class Game {
 			ui.displayMessage("Select one of your territories to move units from");
 			return false;
 		}
-		
+
 		endTerritory.setYield(unitsToMove + endTerritory.getYield());
 		startingTerritory.setYield(startingTerritory.getYield() - unitsToMove);
 		ui.updateTerritoryDisplay(startingTerritory, players.get(currTurn).getColor());
@@ -539,4 +544,4 @@ public class Game {
 
 
 }
->>>>>>> Risk/src/code/game/Game.java
+

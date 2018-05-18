@@ -140,11 +140,11 @@ public class RiskGUI implements RiskUI {
 		JSlider slider = new JSlider();
 		slider.setMinimum(1);
 		slider.setMaximum(max);
-		slider.setValue(1);
-		slider.setMajorTickSpacing(1);
+		slider.setValue(max);
+		slider.setMajorTickSpacing(((int) (max/10)) + 1);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
-		JLabel countLabel = new JLabel(message + ": 1");
+		JLabel countLabel = new JLabel(message + ": " + max);
 		sliderPane.setMessage(new Object[] {
 			countLabel,
 			slider

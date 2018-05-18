@@ -3,10 +3,18 @@ package test.game;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.easymock.EasyMock;
 import org.junit.Test;
 import code.game.Game;
 import code.game.Player;
+import code.game.Territory;
 import code.gui.RiskUI;
 
 public class TestGameState {
@@ -37,16 +45,28 @@ public class TestGameState {
 	@Test
 	public void winGameState() {
 		RiskUI mockUI = mockGui();
-		EasyMock.expect(mockUI.playerCountPrompt()).andReturn(6);
-		EasyMock.replay(mockUI);
-		Game g = new Game(mockUI);
-		g.createPlayers();
-		for (int x = 0; x < 42; x++) {
-			g.getPlayerByID(0).addTerritory();
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set<Territory> ownedTerritories = new HashSet<>();
+		for( int i = 0; i < 42; i++) {
+			ownedTerritories.add(new Territory("Territory" + i, null, i, null, i, i));
 		}
-		EasyMock.verify(mockUI);
-		assertTrue(g.gameIsWon());
+		ArrayList<Player> players = new ArrayList<>();
+		players.add(player);
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, ownedTerritories);
+		
+		ui.displayMessage("Player 1 Won!");
+		EasyMock.expectLastCall();
+		EasyMock.replay(ui);
+		
+		Game game = new Game(ui, players, playersTerritories);
+		
+		assertTrue(game.gameIsWon());
+		EasyMock.verify(ui);
 	}
+
+
 
 	@Test
 	public void gameIsWon0Territories() {
@@ -70,10 +90,10 @@ public class TestGameState {
 	public void placeInitialReinforcements() {
 		RiskUI riskGui = mockGui();
 		Game partialGame = EasyMock.partialMockBuilder(Game.class)
-			.withConstructor(riskGui)
-			.addMockedMethod("claimTerritories")
-			.addMockedMethod("reinforceTerritories")
-			.createStrictMock();
+				.withConstructor(riskGui)
+				.addMockedMethod("claimTerritories")
+				.addMockedMethod("reinforceTerritories")
+				.createStrictMock();
 		partialGame.claimTerritories();
 		EasyMock.expectLastCall();
 		partialGame.reinforceTerritories();

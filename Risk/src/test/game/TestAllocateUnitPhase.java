@@ -48,7 +48,7 @@ public class TestAllocateUnitPhase {
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall().times(3);
 		ui.updatePlayerDisplay(0);
-		EasyMock.expectLastCall().times(3);
+		EasyMock.expectLastCall().times(4);
 
 		// Replay
 		EasyMock.replay(ui);
@@ -81,7 +81,7 @@ public class TestAllocateUnitPhase {
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall().times(totalReinforcements);
 		ui.updatePlayerDisplay(0);
-		EasyMock.expectLastCall().times(totalReinforcements);
+		EasyMock.expectLastCall().times(totalReinforcements+1);
 
 		// Replay
 		EasyMock.replay(ui);
@@ -119,7 +119,7 @@ public class TestAllocateUnitPhase {
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall().times(3);
 		ui.updatePlayerDisplay(0);
-		EasyMock.expectLastCall().times(3);
+		EasyMock.expectLastCall().times(4);
 
 		// Replay
 		EasyMock.replay(ui);

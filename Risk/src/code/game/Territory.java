@@ -9,8 +9,8 @@ public class Territory {
 	private double xScale;
 	private double yScale;
 	private int yield;
-	public static final Territory CANCEL_TERRITORY = new Territory("null", "null", 0, null, 0, 0);
-	public static final Territory END_TERRITORY = new Territory("null", "null", 0, null, 0, 0);
+	public static final Territory CANCEL_TERRITORY = new Territory("Cancel", "null", 0, null, 0, 0);
+	public static final Territory END_TERRITORY = new Territory("End", "null", 0, null, 0, 0);
 
 	public Territory(String territoryID, String name, int yield, List <String> borderingTerritories, double x, double y) {
 		this.territoryID = territoryID;

@@ -17,5 +17,6 @@ public class TerritorySelectionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		gui.selectTerritory(this.territory);
+		System.out.println(this.territory.getTerritoryID());
 	}
 }
