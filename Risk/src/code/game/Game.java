@@ -1,15 +1,11 @@
 package code.game;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
@@ -22,7 +18,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -345,23 +341,23 @@ public class Game {
 		List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
 		List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
 		int maxUnits = Math.min(attacker.getYield()-1, 3);
-		int selectedAttackingUnits = ui.reinforcementCountPrompt(maxUnits, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION);
+		int selectedAttackingUnits = ui.reinforcementCountPrompt(maxUnits, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION);   
 		if (selectedAttackingUnits < 1) {
 			ui.displayMessage("You must have at least 2 units to attack!");
 			return false;
 		}
 		int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
-		for (int currRoll = 0; currRoll <attackingDiceRolls; currRoll++) {
-			attackingPlayerRolls.add(rollDice());
-			//attackingPlayerRolls.add(6);
+		for (int currRoll = 0; currRoll < attackingDiceRolls; currRoll++) {
+			//attackingPlayerRolls.add(rollDice());
+			attackingPlayerRolls.add(6);
 		}
 		int defendingDiceRolls = Math.min(defender.getYield(), 2);
-		for (int currRoll = 0; currRoll <defendingDiceRolls; currRoll++) {
-			defendingPlayerRolls.add(rollDice());
-			//defendingPlayerRolls.add(1);
+		for (int currRoll = 0; currRoll < defendingDiceRolls; currRoll++) {
+			//defendingPlayerRolls.add(rollDice());
+			defendingPlayerRolls.add(1);
 		}
-		//System.out.println(attackingPlayerRolls);
-		//System.out.println(defendingPlayerRolls);
+		System.out.println(attackingPlayerRolls);
+		System.out.println(defendingPlayerRolls);
 		int minRolls = Math.min(attackingDiceRolls,defendingDiceRolls);
 		for (int rolls = 0; rolls < minRolls; rolls++) {
 			int maxAttack = Collections.max(attackingPlayerRolls);
@@ -383,9 +379,9 @@ public class Game {
 			ui.updateTerritoryDisplay(attacker, players.get(currTurn).getColor());
 			ui.updateTerritoryDisplay(defender, players.get(currTurn).getColor());
 
-			while(attackingUnits2Move < 0) {
-				attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE);
-			}
+
+			attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE);
+			
 			defendingPlayer = findOwnerOfterritory(defender);
 			Set<Territory> defendingPlayersTerritories = this.playersTerritories.get(defendingPlayer);
 			defendingPlayersTerritories.remove(defender);
@@ -396,8 +392,8 @@ public class Game {
 
 			defender.setYield(attackingUnits2Move);
 			attacker.setYield(attacker.getYield() - attackingUnits2Move);
-			
-			if (defendingPlayersTerritories.size() < 1) {
+
+			if (defendingPlayersTerritories.size() == 0) {
 				ui.displayMessage("Player " + defendingPlayer.ID + " was defeated by Player " + currPlayer.ID);
 			}
 		}
@@ -408,7 +404,7 @@ public class Game {
 		return true;
 	}
 
-	private Player findOwnerOfterritory(Territory defendingTerritory) {
+	public Player findOwnerOfterritory(Territory defendingTerritory) {
 		for(Player player : players){
 			Set<Territory> ownedTerritories = this.playersTerritories.get(player);
 			if (ownedTerritories.contains(defendingTerritory)) {
