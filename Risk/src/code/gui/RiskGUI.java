@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -207,11 +208,25 @@ public class RiskGUI implements RiskUI {
 		JOptionPane handPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
 		this.handPanel = new HandPanel(hand);
 		handPane.setMessage(new Object[] { this.handPanel } );
-		JDialog handDialog = handPane.createDialog("eat a dick");
-		handDialog.setVisible(true);
+		
+		boolean cancel = false;
+		List<Card> selectedCards = new ArrayList<>();
+		while (selectedCards.size() != 3) {
+			JDialog handDialog = handPane.createDialog("Select 3 cards to play.");
+			handDialog.setVisible(true);
+			if ( handPane.getValue() == null || (int) handPane.getValue() == JOptionPane.CANCEL_OPTION) {
+				cancel = true;
+				break;
+			} else {
+				selectedCards = this.handPanel.getSelectedCards();
+			}
+		}
 		
 		this.handPanel = null;
-		return null;
+		if (cancel) {
+			return null;
+		}
+		return selectedCards;
 	}
 
 	@Override
