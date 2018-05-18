@@ -86,6 +86,7 @@ public class Game {
 			Card card = new Card(null, CardType.WILD);
 			deck.add(card);
 		}
+		Collections.shuffle(deck,rand);
 		return deck;
 	}
 
