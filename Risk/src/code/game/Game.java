@@ -17,7 +17,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	public final Deck deck;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 
