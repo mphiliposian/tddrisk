@@ -13,11 +13,13 @@ import java.util.Stack;
 import javax.swing.JOptionPane;
 
 import org.easymock.EasyMock;
+
+import code.game.Card.CardType;
 import code.gui.RiskUI;
 
 public class Game {
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	public final Deck deck;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 
@@ -128,11 +130,8 @@ public class Game {
 	}
 
 	public void turn() {
-		ui.setPhaseText("Allocation");
 		allocatePhase();
-		ui.setPhaseText("Attacking");
 		battlePhase();
-		ui.setPhaseText("Fortifying");
 		fortify();
 	}
 
@@ -304,9 +303,9 @@ public class Game {
 	}
 
 	public void allocatePhase() {
-		ui.updatePlayerDisplay(currTurn);
 		boolean cardsVerified = false;
 		Player curPlayer = players.get(currTurn);
+<<<<<<< HEAD
 		List<Card> redeemedCards = new ArrayList<>();
 		while(redeemedCards != null && !cardsVerified) {
 			redeemedCards = ui.selectCards(currTurn, curPlayer.getHand());
@@ -316,11 +315,30 @@ public class Game {
 		if (redeemedCards != null){
 			int setValue = this.redeemCards(curPlayer, redeemedCards);
 			curPlayer.setReinforcements(curPlayer.getReinforcements() + setValue);
+=======
+		List<Card> cards = null;
+
+		//while(!verified) {
+		//cards = ui.selectCards(currTurn, curPlayer.getHand());
+		//verified = this.verifyCards(cards);
+		//}
+		int setValue = 0;
+		if (cards != null){
+
+			if (redeemedSets == 0) {
+				setValue = 4;
+			} else if(redeemedSets < 6){
+				setValue = 2 + redeemedSets*2;
+			} else {
+				setValue = 15 + (redeemedSets - 6)*5;
+			}
+>>>>>>> 7f6c947e5e93194322a2505ca99adb45e6a46f32
 		}
 
 		int initialReinforcements = curPlayer.getReinforcements() 
 				+ this.getTotalReinforcements();
 		curPlayer.setReinforcements(initialReinforcements);
+		ui.updatePlayerDisplay(currTurn);
 		while(curPlayer.getReinforcements() > 0) {
 			Territory territory = ui.territoryPrompt("");
 			if (playerOwnsTerritory(territory)) {
@@ -333,21 +351,16 @@ public class Game {
 	public int redeemCards(Player player, List<Card> redeemedCards) {
 		int setValue = 0;
 		player.getHand().removeAll(redeemedCards);
-		setValue = calculateSetValue(redeemedSets);
+		if (redeemedSets == 0) {
+			setValue = 4;
+		} else if(redeemedSets < 6){
+			setValue = 2 + redeemedSets*2;
+		} else {
+			setValue = 15 + (redeemedSets - 6)*5;
+		}
 		redeemedSets += 1;
-		ui.setCardValue(calculateSetValue(redeemedSets));
 		
 		return setValue;
-	}
-	
-	public int calculateSetValue(int redeemedSets) {
-		if (redeemedSets == 0) {
-			return 4;
-		} else if(redeemedSets < 6){
-			return 2 + redeemedSets*2;
-		} else {
-			return 15 + (redeemedSets - 6)*5;
-		}
 	}
 
 	public boolean canAttack(Territory attackingTerritory) {

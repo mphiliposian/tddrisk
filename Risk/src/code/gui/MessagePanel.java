@@ -43,7 +43,7 @@ public class MessagePanel extends JPanel {
 	}
 	
 	private JLabel createPhaseLabel() {
-		JLabel phaseLabel = new JLabel(" Phase: Default ");
+		JLabel phaseLabel = new JLabel(" Phase: Setup ");
 		phaseLabel.setBorder(BorderFactory.createDashedBorder(null));
 		return phaseLabel;
 	}
