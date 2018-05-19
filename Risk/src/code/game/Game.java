@@ -294,10 +294,8 @@ public class Game {
 		Player currPlayer = getPlayerByID(currTurn);
 		Set<Territory> ownedTerritories = playersTerritories.get(currPlayer);
 		int reinforcements = (int)(ownedTerritories.size() / 3);
-		if (MIN_NUM_OF_UNITS_PER_TURN > reinforcements) {
-			return MIN_NUM_OF_UNITS_PER_TURN;
-		}
-		return reinforcements;
+		
+		return Math.max(MIN_NUM_OF_UNITS_PER_TURN, reinforcements);
 	}
 
 
@@ -466,15 +464,11 @@ public class Game {
 		int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
 		for (int currRoll = 0; currRoll < attackingDiceRolls; currRoll++) {
 			attackingPlayerRolls.add(rollDice());
-			//attackingPlayerRolls.add(6);
 		}
 		int defendingDiceRolls = Math.min(defender.getYield(), 2);
 		for (int currRoll = 0; currRoll < defendingDiceRolls; currRoll++) {
 			defendingPlayerRolls.add(rollDice());
-			//defendingPlayerRolls.add(1);
 		}
-		System.out.println(attackingPlayerRolls);
-		System.out.println(defendingPlayerRolls);
 		int minRolls = Math.min(attackingDiceRolls,defendingDiceRolls);
 		for (int rolls = 0; rolls < minRolls; rolls++) {
 			int maxAttack = Collections.max(attackingPlayerRolls);

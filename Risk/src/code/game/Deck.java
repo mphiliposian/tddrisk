@@ -1,8 +1,6 @@
 package code.game;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
@@ -43,7 +41,7 @@ public class Deck {
 		return drawPile.pop();
 	}
 
-	private void reShuffleDiscard() {
+	public void reShuffleDiscard() {
 		Collections.shuffle(discardPile, rand);
 		for(int i = 0; i < discardPile.size(); i++){
 			drawPile.push(discardPile.pop());
