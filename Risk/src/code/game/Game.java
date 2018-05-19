@@ -17,7 +17,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	public final Deck deck;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName"); //$NON-NLS-1$
 
@@ -466,15 +466,13 @@ public class Game {
 		int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
 		for (int currRoll = 0; currRoll < attackingDiceRolls; currRoll++) {
 			attackingPlayerRolls.add(rollDice());
-			//attackingPlayerRolls.add(6);
 		}
 		int defendingDiceRolls = Math.min(defender.getYield(), 2);
 		for (int currRoll = 0; currRoll < defendingDiceRolls; currRoll++) {
 			defendingPlayerRolls.add(rollDice());
-			//defendingPlayerRolls.add(1);
 		}
-		System.out.println(attackingPlayerRolls);
-		System.out.println(defendingPlayerRolls);
+		//System.out.println(attackingPlayerRolls);
+		//System.out.println(defendingPlayerRolls);
 		int minRolls = Math.min(attackingDiceRolls,defendingDiceRolls);
 		for (int rolls = 0; rolls < minRolls; rolls++) {
 			int maxAttack = Collections.max(attackingPlayerRolls);
@@ -519,9 +517,6 @@ public class Game {
 					currPlayer.addCardToHand(card);
 				}
 				
-				if (currPlayer.getHand().size() >= 6) {
-					forceRedeem();
-				}
 				
 				
 			}

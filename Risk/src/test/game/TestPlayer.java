@@ -42,19 +42,6 @@ public class TestPlayer {
 	}
 
 	@Test
-	public void addMaxCardsToPlayer() {
-		Player player = new Player(0);
-		Card card = new Card(new Territory("End", "null", 0, null, 0, 0), Card.CardType.Artillery);
-		assertEquals(player.getHand().size(),0);
-		for(int cardNum = 0; cardNum < 6; cardNum++) {
-			assertTrue(player.addCardToHand(card));
-		}
-		assertEquals(player.getHand().size(),6);
-		assertFalse(player.addCardToHand(card));
-		assertEquals(player.getHand().size(),6);
-	}
-
-	@Test
 	public void removeCardFromPlayer() {
 		Player player = new Player(0);
 		Card card = new Card(new Territory("End", "null", 0, null, 0, 0), Card.CardType.Artillery);

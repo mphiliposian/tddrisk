@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
+
+import code.game.Card;
 import code.game.Game;
 import code.game.Player;
 import code.game.Territory;
@@ -56,7 +59,7 @@ public class TestBattle {
 		game.battlePhase();
 		EasyMock.verify(ui);
 	}
-	
+
 	@Test
 	public void playerEndsAttackingTurnAfterPickingTerritory() {
 		RiskUI ui = EasyMock.niceMock(RiskUI.class);
@@ -82,7 +85,7 @@ public class TestBattle {
 		game.battlePhase();
 		EasyMock.verify(ui);
 	}
-	
+
 	@Test
 	public void player1Wins2Battle() {
 		RiskUI ui = EasyMock.niceMock(RiskUI.class);
@@ -384,6 +387,5 @@ public class TestBattle {
 
 		assertEquals(game.rollDice(), 1);
 	}
-
 
 }
