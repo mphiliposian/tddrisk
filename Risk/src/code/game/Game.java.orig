@@ -332,10 +332,13 @@ public class Game {
 	
 	public int redeemCards(Player player, List<Card> redeemedCards) {
 		int setValue = 0;
+<<<<<<< HEAD
 		for (Card card : redeemedCards) {
 			player.removeCard(card);
 			deck.discard(card);
 		}
+=======
+		player.getHand().removeAll(redeemedCards);
 		setValue = calculateSetValue(redeemedSets);
 		redeemedSets += 1;
 		ui.setCardValue(calculateSetValue(redeemedSets));
@@ -344,10 +347,15 @@ public class Game {
 	}
 	
 	public int calculateSetValue(int redeemedSets) {
+>>>>>>> update_corner_labels
 		if (redeemedSets == 0) {
 			return 4;
 		} else if(redeemedSets < 6){
+<<<<<<< HEAD
+			setValue = 4 + redeemedSets*2;
+=======
 			return 2 + redeemedSets*2;
+>>>>>>> update_corner_labels
 		} else {
 			return 15 + (redeemedSets - 6)*5;
 		}
