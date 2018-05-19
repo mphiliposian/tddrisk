@@ -337,11 +337,13 @@ public class Game {
 		}
 		if (redeemedSets == 0) {
 			setValue = 4;
-		}
-		else {
-			setValue = 6;
+		} else if(redeemedSets < 6){
+			setValue = 4 + redeemedSets*2;
+		} else {
+			setValue = 15 + (redeemedSets - 6)*5;
 		}
 		redeemedSets += 1;
+		
 		return setValue;
 	}
 
