@@ -12,7 +12,7 @@ import code.game.Card.CardType;
 public class Deck {
 
 	Stack<Card> drawPile = new Stack<>();
-	Stack<Card> discardPile = new Stack<>();
+	public Stack<Card> discardPile = new Stack<>();
 	Random rand;
 
 	public Deck(List<Territory> territories, Random rand) {
