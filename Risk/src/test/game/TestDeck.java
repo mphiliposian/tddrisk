@@ -50,13 +50,14 @@ public class TestDeck {
 	public void drawCardNotEmpty() {
 		Deck deck = EasyMock.partialMockBuilder(Deck.class)
 				.withConstructor(new ArrayList<Territory>(), new Random())
-				.addMockedMethod("reShuffleDiscard").createStrictMock();
+				.addMockedMethod("reShuffleDiscard").createNiceMock();
 		
 		deck.reShuffleDiscard();
-		EasyMock.expectLastCall();
+		EasyMock.expectLastCall().andThrow(new OutOfMemoryError("Shouldn't be called!"));
+		
 		EasyMock.replay(deck);
-		deck.drawCard();
-		deck.drawCard();
+		Card card = deck.drawCard();
+		assertTrue(card != null);
 		EasyMock.verify(deck);
 	}
 	
