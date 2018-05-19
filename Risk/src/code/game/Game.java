@@ -202,55 +202,33 @@ public class Game {
 			Card card2 = cards.get(1);
 			Card card3 = cards.get(2);
 
-			if (allSameCardType(card1, card2, card3)) {
+			if (containsWildCard(card1, card2, card3)) {
 				return true;
 			}
-
-			if(allUniqueCards(card1,card2,card3)) {
+			
+			if (allSameCardType(card1,card2,card3)) {
+				return true;
+			}
+			
+			if (allUniqueCards(card1,card2,card3)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private boolean containsWildCard(Card card1, Card card2, Card card3) {
+		return card1.getCardType().equals(Card.CardType.WILD) || card2.getCardType().equals(Card.CardType.WILD) || card3.getCardType().equals(Card.CardType.WILD);
 	}
 
 	private boolean allUniqueCards(Card card1, Card card2, Card card3) {
-		if (card1.getCardType().equals(Card.CardType.WILD)) {
-			if (!card2.getCardType().equals(card3.getCardType()) || card2.getCardType().equals(Card.CardType.WILD) || card3.getCardType().equals(Card.CardType.WILD)) {
-				return true;
-			}
-		} else if (card2.getCardType().equals(Card.CardType.WILD)) {
-			if (!card1.getCardType().equals(card3.getCardType()) || card3.getCardType().equals(Card.CardType.WILD)) {
-				return true;
-			}
-		} else if (card3.getCardType().equals(Card.CardType.WILD)) {
-			if (!card1.getCardType().equals(card2.getCardType())) {
-				return true;
-			} 
-		}else if (!card1.getCardType().equals(card2.getCardType()) && !card2.getCardType().equals(card3.getCardType()) && !card1.getCardType().equals(card3.getCardType())){
-			return true;
-		}
-
-		return false;
+		return (!card1.getCardType().equals(card2.getCardType()) && !card2.getCardType().equals(card3.getCardType()) && !card1.getCardType().equals(card3.getCardType()));
 	}
 
 
+
 	private boolean allSameCardType(Card card1, Card card2, Card card3) {
-		if (card1.getCardType().equals(Card.CardType.WILD)) {
-			if (card2.getCardType().equals(card3.getCardType()) || card2.getCardType().equals(Card.CardType.WILD) || card3.getCardType().equals(Card.CardType.WILD)) {
-				return true;
-			}
-		} else if (card2.getCardType().equals(Card.CardType.WILD)) {
-			if (card1.getCardType().equals(card3.getCardType()) || card3.getCardType().equals(Card.CardType.WILD)) {
-				return true;
-			}
-		} else if (card3.getCardType().equals(Card.CardType.WILD)) {
-			if (card1.getCardType().equals(card2.getCardType())) {
-				return true;
-			} 
-		}else if (card1.getCardType().equals(card2.getCardType()) && card2.getCardType().equals(card3.getCardType())){
-			return true;
-		}
-		return false;
+		return (card1.getCardType().equals(card2.getCardType()) && card2.getCardType().equals(card3.getCardType()));
 	}
 
 	public boolean playerOwnsTerritory(Territory territory) {
