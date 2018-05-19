@@ -44,7 +44,6 @@ public class TestGameState {
 
 	@Test
 	public void winGameState() {
-		RiskUI mockUI = mockGui();
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		Player player = new Player(0);
 		Set<Territory> ownedTerritories = new HashSet<>();

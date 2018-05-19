@@ -490,7 +490,6 @@ public class Game {
 			ui.updateTerritoryDisplay(attacker, players.get(currTurn).getColor());
 			ui.updateTerritoryDisplay(defender, players.get(currTurn).getColor());
 
-
 			attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, Messages.getString("Game.22"), Messages.getString("Game.23"), JOptionPane.PLAIN_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
 
 			defendingPlayer = findOwnerOfterritory(defender);
@@ -504,8 +503,6 @@ public class Game {
 			defender.setYield(attackingUnits2Move);
 			attacker.setYield(attacker.getYield() - attackingUnits2Move);
 
-			
-			
 			if (defendingPlayersTerritories.size() == 0) {
 				ui.displayMessage(Messages.getString("Game.24") + defendingPlayer.ID + Messages.getString("Game.25") + currPlayer.ID); //$NON-NLS-1$ //$NON-NLS-2$
 				
@@ -516,14 +513,7 @@ public class Game {
 				if (currPlayer.getHand().size() >= 6) {
 					forceRedeem();
 				}
-				
-				
 			}
-			
-			
-
-			
-		
 		}
 
 		ui.updateTerritoryDisplay(attacker, players.get(currTurn).getColor());

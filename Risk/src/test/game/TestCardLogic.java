@@ -167,14 +167,10 @@ public class TestCardLogic {
 		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
 		Game game = new Game(ui);
 		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
-		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
-		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 		
 		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
 		Card infantry2 = new Card(territory1, Card.CardType.Infantry);
 		Card infantry3 = new Card(territory1, Card.CardType.Infantry);
-		Card calvary = new Card(territory2, Card.CardType.Calvary);
-		Card artillery = new Card(territory3, Card.CardType.Artillery);
 		
 		List<Card> cards = new ArrayList<>();
 		cards.add(infantry1);
@@ -191,13 +187,10 @@ public class TestCardLogic {
 		Game game = new Game(ui);
 		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
 		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
-		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 		
 		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
 		Card infantry2 = new Card(territory1, Card.CardType.Infantry);
-		Card infantry3 = new Card(territory1, Card.CardType.Infantry);
 		Card calvary = new Card(territory2, Card.CardType.Calvary);
-		Card artillery = new Card(territory3, Card.CardType.Artillery);
 		
 		List<Card> cards = new ArrayList<>();
 		cards.add(infantry1);
@@ -217,8 +210,6 @@ public class TestCardLogic {
 		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 		
 		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
-		Card infantry2 = new Card(territory1, Card.CardType.Infantry);
-		Card infantry3 = new Card(territory1, Card.CardType.Infantry);
 		Card calvary = new Card(territory2, Card.CardType.Calvary);
 		Card artillery = new Card(territory3, Card.CardType.Artillery);
 		
@@ -236,8 +227,6 @@ public class TestCardLogic {
 		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
 		Game game = new Game(ui);
 		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
-		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
-		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 		
 		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
 		Card wild = new Card(territory1, Card.CardType.WILD);
@@ -269,8 +258,6 @@ public class TestCardLogic {
 		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
 		Game game = new Game(ui);
 		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
-		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
-		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 		
 		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
 		Card wild = new Card(territory1, Card.CardType.WILD);
@@ -301,8 +288,6 @@ public class TestCardLogic {
 		EasyMock.expect(ui.playerCountPrompt()).andReturn(3);
 		Game game = new Game(ui);
 		Territory territory1 = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
-		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
-		Territory territory3 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
 		
 		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
 		Card wild = new Card(territory1, Card.CardType.WILD);
