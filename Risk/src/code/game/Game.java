@@ -367,6 +367,16 @@ public class Game {
 		redeemedSets += 1;
 		ui.setCardValue(calculateSetValue(redeemedSets));
 		
+		boolean ownsCardTerritory = false;
+		for (Card card : redeemedCards) {
+			if (this.playerOwnsTerritory(card.getTerritory())) {
+				ownsCardTerritory = true;
+			}
+		}
+		if (ownsCardTerritory) {
+			setValue += 2;
+		}
+		
 		return setValue;
 	}
 	

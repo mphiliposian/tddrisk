@@ -16,7 +16,7 @@ A continent is a set of territories. Continents are listed in Appendix B.
 ## Turns
 - [x] A turn is defined in three phases: Allocating reinforcements, attacking, and fortifying, and they always occur in this order. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/cfcdd175071192057df928f61b8a73125a8d245f
 - [x] After a turn is completed, the next player in the turn ordering who has not yet been eliminated is prompted to play a turn. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/cfcdd175071192057df928f61b8a73125a8d245f
-- [ ] A player is eliminated when they control no territories.
+- [x] A player is eliminated when they control no territories. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7ecd96e84812d9061ef86f5147a5f7fe0f18fb09
 
 
 ### Allocating reinforcements:
@@ -25,7 +25,7 @@ A continent is a set of territories. Continents are listed in Appendix B.
 - [x] At any point during the allocating reinforcements phase, the player may choose to redeem a set of cards, and this set must contain exactly 3 cards; either 1 from each group, or all 3 from the same group. Card details are explained in appendix D. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/5f21d64734e9399553d85575461a7f366b360d36
 - [x] When a player redeems a set of cards, the following things happen: The cards are moved to a set of used cards, the player receives a number of reinforcements equal to a set value that the game keeps track of, a redeemed set counter is incremented, and the set value is increased. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/97b80528e221df39b3a14d734309db816fd99dc0 
 - [x] The set counter starts at 0, and the set value starts at 4. For each additional set redeemed, the set value increases by 2. When the set counter reaches 7, the set value increases by 5, and all future sets redeemed also increase the set value by 5. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/4b5ab4807ac0cd6ada9f4f9e333999750ec8c88c
-- [ ] If a player redeems a set of cards which contains a card that is associated with at least one of the territories that they control, the player is prompted to select one of these territories, and 2 additional reinforcements are placed on the territory they select.
+- [x] If a player redeems a set of cards which contains a card that is associated with at least one of the territories that they control, the player is prompted to select one of these territories, and 2 additional reinforcements are placed on the territory they select. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/merge_requests/17/diffs?commit_id=0322e48601e2984a7b6e45fd22cb61c1878c877f
 - [x] At any point during the allocating reinforcements phase, the player may add a reinforcement to any of their controller territories. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7704233d5c62c0e8b9a11b8d509f903c5c50a3d4
 - [x] The allocating reinorcements phase only ends when the player has 0 reinforcements. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7704233d5c62c0e8b9a11b8d509f903c5c50a3d4
 
@@ -49,9 +49,9 @@ A continent is a set of territories. Continents are listed in Appendix B.
 - [x] The Player can move as many or as little units as they'd like onto that territory as long as the territory you attacked from has one unit left on it. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/2870be892314925c807ac797feecd79ea9a849fb
 
 #### Eliminating an opponent
-- [ ] If durring the players turn, they eliminate an opponent (reduce the enemy players units to 0), the winning player recieves the defeated enemies RISK cards.
-- [ ] If the player holds 6 or more RISK cards in there hand, then they must imediately turn in a set and place the recieved units on any of their owned territores.
-- [ ] If the player has less than 5 cards after recieving them from the enemy, then they must wait until their next turn to turn in a set.
+- [x] If durring the players turn, they eliminate an opponent (reduce the enemy players units to 0), the winning player recieves the defeated enemies RISK cards. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/ecd369a582be5019ea7d42ed3eafb6305696d727
+- [x] If the player holds 6 or more RISK cards in there hand, then they must imediately turn in a set and place the recieved units on any of their owned territores. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7f71faf7d0749187b32aa9e5752741172a7812f1
+- [x] If the player has less than 5 cards after recieving them from the enemy, then they must wait until their next turn to turn in a set. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7f71faf7d0749187b32aa9e5752741172a7812f1
 
 #### Ending an attack
 - [x] The player end their attacks at anytime durring the attack phase. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7524b8082ca45a7d4f9b6f7341a779d322e2c46c
