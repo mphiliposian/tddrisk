@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -21,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import code.game.Card;
 import code.game.Player;
 import code.game.Territory;
 
@@ -34,6 +37,7 @@ public class RiskGUI implements RiskUI {
 	private CompletableFuture <Territory> selectedTerritory;
 	private GridBagLayout gridbag;
 	private GridBagConstraints constraints;
+	private HandPanel handPanel;
 
 	@Override
 	public void initializeUI(List <Territory> territories) {
@@ -197,5 +201,31 @@ public class RiskGUI implements RiskUI {
 	@Override
 	public void setCardValue(int value) {
 		this.messagePanel.setCardValue(value);
+	}
+	
+	@Override
+	public List<Card> selectCards(int playerID, List<Card> hand) {
+		JOptionPane handPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+		this.handPanel = new HandPanel(hand);
+		handPane.setMessage(new Object[] { this.handPanel } );
+		
+		boolean cancel = false;
+		List<Card> selectedCards = new ArrayList<>();
+		while (selectedCards.size() != 3) {
+			JDialog handDialog = handPane.createDialog("Select 3 cards to play.");
+			handDialog.setVisible(true);
+			if ( handPane.getValue() == null || (int) handPane.getValue() == JOptionPane.CANCEL_OPTION) {
+				cancel = true;
+				break;
+			} else {
+				selectedCards = this.handPanel.getSelectedCards();
+			}
+		}
+		
+		this.handPanel = null;
+		if (cancel) {
+			return null;
+		}
+		return selectedCards;
 	}
 }
