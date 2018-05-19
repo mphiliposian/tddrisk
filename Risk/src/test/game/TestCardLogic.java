@@ -47,7 +47,7 @@ public class TestCardLogic {
 		Set <Territory> ownedTerritories2 = new HashSet <> ();
 		Territory player1Territory = new Territory("NA1", "murica", 2, territoriesConnectedToNA1, 0, 0);
 		Territory player2Territory = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
-		Territory player2Territory2 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA2, 0, 0);
+		Territory player2Territory2 = new Territory("NA3", "murica2", 1, territoriesConnectedToNA3, 0, 0);
 		ownedTerritories1.add(player1Territory);
 		ownedTerritories2.add(player2Territory);
 		ownedTerritories2.add(player2Territory2);

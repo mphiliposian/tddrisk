@@ -22,7 +22,7 @@ public class Deck {
 
 	public Stack<Card> initializeDeck(List<Territory> territories) {
 		Stack<Card> deck = new Stack<>();
-		for(int i = 0; i < 42; i++) {
+		for(int i = 0; i < territories.size(); i++) {
 			CardType type = CardType.values()[i%3];
 			Card card = new Card(territories.get(i), type);
 			deck.add(card);
@@ -45,7 +45,7 @@ public class Deck {
 
 	private void reShuffleDiscard() {
 		Collections.shuffle(discardPile, rand);
-		for(Card card : discardPile){
+		for(int i = 0; i < discardPile.size(); i++){
 			drawPile.push(discardPile.pop());
 		}
 	}
