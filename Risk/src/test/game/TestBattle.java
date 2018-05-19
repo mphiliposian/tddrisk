@@ -35,6 +35,55 @@ public class TestBattle {
 	}
 
 	@Test
+	public void playerEndsAttackingTurnWithoutPickingTerritory() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		Player player = new Player(0);
+		Set <Territory> ownedTerritories = new HashSet <> ();
+		Territory player1Territory = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA2", "murica2", 8, territoriesConnectedToNA2, 0, 0);
+		ownedTerritories.add(player1Territory);
+		ArrayList <Player> players = new ArrayList <> ();
+		players.add(player);
+		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories, 1);
+		ui.setEndPhaseButtonVisible(true);
+		EasyMock.expectLastCall();
+		ui.setCancelButtonVisible(false);
+		EasyMock.expectLastCall();
+		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(new Territory("End", "null", 0, null, 0, 0));
+		EasyMock.replay(ui);
+		game.battlePhase();
+		EasyMock.verify(ui);
+	}
+	
+	@Test
+	public void playerEndsAttackingTurnAfterPickingTerritory() {
+		RiskUI ui = EasyMock.niceMock(RiskUI.class);
+		Player player = new Player(0);
+		Set <Territory> ownedTerritories = new HashSet <> ();
+		Territory player1Territory = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
+		Territory player2Territory = new Territory("NA2", "murica2", 8, territoriesConnectedToNA2, 0, 0);
+		ownedTerritories.add(player1Territory);
+		ArrayList <Player> players = new ArrayList <> ();
+		players.add(player);
+		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories, 1);
+		ui.setEndPhaseButtonVisible(true);
+		EasyMock.expectLastCall();
+		ui.setCancelButtonVisible(false);
+		EasyMock.expectLastCall();
+		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(player1Territory);
+		ui.setCancelButtonVisible(true);
+		EasyMock.expectLastCall();
+		EasyMock.expect(ui.territoryPrompt(EasyMock.anyString())).andReturn(new Territory("End", "null", 0, null, 0, 0));
+		EasyMock.replay(ui);
+		game.battlePhase();
+		EasyMock.verify(ui);
+	}
+	
+	@Test
 	public void player1Wins2Battle() {
 		RiskUI ui = EasyMock.niceMock(RiskUI.class);
 		Player player = new Player(0);
@@ -46,7 +95,7 @@ public class TestBattle {
 		players.add(player);
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
-		Game game = new Game(ui, players, playersTerritories, 2);
+		Game game = new Game(ui, players, playersTerritories, 1);
 		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall();
@@ -72,7 +121,7 @@ public class TestBattle {
 		players.add(player);
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
-		Game game = new Game(ui, players, playersTerritories, 9);
+		Game game = new Game(ui, players, playersTerritories, 3);
 		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall();
@@ -97,7 +146,7 @@ public class TestBattle {
 		players.add(player);
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories);
-		Game game = new Game(ui, players, playersTerritories, 4);
+		Game game = new Game(ui, players, playersTerritories, 9);
 		EasyMock.expect(ui.reinforcementCountPrompt(3, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(3);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
 		EasyMock.expectLastCall();
@@ -225,7 +274,7 @@ public class TestBattle {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories1);
 		playersTerritories.put(player2, ownedTerritories2);
-		Game game = new Game(ui, players, playersTerritories, 5);
+		Game game = new Game(ui, players, playersTerritories, 7);
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(1);
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE)).andReturn(1);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
@@ -265,7 +314,7 @@ public class TestBattle {
 		Map <Player, Set <Territory>> playersTerritories = new HashMap <> ();
 		playersTerritories.put(player, ownedTerritories1);
 		playersTerritories.put(player2, ownedTerritories2);
-		Game game = new Game(ui, players, playersTerritories, 5);
+		Game game = new Game(ui, players, playersTerritories, 3);
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION)).andReturn(1);
 		EasyMock.expect(ui.reinforcementCountPrompt(1, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE)).andReturn(1);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
@@ -333,7 +382,7 @@ public class TestBattle {
 		playersTerritories.put(player, ownedTerritories);
 		Game game = new Game(ui, players, playersTerritories, 10);
 
-		assertEquals(game.rollDice(), 4);
+		assertEquals(game.rollDice(), 1);
 	}
 
 

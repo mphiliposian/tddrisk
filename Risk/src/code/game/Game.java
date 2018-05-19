@@ -20,7 +20,7 @@ import code.gui.RiskUI;
 public class Game {
 
 	private static final boolean DEBUG = false;
-	public final List<Card> deck;
+	public final Deck deck;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 
 	private final int MIN_NUM_OF_PLAYERS = 3;
@@ -36,6 +36,7 @@ public class Game {
 	private Map <String, Set <Territory>> continents;
 	private Map <String, Integer> continentValues;
 	private Random rand;
+	private int redeemedSets = 0;
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList <Player> ();
@@ -47,7 +48,7 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = new HashMap <> ();
 		rand = new Random();
-		deck = initializeDeck();
+		deck = new Deck(territories, rand);
 	}
 
 	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories) {
@@ -60,9 +61,9 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = playerTerritories;
 		rand = new Random();
-		deck = initializeDeck();
+		deck = new Deck(territories, rand);
 	}
-	
+
 	public Game(RiskUI ui, ArrayList <Player> players, Map <Player, Set <Territory>> playerTerritories, int seed) {
 		this.players = players;
 		this.ui = ui;
@@ -73,21 +74,9 @@ public class Game {
 		continentValues = intializeContinentValues();
 		playersTerritories = playerTerritories;
 		rand = new Random(seed);
-		deck = initializeDeck();
+		deck = new Deck(territories, rand);
 	}
-	public List<Card> initializeDeck() {
-		List<Card> deck = new ArrayList<>();
-		for(int i = 0; i < 42; i++) {
-			CardType type = CardType.values()[i%3];
-			Card card = new Card(territories.get(i), type);
-			deck.add(card);
-		}
-		for(int i = 0; i < 2; i++) {
-			Card card = new Card(null, CardType.WILD);
-			deck.add(card);
-		}
-		return deck;
-	}
+
 
 	public boolean gameIsWon() {
 		for (Player player: players) {
@@ -192,7 +181,8 @@ public class Game {
 		for (Player player: players) {
 			totalReinforcements = totalReinforcements + player.getReinforcements();
 		}
-		for (int NumOfTurns = 0; NumOfTurns <totalReinforcements; NumOfTurns++) {
+
+		for (int NumOfTurns = 0; NumOfTurns < totalReinforcements; NumOfTurns++) {
 			boolean ownedByPlayer = false;
 			while (!ownedByPlayer) {
 				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory"));
@@ -204,6 +194,41 @@ public class Game {
 				}
 			}
 		}
+	}
+
+	public boolean verifyCards(List<Card> cards) {
+		if (cards != null) {
+			Card card1 = cards.get(0);
+			Card card2 = cards.get(1);
+			Card card3 = cards.get(2);
+
+			if (containsWildCard(card1, card2, card3)) {
+				return true;
+			}
+			
+			if (allSameCardType(card1,card2,card3)) {
+				return true;
+			}
+			
+			if (allUniqueCards(card1,card2,card3)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean containsWildCard(Card card1, Card card2, Card card3) {
+		return card1.getCardType().equals(Card.CardType.WILD) || card2.getCardType().equals(Card.CardType.WILD) || card3.getCardType().equals(Card.CardType.WILD);
+	}
+
+	private boolean allUniqueCards(Card card1, Card card2, Card card3) {
+		return (!card1.getCardType().equals(card2.getCardType()) && !card2.getCardType().equals(card3.getCardType()) && !card1.getCardType().equals(card3.getCardType()));
+	}
+
+
+
+	private boolean allSameCardType(Card card1, Card card2, Card card3) {
+		return (card1.getCardType().equals(card2.getCardType()) && card2.getCardType().equals(card3.getCardType()));
 	}
 
 	public boolean playerOwnsTerritory(Territory territory) {
@@ -278,18 +303,45 @@ public class Game {
 	}
 
 	public void allocatePhase() {
-		Player currPlayer = getPlayerByID(currTurn);
-		int initialReinforcements = currPlayer.getReinforcements() 
+		boolean cardsVerified = false;
+		Player curPlayer = players.get(currTurn);
+		List<Card> redeemedCards = new ArrayList<>();
+		while(redeemedCards != null && !cardsVerified) {
+			redeemedCards = ui.selectCards(currTurn, curPlayer.getHand());
+			cardsVerified = this.verifyCards(redeemedCards);
+		}
+		
+		if (redeemedCards != null){
+			int setValue = this.redeemCards(curPlayer, redeemedCards);
+			curPlayer.setReinforcements(curPlayer.getReinforcements() + setValue);
+		}
+
+		int initialReinforcements = curPlayer.getReinforcements() 
 				+ this.getTotalReinforcements();
-		currPlayer.setReinforcements(initialReinforcements);
+		curPlayer.setReinforcements(initialReinforcements);
 		ui.updatePlayerDisplay(currTurn);
-		while(currPlayer.getReinforcements() > 0) {
+		while(curPlayer.getReinforcements() > 0) {
 			Territory territory = ui.territoryPrompt("");
 			if (playerOwnsTerritory(territory)) {
 				placeOneUnit(territory);
 				ui.updatePlayerDisplay(currTurn);
 			}
 		}	
+	}
+	
+	public int redeemCards(Player player, List<Card> redeemedCards) {
+		int setValue = 0;
+		player.getHand().removeAll(redeemedCards);
+		if (redeemedSets == 0) {
+			setValue = 4;
+		} else if(redeemedSets < 6){
+			setValue = 2 + redeemedSets*2;
+		} else {
+			setValue = 15 + (redeemedSets - 6)*5;
+		}
+		redeemedSets += 1;
+		
+		return setValue;
 	}
 
 	public boolean canAttack(Territory attackingTerritory) {
@@ -321,6 +373,8 @@ public class Game {
 	public void battlePhase() {
 		String message = "Select one of your territories to attack with";
 		ui.setEndPhaseButtonVisible(true);
+		Player curPlayer = players.get(currTurn); 
+		int numOfOwnedTerritories = playersTerritories.get(curPlayer).size();
 		while(true) {
 			ui.setCancelButtonVisible(false);
 			Territory attacker = ui.territoryPrompt(message);
@@ -345,6 +399,10 @@ public class Game {
 			else {
 				message = "Invalid order: Select one of your territories to attack with";
 			}
+		}
+
+		if (numOfOwnedTerritories < playersTerritories.get(curPlayer).size()) {
+			curPlayer.addCardToHand(deck.drawCard());
 		}
 
 	}
@@ -394,7 +452,7 @@ public class Game {
 
 
 			attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE);
-			
+
 			defendingPlayer = findOwnerOfterritory(defender);
 			Set<Territory> defendingPlayersTerritories = this.playersTerritories.get(defendingPlayer);
 			defendingPlayersTerritories.remove(defender);
