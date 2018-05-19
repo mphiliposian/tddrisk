@@ -43,7 +43,7 @@ public class Deck {
 		return drawPile.pop();
 	}
 
-	private void reShuffleDiscard() {
+	public void reShuffleDiscard() {
 		Collections.shuffle(discardPile, rand);
 		for(int i = 0; i < discardPile.size(); i++){
 			drawPile.push(discardPile.pop());

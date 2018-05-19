@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Random;
 
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
@@ -29,24 +30,38 @@ public class TestDeck {
 	}
 	
 	@Test
-	public void testDeckIsEmpty() {
+	public void drawCardDeckIsEmpty() {
 		Deck deck = new Deck(new ArrayList<Territory>(), new Random());
-		for(int i = 0; i < 2; i++) {
-			deck.drawCard();
-		}
-		boolean canDraw = true;
-		try {
-			deck.drawCard();
-		} catch(EmptyStackException e) {
-			canDraw = false;
-		}
-		
-		assertFalse(canDraw);
+		Card wildCard1 = deck.drawCard();
+		Card wildCard2 = deck.drawCard();
+		assertEquals(wildCard1.getCardType(), CardType.WILD);
+		assertEquals(wildCard2.getCardType(), CardType.WILD);
 		assertTrue(deck.isEmpty());
+		boolean caughtException = false;
+		try {
+		deck.drawCard();
+		} catch (EmptyStackException e) {
+			caughtException = true;
+		}
+		assertTrue(caughtException);
 	}
 	
 	@Test
-	public void testDrawPileToDiscardPile() {
+	public void drawCardNotEmpty() {
+		Deck deck = EasyMock.partialMockBuilder(Deck.class)
+				.withConstructor(new ArrayList<Territory>(), new Random())
+				.addMockedMethod("reShuffleDiscard").createStrictMock();
+		
+		deck.reShuffleDiscard();
+		EasyMock.expectLastCall();
+		EasyMock.replay(deck);
+		deck.drawCard();
+		deck.drawCard();
+		EasyMock.verify(deck);
+	}
+	
+	@Test
+	public void drawPileToDiscardPile() {
 		ArrayList <Territory> allTerritories = new ArrayList <Territory> ();
 		Territory territory1 = new Territory("NA1", "murica", 2, territoriesConnectedToNA1, 0, 0);
 		Territory territory2 = new Territory("NA2", "murica2", 1, territoriesConnectedToNA2, 0, 0);
@@ -74,5 +89,4 @@ public class TestDeck {
 		assertTrue(numWilds == 2);
 		assertTrue(cardExistsInPile);
 	}
-
 }
