@@ -335,7 +335,14 @@ public class Game {
 			player.removeCard(card);
 			deck.discard(card);
 		}
-		return 4;
+		if (redeemedSets == 0) {
+			setValue = 4;
+		}
+		else {
+			setValue = 6;
+		}
+		redeemedSets += 1;
+		return setValue;
 	}
 
 	public boolean canAttack(Territory attackingTerritory) {
