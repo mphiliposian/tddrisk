@@ -43,7 +43,6 @@ public class TestBattle {
 		Player player = new Player(0);
 		Set <Territory> ownedTerritories = new HashSet <> ();
 		Territory player1Territory = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
-		Territory player2Territory = new Territory("NA2", "murica2", 8, territoriesConnectedToNA2, 0, 0);
 		ownedTerritories.add(player1Territory);
 		ArrayList <Player> players = new ArrayList <> ();
 		players.add(player);
@@ -66,7 +65,6 @@ public class TestBattle {
 		Player player = new Player(0);
 		Set <Territory> ownedTerritories = new HashSet <> ();
 		Territory player1Territory = new Territory("NA1", "murica", 10, territoriesConnectedToNA1, 0, 0);
-		Territory player2Territory = new Territory("NA2", "murica2", 8, territoriesConnectedToNA2, 0, 0);
 		ownedTerritories.add(player1Territory);
 		ArrayList <Player> players = new ArrayList <> ();
 		players.add(player);

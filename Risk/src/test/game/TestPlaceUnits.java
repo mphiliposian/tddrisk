@@ -9,7 +9,6 @@ import java.util.Set;
 import org.easymock.EasyMock;
 import org.junit.Test;
 import code.game.Game;
-import code.game.Messages;
 import code.game.Territory;
 import code.game.TerritoryReader;
 import code.gui.RiskUI;

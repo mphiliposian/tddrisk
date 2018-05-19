@@ -68,7 +68,6 @@ public class TestAttacking {
 		Player player = new Player(0);
 		Set <Territory> ownedTerritories = new HashSet <> ();
 		Territory player3Territory = new Territory("NA1", "murica", 4, territoriesConnectedToNA1, 0, 0);
-		Territory player2Territory = new Territory("NA3", "murica2", 5, territoriesConnectedToNA3, 0, 0);
 		ownedTerritories.add(new Territory("NA2", "America", 3, territoriesConnectedToNA2, 0, 0));
 		ArrayList <Player> players = new ArrayList <> ();
 		players.add(player);
@@ -102,7 +101,6 @@ public class TestAttacking {
 		Player player = new Player(0);
 		Set <Territory> ownedTerritories = new HashSet <> ();
 		Territory player1Territory = new Territory("NA2", "murica", 1, territoriesConnectedToNA2, 0, 0);
-		Territory player2Territory = new Territory("NA3", "murica2", 1, territoriesConnectedToNA3, 0, 0);
 		ownedTerritories.add(player1Territory);
 		ArrayList <Player> players = new ArrayList <> ();
 		players.add(player);
