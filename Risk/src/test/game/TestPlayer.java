@@ -28,5 +28,14 @@ public class TestPlayer {
 		assertEquals(player.getHand().size(),1);
 	}
 
-
+	@Test
+	public void addManyCardsToPlayer() {
+		Player player = new Player(0);
+		Card card = new Card(new Territory("End", "null", 0, null, 0, 0), Card.CardType.Artillery);
+		assertEquals(player.getHand().size(),0);
+		for(int cardNum = 0; cardNum < 3; cardNum++) {
+			assertTrue(player.addCardToHand(card));
+		}
+		assertEquals(player.getHand().size(),3);
+	}
 }
