@@ -325,39 +325,45 @@ public class Game {
 	}
 
 	public void allocatePhase() {
-		boolean verified = false;
+		boolean cardsVerified = false;
 		Player curPlayer = players.get(currTurn);
-		List<Card> cards = null;
-
-		//while(!verified) {
-			//cards = ui.selectCards(currTurn, curPlayer.getHand());
-			//verified = this.verifyCards(cards);
-		//}
-		int setValue = 0;
-		if (cards != null){
-			
-			if (redeemedSets == 0) {
-				setValue = 4;
-			} else if(redeemedSets < 6){
-				setValue = 2 + redeemedSets*2;
-			} else {
-				setValue = 15 + (redeemedSets - 6)*5;
-			}
+		List<Card> redeemedCards = new ArrayList<>();
+		while(redeemedCards != null && !cardsVerified) {
+			redeemedCards = ui.selectCards(currTurn, curPlayer.getHand());
+			cardsVerified = this.verifyCards(redeemedCards);
+		}
+		
+		if (redeemedCards != null){
+			int setValue = this.redeemCards(curPlayer, redeemedCards);
+			curPlayer.setReinforcements(curPlayer.getReinforcements() + setValue);
 		}
 
-		Player currPlayer = getPlayerByID(currTurn);
-		currPlayer.setReinforcements(currPlayer.getReinforcements() + setValue);
-		int initialReinforcements = currPlayer.getReinforcements() 
+		int initialReinforcements = curPlayer.getReinforcements() 
 				+ this.getTotalReinforcements();
-		currPlayer.setReinforcements(initialReinforcements);
+		curPlayer.setReinforcements(initialReinforcements);
 		ui.updatePlayerDisplay(currTurn);
-		while(currPlayer.getReinforcements() > 0) {
+		while(curPlayer.getReinforcements() > 0) {
 			Territory territory = ui.territoryPrompt("");
 			if (playerOwnsTerritory(territory)) {
 				placeOneUnit(territory);
 				ui.updatePlayerDisplay(currTurn);
 			}
 		}	
+	}
+	
+	public int redeemCards(Player player, List<Card> redeemedCards) {
+		int setValue = 0;
+		player.getHand().removeAll(redeemedCards);
+		if (redeemedSets == 0) {
+			setValue = 4;
+		} else if(redeemedSets < 6){
+			setValue = 2 + redeemedSets*2;
+		} else {
+			setValue = 15 + (redeemedSets - 6)*5;
+		}
+		redeemedSets += 1;
+		
+		return setValue;
 	}
 
 	public boolean canAttack(Territory attackingTerritory) {
