@@ -22,12 +22,12 @@ A continent is a set of territories. Continents are listed in Appendix B.
 ### Allocating reinforcements:
 - [x] The active player is provided a number of reinforcements equal to 3, or the number of territories they control divided by 3, whichever is greater. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7ecdd5bbca50e14eae44ef156872a5b10ba84357
 - [x] The activate player is provided a number of reinforcements for each continent whose territories the player controls all of. The amount of reinforcements associated with each continent is shown in appendix B next to each continent's name. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/30853d458a67e27e33e1bb72931ed0d873781f4d
-- [ ] At any point during the allocating reinforcements phase, the player may choose to redeem a set of cards, and this set must contain exactly 3 cards; either 1 from each group, or all 3 from the same group. Card details are explained in appendix D.
-- [ ] When a player redeems a set of cards, the following things happen: The cards are moved to a set of used cards, the player receives a number of reinforcements equal to a set value that the game keeps track of, a redeemed set counter is incremented, and the set value is increased. 
-- [ ] The set counter starts at 0, and the set value starts at 4. For each additional set redeemed, the set value increases by 2. When the set counter reaches 7, the set value increases by 5, and all future sets redeemed also increase the set value by 5.
+- [x] At any point during the allocating reinforcements phase, the player may choose to redeem a set of cards, and this set must contain exactly 3 cards; either 1 from each group, or all 3 from the same group. Card details are explained in appendix D. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/5f21d64734e9399553d85575461a7f366b360d36
+- [x] When a player redeems a set of cards, the following things happen: The cards are moved to a set of used cards, the player receives a number of reinforcements equal to a set value that the game keeps track of, a redeemed set counter is incremented, and the set value is increased. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/97b80528e221df39b3a14d734309db816fd99dc0 
+- [x] The set counter starts at 0, and the set value starts at 4. For each additional set redeemed, the set value increases by 2. When the set counter reaches 7, the set value increases by 5, and all future sets redeemed also increase the set value by 5. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/4b5ab4807ac0cd6ada9f4f9e333999750ec8c88c
 - [ ] If a player redeems a set of cards which contains a card that is associated with at least one of the territories that they control, the player is prompted to select one of these territories, and 2 additional reinforcements are placed on the territory they select.
-- [ ] At any point during the allocating reinforcements phase, the player may add a reinforcement to any of their controller territories.
-- [ ] The allocating reinorcements phase only ends when the player has 0 reinforcements.
+- [x] At any point during the allocating reinforcements phase, the player may add a reinforcement to any of their controller territories. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7704233d5c62c0e8b9a11b8d509f903c5c50a3d4
+- [x] The allocating reinorcements phase only ends when the player has 0 reinforcements. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7704233d5c62c0e8b9a11b8d509f903c5c50a3d4
 
 ### Attacking:
 - [x] Players can choose to attack or continue to the fortifying phase. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7524b8082ca45a7d4f9b6f7341a779d322e2c46c
@@ -59,8 +59,8 @@ A continent is a set of territories. Continents are listed in Appendix B.
 - [x] The player then continues to the Fortify phase https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/cfcdd175071192057df928f61b8a73125a8d245f
 
 ### Fortifying
-- [ ] Players can move units from one territory to another territory as long as a set of adjacent or connected paths connect them.
-- [ ] The Player must also leave atleast one unit behind when moving units to a new territory.
+- [x] Players can move units from one territory to another territory as long as a set of adjacent or connected paths connect them. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/69c63746791d244ac561b60feef2fe4236b72368
+- [x] The Player must also leave atleast one unit behind when moving units to a new territory. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/91460dce706fb21299f47dc4dd2eb44c91ce28e6
 
 ## Continuing the game
 After the fortifying phase, a player ends their turn and then the next player takes their turn.
@@ -135,6 +135,6 @@ Turns continue until one player elimates all opponents by capturing all 42 terri
 | 6	      | 20    |
 
 ## Appendix D: Cards
-- [ ] There are 42 unique risk cards, each associated with specific territory.
-- [ ] These cards are evenly divided into three groups,  and each group is marked with a unique identifier.
-- [ ] There are 2 additional cards which are not associated with a territory, but belong to all three of the card groups.
+There are 42 unique risk cards, each associated with specific territory.
+These cards are evenly divided into three groups,  and each group is marked with a unique identifier.
+There are 2 additional cards which are not associated with a territory, but belong to all three of the card groups.
