@@ -3,6 +3,7 @@ package test.game;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -39,7 +40,7 @@ public class TestPlayer {
 		}
 		assertEquals(player.getHand().size(),3);
 	}
-	
+
 	@Test
 	public void addMaxCardsToPlayer() {
 		Player player = new Player(0);
@@ -52,7 +53,7 @@ public class TestPlayer {
 		assertFalse(player.addCardToHand(card));
 		assertEquals(player.getHand().size(),6);
 	}
-	
+
 	@Test
 	public void removeCardFromPlayer() {
 		Player player = new Player(0);
@@ -63,6 +64,18 @@ public class TestPlayer {
 		player.removeCard(card);
 		assertEquals(player.getHand().size(),0);
 	}
-	
+
+
+	@Test
+	public void removeCardFromEmptyPlayer() {
+		Player player = new Player(0);
+		Card card = new Card(new Territory("End", "null", 0, null, 0, 0), Card.CardType.Artillery);
+		try {
+			player.removeCard(card);
+			fail("Should have raised a IllegalArgumentException");
+		} catch (IllegalArgumentException ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
 
 }
