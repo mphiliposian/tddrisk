@@ -5,12 +5,14 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.easymock.EasyMock;
 import org.junit.Test;
 
+import code.game.Card;
 import code.game.Game;
 import code.game.Player;
 import code.game.Territory;
@@ -43,6 +45,7 @@ public class TestAllocateUnitPhase {
 		Game game = new Game(ui, players, playersTerritories);
 
 		// Record
+		EasyMock.expect(ui.selectCards(0, new ArrayList<Card>())).andReturn(null);
 		EasyMock.expect(ui.territoryPrompt(""))
 		.andReturn(expectedTerritory).times(3);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
@@ -60,7 +63,7 @@ public class TestAllocateUnitPhase {
 	}
 
 	@Test
-	public void allocateWithAsia() {
+	public void allocateWithAsiawithCards() {
 		Set<Territory> asia = asiaStubs(12);
 		Territory expectedTerritory = asia.iterator().next();
 		ArrayList<Player> players = new ArrayList<>();
@@ -69,13 +72,28 @@ public class TestAllocateUnitPhase {
 			player.addTerritory();
 		}
 		players.add(player);
+		Territory territory1 = new Territory("NA1", "murica", 10, null, 0, 0);
+		
+		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
+		Card wild = new Card(territory1, Card.CardType.WILD);
+		Card calvary = new Card(territory1, Card.CardType.Calvary);
+		
+		List<Card> cards = new ArrayList<>();
+		cards.add(wild);
+		cards.add(infantry1);
+		cards.add(calvary);
+		
+		player.addCardToHand(wild);
+		player.addCardToHand(infantry1);
+		player.addCardToHand(calvary);
 		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
 		playersTerritories.put(player, asia);
 		RiskUI ui = EasyMock.mock(RiskUI.class);
 		Game game = new Game(ui, players, playersTerritories);
-		int totalReinforcements = 11;
+		int totalReinforcements = 15;
 
 		// Record
+		EasyMock.expect(ui.selectCards(0, player.getHand())).andReturn(cards);
 		EasyMock.expect(ui.territoryPrompt(""))
 		.andReturn(expectedTerritory).times(totalReinforcements);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
@@ -112,6 +130,7 @@ public class TestAllocateUnitPhase {
 		Game game = new Game(ui, players, playersTerritories);
 
 		// Record
+		EasyMock.expect(ui.selectCards(0, new ArrayList<Card>())).andReturn(null);
 		EasyMock.expect(ui.territoryPrompt(""))
 			.andReturn(unownedTerritory);
 		EasyMock.expect(ui.territoryPrompt(""))
@@ -120,6 +139,40 @@ public class TestAllocateUnitPhase {
 		EasyMock.expectLastCall().times(3);
 		ui.updatePlayerDisplay(0);
 		EasyMock.expectLastCall().times(4);
+
+		// Replay
+		EasyMock.replay(ui);
+		game.allocatePhase();
+
+		// Verify
+		EasyMock.verify(ui);
+		assertEquals(0, player.getReinforcements());
+	}
+	
+	@Test
+	public void allocateWithAsia() {
+		Set<Territory> asia = asiaStubs(12);
+		Territory expectedTerritory = asia.iterator().next();
+		ArrayList<Player> players = new ArrayList<>();
+		Player player = new Player(0);
+		for (int i=0; i<12; i++) {
+			player.addTerritory();
+		}
+		players.add(player);
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, asia);
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Game game = new Game(ui, players, playersTerritories);
+		int totalReinforcements = 11;
+
+		// Record
+		EasyMock.expect(ui.selectCards(0, new ArrayList<Card>())).andReturn(null);
+		EasyMock.expect(ui.territoryPrompt(""))
+		.andReturn(expectedTerritory).times(totalReinforcements);
+		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());
+		EasyMock.expectLastCall().times(totalReinforcements);
+		ui.updatePlayerDisplay(0);
+		EasyMock.expectLastCall().times(totalReinforcements+1);
 
 		// Replay
 		EasyMock.replay(ui);

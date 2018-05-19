@@ -19,7 +19,7 @@ import code.gui.RiskUI;
 
 public class Game {
 
-	private static final boolean DEBUG = false;
+	private static final boolean DEBUG = true;
 	public final Deck deck;
 	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
 
@@ -331,7 +331,10 @@ public class Game {
 	
 	public int redeemCards(Player player, List<Card> redeemedCards) {
 		int setValue = 0;
-		player.getHand().removeAll(redeemedCards);
+		for (Card card : redeemedCards) {
+			player.removeCard(card);
+			deck.discard(card);
+		}
 		if (redeemedSets == 0) {
 			setValue = 4;
 		} else if(redeemedSets < 6){
