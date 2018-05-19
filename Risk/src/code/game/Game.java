@@ -154,11 +154,15 @@ public class Game {
 	public void playGame() {
 		while(!this.gameIsWon()) {
 			Player curplayer = players.get(currTurn);
-			if (playersTerritories.get(curplayer).size() > 0) {
+			if (playerHasATerritory(curplayer)) {
 				turn();
 			}
 			this.switchTurn();
 		}
+	}
+
+	private boolean playerHasATerritory(Player curplayer) {
+		return playersTerritories.get(curplayer).size() > 0;
 	}
 
 	public Player getPlayerByID(int playerID) {
