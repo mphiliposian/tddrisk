@@ -224,6 +224,72 @@ public class TestRedeemCards {
 		assertEquals(game.deck.discardPile.size(), 6);
 	}
 
+	@Test
+	public void playerOwns1CardTerritory() {
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set<Territory> ownedTerritories = new HashSet<>();
+		ArrayList<Player> players = new ArrayList<>();
+		players.add(player);
+
+		Territory territory1 = new Territory("NA1", "murica", 10, null, 0, 0);
+		Territory territory2 = new Territory("NA2", "murica2", 10, null, 0, 0);
+		ownedTerritories.add(territory1);
+
+		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
+		Card wild = new Card(territory2, Card.CardType.WILD);
+		Card calvary = new Card(territory2, Card.CardType.Calvary);
+
+		List<Card> cards = new ArrayList<>();
+		cards.add(wild);
+		cards.add(infantry1);
+		cards.add(calvary);
+
+		player.addCardToHand(wild);
+		player.addCardToHand(infantry1);
+		player.addCardToHand(calvary);
+
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories);
+		
+		assertEquals(game.redeemCards(player, cards), 6);
+		assertEquals(player.getHand().size(),0);
+		assertEquals(game.deck.discardPile.size(), 3);
+	}
+	
+	@Test
+	public void playerOwns3CardTerritories() {
+		RiskUI ui = EasyMock.mock(RiskUI.class);
+		Player player = new Player(0);
+		Set<Territory> ownedTerritories = new HashSet<>();
+		ArrayList<Player> players = new ArrayList<>();
+		players.add(player);
+
+		Territory territory1 = new Territory("NA1", "murica", 10, null, 0, 0);
+		ownedTerritories.add(territory1);
+
+		Card infantry1 = new Card(territory1, Card.CardType.Infantry);
+		Card wild = new Card(territory1, Card.CardType.WILD);
+		Card calvary = new Card(territory1, Card.CardType.Calvary);
+
+		List<Card> cards = new ArrayList<>();
+		cards.add(wild);
+		cards.add(infantry1);
+		cards.add(calvary);
+
+		player.addCardToHand(wild);
+		player.addCardToHand(infantry1);
+		player.addCardToHand(calvary);
+
+		Map<Player, Set<Territory>> playersTerritories = new HashMap<>();
+		playersTerritories.put(player, ownedTerritories);
+		Game game = new Game(ui, players, playersTerritories);
+		
+		assertEquals(game.redeemCards(player, cards), 6);
+		assertEquals(player.getHand().size(),0);
+		assertEquals(game.deck.discardPile.size(), 3);
+	}
 }
 
 
