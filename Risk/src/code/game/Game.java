@@ -330,6 +330,29 @@ public class Game {
 		}	
 	}
 	
+	public void forceRedeem() {
+		boolean cardsVerified = false;
+		Player curPlayer = players.get(currTurn);
+		List<Card> redeemedCards = new ArrayList<>();
+		while(!cardsVerified) {
+			redeemedCards = ui.selectCards(currTurn, curPlayer.getHand());
+			cardsVerified = this.verifyCards(redeemedCards);
+		}
+		
+		if (redeemedCards != null){
+			int setValue = this.redeemCards(curPlayer, redeemedCards);
+			curPlayer.setReinforcements(curPlayer.getReinforcements() + setValue);
+		}
+		
+		while(curPlayer.getReinforcements() > 0) {
+			Territory territory = ui.territoryPrompt(Messages.getString("Game.14")); //$NON-NLS-1$
+			if (playerOwnsTerritory(territory)) {
+				placeOneUnit(territory);
+				ui.updatePlayerDisplay(currTurn);
+			}
+		}
+	}
+	
 	public int redeemCards(Player player, List<Card> redeemedCards) {
 		int setValue = 0;
 		for (Card card : redeemedCards) {
@@ -473,8 +496,18 @@ public class Game {
 			defender.setYield(attackingUnits2Move);
 			attacker.setYield(attacker.getYield() - attackingUnits2Move);
 
+			
+			
 			if (defendingPlayersTerritories.size() == 0) {
 				ui.displayMessage(Messages.getString("Game.24") + defendingPlayer.ID + Messages.getString("Game.25") + currPlayer.ID); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+			
+			for(Card card : defendingPlayer.getHand()) {
+				currPlayer.addCardToHand(card);
+			}
+			
+			if (currPlayer.getHand().size() > 6) {
+				forceRedeem();
 			}
 		}
 
