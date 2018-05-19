@@ -569,10 +569,7 @@ public class Game {
 	private boolean moveUnits(Territory startingTerritory, Territory endTerritory) {
 		int maxUnits = startingTerritory.getYield()-1;
 		int unitsToMove = ui.reinforcementCountPrompt(maxUnits, Messages.getString("Game.30"), Messages.getString("Game.31"), JOptionPane.OK_CANCEL_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
-		if (unitsToMove < 1) {
-			ui.displayMessage(Messages.getString("Game.32")); //$NON-NLS-1$
-			return false;
-		}
+		
 
 		endTerritory.setYield(unitsToMove + endTerritory.getYield());
 		startingTerritory.setYield(startingTerritory.getYield() - unitsToMove);
