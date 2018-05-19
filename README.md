@@ -14,9 +14,8 @@ A continent is a set of territories. Continents are listed in Appendix B.
 
 
 ## Turns
-- [ ] A turn is defined in three phases: Allocating reinforcements, attacking, and fortifying, and they always occur in this order.
-- [ ] The first player in the turn ordering is prompted to play a turn.
-- [ ] After a turn is completed, the next player in the turn ordering who has not yet been eliminated is prompted to play a turn.
+- [x] A turn is defined in three phases: Allocating reinforcements, attacking, and fortifying, and they always occur in this order. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/cfcdd175071192057df928f61b8a73125a8d245f
+- [x] After a turn is completed, the next player in the turn ordering who has not yet been eliminated is prompted to play a turn. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/cfcdd175071192057df928f61b8a73125a8d245f
 - [ ] A player is eliminated when they control no territories.
 
 
@@ -31,11 +30,11 @@ A continent is a set of territories. Continents are listed in Appendix B.
 - [ ] The allocating reinorcements phase only ends when the player has 0 reinforcements.
 
 ### Attacking:
-- [ ] Players can choose to attack or continue to the fortifying phase.
+- [x] Players can choose to attack or continue to the fortifying phase. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7524b8082ca45a7d4f9b6f7341a779d322e2c46c
 - [x] Players can only attack territores that are adjacent or connected to territories that the attacknig player owns. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/f037677dd24b9bb776abdbc37442dfdb5a38d300
 - [x] A territory must have atleast two units to declare an attack on another territory https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/b752c3e7fc795bc45b54f6ad8ee9be4906bd6630
-- [ ] The attacking player may continue to attack one country until he has elimated the enemy units on the territory or until he has only one unit left.
-- [ ] The attacking player may also choose to attack a new territory as much as they'd like durring there attacking phase.
+- [x] The attacking player may continue to attack one country until he has elimated the enemy units on the territory or until he has only one unit left. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/2870be892314925c807ac797feecd79ea9a849fb
+- [x] The attacking player may also choose to attack a new territory as much as they'd like durring there attacking phase. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/59c94a8ad055903d8c3a8d2c8755cd7bea8d2f62
 
 
 #### Deciding the Winner of a battle
@@ -46,8 +45,8 @@ A continent is a set of territories. Continents are listed in Appendix B.
 - [x] If each player rolled more than one dice, then compare the two next highest dice and repeat the above win conditions. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/28cacd8204592dd8adbfdffdc627e8a6f9fa0d86
 
 #### Capturing a territory
-- [ ] After defeating all units on a territory, the attacking player must occupy the territory imediately by moving units that attacked onto that territory.
-- [ ] The Player can move as many or as little units as they'd like onto that territory as long as the territory you attacked from has one unit left on it.
+- [x] After defeating all units on a territory, the attacking player must occupy the territory imediately by moving units that attacked onto that territory. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/2870be892314925c807ac797feecd79ea9a849fb
+- [x] The Player can move as many or as little units as they'd like onto that territory as long as the territory you attacked from has one unit left on it. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/2870be892314925c807ac797feecd79ea9a849fb
 
 #### Eliminating an opponent
 - [ ] If durring the players turn, they eliminate an opponent (reduce the enemy players units to 0), the winning player recieves the defeated enemies RISK cards.
@@ -55,12 +54,12 @@ A continent is a set of territories. Continents are listed in Appendix B.
 - [ ] If the player has less than 5 cards after recieving them from the enemy, then they must wait until their next turn to turn in a set.
 
 #### Ending an attack
-- [ ] The player end their attacks at anytime durring the attack phase.
-- [ ] If the player captured atleast one territory, then the place recieves a RISK card.
-- [ ] The player then continues to the Fortify phase
+- [x] The player end their attacks at anytime durring the attack phase. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/7524b8082ca45a7d4f9b6f7341a779d322e2c46c
+- [x] If the player captured atleast one territory, then the place recieves a RISK card. https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/4dcf4705dd086373d8fe11c435d8866df6e974f2
+- [x] The player then continues to the Fortify phase https://ada.csse.rose-hulman.edu/csse376-s1-g/risk/commit/cfcdd175071192057df928f61b8a73125a8d245f
 
 ### Fortifying
-- [ ] Players can move units from one territory to anotherr territory as long as a set of adjacent or connected paths connect them.
+- [ ] Players can move units from one territory to another territory as long as a set of adjacent or connected paths connect them.
 - [ ] The Player must also leave atleast one unit behind when moving units to a new territory.
 
 ## Continuing the game
