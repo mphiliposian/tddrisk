@@ -8,7 +8,7 @@ class TestDeck {
 
 	@Test
 	void test() {
-		fail("Not yet implemented");
+		
 	}
 
 }
