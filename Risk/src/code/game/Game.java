@@ -36,7 +36,7 @@ public class Game {
 	private Map <String, Set <Territory>> continents;
 	private Map <String, Integer> continentValues;
 	private Random rand;
-	private int redeemedSets = 0;
+	public int redeemedSets = 0;
 
 	public Game(RiskUI ui) {
 		this.players = new ArrayList <Player> ();
