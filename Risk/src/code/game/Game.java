@@ -330,7 +330,12 @@ public class Game {
 	}
 	
 	public int redeemCards(Player player, List<Card> redeemedCards) {
-
+		int setValue = 0;
+		for (Card card : redeemedCards) {
+			player.removeCard(card);
+			deck.discard(card);
+		}
+		return 4;
 	}
 
 	public boolean canAttack(Territory attackingTerritory) {
