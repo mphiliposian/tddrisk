@@ -94,6 +94,8 @@ public class TestAllocateUnitPhase {
 
 		// Record
 		EasyMock.expect(ui.selectCards(0, player.getHand())).andReturn(cards);
+		ui.setCardValue(4);
+		EasyMock.expectLastCall();
 		EasyMock.expect(ui.territoryPrompt(""))
 		.andReturn(expectedTerritory).times(totalReinforcements);
 		ui.updateTerritoryDisplay(EasyMock.anyObject(), EasyMock.anyObject());

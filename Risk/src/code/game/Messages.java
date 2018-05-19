@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 public class Messages {
 
-	private static final String BUNDLE_NAME = "code.game.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "code.game.names"; //$NON-NLS-1$
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 	
 	private static final String BUNDLE_NAME_TERRITORY = "code.game.names"; //$NON-NLS-1$

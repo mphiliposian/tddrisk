@@ -41,7 +41,7 @@ public class RiskGUI implements RiskUI {
 
 	@Override
 	public void initializeUI(List <Territory> territories) {
-		frame = new JFrame("Risk");
+		frame = new JFrame(Messages.getString("RiskGUI.0")); //$NON-NLS-1$
 		gridbag = new GridBagLayout();
 		constraints = new GridBagConstraints();
 		frame.setLayout(gridbag);
@@ -63,19 +63,19 @@ public class RiskGUI implements RiskUI {
 	@Override
 	public int playerCountPrompt() {
 		Object[] possibilities = {
-			"3",
-			"4",
-			"5",
-			"6"
+			Messages.getString("RiskGUI.1"), //$NON-NLS-1$
+			Messages.getString("RiskGUI.2"), //$NON-NLS-1$
+			Messages.getString("RiskGUI.3"), //$NON-NLS-1$
+			Messages.getString("RiskGUI.4") //$NON-NLS-1$
 		};
 		int numOfPlayers = Integer.parseInt((String) JOptionPane.showInputDialog(
 			frame,
-			"Please select the number of players:\n",
-			"RISK",
+			Messages.getString("RiskGUI.5"), //$NON-NLS-1$
+			Messages.getString("RiskGUI.6"), //$NON-NLS-1$
 			JOptionPane.PLAIN_MESSAGE,
 			null,
 			possibilities,
-			"3"));
+			Messages.getString("RiskGUI.7"))); //$NON-NLS-1$
 		return numOfPlayers;
 	}
 
@@ -97,7 +97,7 @@ public class RiskGUI implements RiskUI {
 		int windowWidth = scaledWidth.intValue();
 		int windowHeight = scaledHeight.intValue();
 		messagePanel = new MessagePanel(windowWidth, 30);
-		messagePanel.updateMessage("Welcome to Risk.");
+		messagePanel.updateMessage(Messages.getString("RiskGUI.8")); //$NON-NLS-1$
 		messagePanel.addCancelButtonListener(new CancelButtonListener(this));
 		messagePanel.addEndPhaseButtonListener(new EndAttackingPhaseListener(this));
 		mapPanel = new MapPanel(windowWidth, windowHeight, territories);
@@ -123,7 +123,7 @@ public class RiskGUI implements RiskUI {
 		try {
 			return this.waitForTerritory();
 		} catch (Exception e) {
-			throw new RuntimeException("Runtime exception occurred while waiting for territory selection.", e);
+			throw new RuntimeException(Messages.getString("RiskGUI.9"), e); //$NON-NLS-1$
 		}
 	}
 
@@ -140,7 +140,7 @@ public class RiskGUI implements RiskUI {
 
 	@Override
 	public int reinforcementCountPrompt(int max, String title, String message, int jOptionType) {
-		JOptionPane sliderPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, jOptionType);
+		JOptionPane sliderPane = new JOptionPane(Messages.getString("RiskGUI.10"), JOptionPane.PLAIN_MESSAGE, jOptionType); //$NON-NLS-1$
 		JSlider slider = new JSlider();
 		slider.setMinimum(1);
 		slider.setMaximum(max);
@@ -148,7 +148,7 @@ public class RiskGUI implements RiskUI {
 		slider.setMajorTickSpacing(((int) (max/10)) + 1);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
-		JLabel countLabel = new JLabel(message + ": " + max);
+		JLabel countLabel = new JLabel(message + Messages.getString("RiskGUI.11") + max); //$NON-NLS-1$
 		sliderPane.setMessage(new Object[] {
 			countLabel,
 			slider
@@ -156,7 +156,7 @@ public class RiskGUI implements RiskUI {
 		slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				countLabel.setText(message + ": " + slider.getValue());
+				countLabel.setText(message + Messages.getString("RiskGUI.12") + slider.getValue()); //$NON-NLS-1$
 				sliderPane.setInputValue(slider.getValue());
 			}
 		});
@@ -205,14 +205,14 @@ public class RiskGUI implements RiskUI {
 	
 	@Override
 	public List<Card> selectCards(int playerID, List<Card> hand) {
-		JOptionPane handPane = new JOptionPane("", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
+		JOptionPane handPane = new JOptionPane(Messages.getString("RiskGUI.13"), JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION); //$NON-NLS-1$
 		this.handPanel = new HandPanel(hand);
 		handPane.setMessage(new Object[] { this.handPanel } );
 		
 		boolean cancel = false;
 		List<Card> selectedCards = new ArrayList<>();
 		while (selectedCards.size() != 3) {
-			JDialog handDialog = handPane.createDialog("Select 3 cards to play.");
+			JDialog handDialog = handPane.createDialog(Messages.getString("RiskGUI.14")); //$NON-NLS-1$
 			handDialog.setVisible(true);
 			if ( handPane.getValue() == null || (int) handPane.getValue() == JOptionPane.CANCEL_OPTION) {
 				cancel = true;

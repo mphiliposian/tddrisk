@@ -26,14 +26,14 @@ public class MapPanel extends JPanel {
 		this.territoryMap = new HashMap < > ();
 		LabeledButton lButton;
 		for (Territory t: territories) {
-			lButton = new LabeledButton(this, t.getName(), "0");
+			lButton = new LabeledButton(this, t.getName(), Messages.getString("MapPanel.0")); //$NON-NLS-1$
 			this.territoryMap.put(t, lButton);
 			lButton.setBounds(new Double(t.getX() * width).intValue(),
 				new Double(t.getY() * height).intValue(), 55, 20);
 		}
 		this.setBackground(Color.black);
 		this.setLayout(null);
-		mapImage = new ImageIcon("map.png").getImage();
+		mapImage = new ImageIcon(Messages.getString("MapPanel.1")).getImage(); //$NON-NLS-1$
 	}
 
 	public void updateTerritory(Territory territory, Color color) {

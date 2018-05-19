@@ -70,29 +70,29 @@ public class HandPanel extends JPanel {
 			this.isSelected = false;
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-			String type = "";
+			String type = Messages.getString("HandPanel.0"); //$NON-NLS-1$
 			if (card != null) {
 				switch(this.card.getCardType()) {
 				case Artillery:
-					type = "A";
+					type = Messages.getString("HandPanel.1"); //$NON-NLS-1$
 					break;
 				case Calvary:
-					type = "C";
+					type = Messages.getString("HandPanel.2"); //$NON-NLS-1$
 					break;
 				case Infantry:
-					type = "I";
+					type = Messages.getString("HandPanel.3"); //$NON-NLS-1$
 					break;
 				case WILD:
-					type = "W";
+					type = Messages.getString("HandPanel.4"); //$NON-NLS-1$
 					break;
 				}
 			} else {
-				type = "";
+				type = Messages.getString("HandPanel.5"); //$NON-NLS-1$
 			}
 				
 			this.setBackground(Color.GRAY);
 			typeLabel = new JLabel(type);
-			typeLabel.setFont(new Font("Ariel",1,125));
+			typeLabel.setFont(new Font(Messages.getString("HandPanel.6"),1,125)); //$NON-NLS-1$
 			typeLabel.setAlignmentX(CENTER_ALIGNMENT);
 			typeLabel.setAlignmentY(BOTTOM_ALIGNMENT);
 			this.add(typeLabel);
@@ -100,9 +100,9 @@ public class HandPanel extends JPanel {
 			if (card != null) {
 				nameLabel = new JLabel(card.getTerritory().getName());
 			} else {
-				nameLabel = new JLabel("");
+				nameLabel = new JLabel(Messages.getString("HandPanel.7")); //$NON-NLS-1$
 			}
-			nameLabel.setFont(new Font("Ariel",1,18));
+			nameLabel.setFont(new Font(Messages.getString("HandPanel.8"),1,18)); //$NON-NLS-1$
 			nameLabel.setAlignmentX(CENTER_ALIGNMENT);
 			nameLabel.setAlignmentY(BOTTOM_ALIGNMENT);
 			this.add(nameLabel);

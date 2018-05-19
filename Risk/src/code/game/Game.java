@@ -19,7 +19,7 @@ public class Game {
 
 	private static final boolean DEBUG = false;
 	public final Deck deck;
-	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName");
+	private final String TERRITORY_MAP_FILE = Messages.getString("Game.FileName"); //$NON-NLS-1$
 
 	private final int MIN_NUM_OF_PLAYERS = 3;
 	private final int MAX_NUM_OF_PLAYERS = 6;
@@ -80,7 +80,7 @@ public class Game {
 		for (Player player: players) {
 			Set<Territory> ownedTerritoriesByPlayer = playersTerritories.get(player);
 			if (ownedTerritoriesByPlayer.size() == NUM_OF_TERRITORIES) {
-				ui.displayMessage("Player " + (player.ID + 1) + " Won!");
+				ui.displayMessage(Messages.getString("Game.1") + (player.ID + 1) + Messages.getString("Game.2")); //$NON-NLS-1$ //$NON-NLS-2$
 				return true;
 			}
 		}
@@ -128,11 +128,11 @@ public class Game {
 	}
 
 	public void turn() {
-		ui.setPhaseText("Allocation");
+		ui.setPhaseText(Messages.getString("Game.3")); //$NON-NLS-1$
 		allocatePhase();
-		ui.setPhaseText("Attacking");
+		ui.setPhaseText(Messages.getString("Game.4")); //$NON-NLS-1$
 		battlePhase();
-		ui.setPhaseText("Fortifying");
+		ui.setPhaseText(Messages.getString("Game.5")); //$NON-NLS-1$
 		fortify();
 	}
 
@@ -186,7 +186,7 @@ public class Game {
 		for (int NumOfTurns = 0; NumOfTurns < totalReinforcements; NumOfTurns++) {
 			boolean ownedByPlayer = false;
 			while (!ownedByPlayer) {
-				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory"));
+				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory")); //$NON-NLS-1$
 				if (playerOwnsTerritory(territory)) {
 					placeOneUnit(territory);
 					switchTurn();
@@ -249,7 +249,7 @@ public class Game {
 		for (int NumOfTurns = 0; NumOfTurns <NUM_OF_TERRITORIES; NumOfTurns++) {
 			boolean uniqueTerritory = false;
 			while (!uniqueTerritory) {
-				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory"));
+				Territory territory = ui.territoryPrompt(Messages.getString("Game.SelectTerritory")); //$NON-NLS-1$
 				if (territory.getYield() == 0) {
 					placeOneUnit(territory);
 					Set <Territory> ownedTerritories = playersTerritories.get(players.get(currTurn));
@@ -265,12 +265,12 @@ public class Game {
 
 	private Map <String, Integer> intializeContinentValues() {
 		Map <String, Integer> continentVals = new HashMap <> ();
-		continentVals.put("NA", 5);
-		continentVals.put("SA", 2);
-		continentVals.put("EU", 5);
-		continentVals.put("AF", 3);
-		continentVals.put("AS", 7);
-		continentVals.put("AU", 2);
+		continentVals.put(Messages.getString("Game.8"), 5); //$NON-NLS-1$
+		continentVals.put(Messages.getString("Game.9"), 2); //$NON-NLS-1$
+		continentVals.put(Messages.getString("Game.10"), 5); //$NON-NLS-1$
+		continentVals.put(Messages.getString("Game.11"), 3); //$NON-NLS-1$
+		continentVals.put(Messages.getString("Game.12"), 7); //$NON-NLS-1$
+		continentVals.put(Messages.getString("Game.13"), 2); //$NON-NLS-1$
 		return continentVals;
 	}
 
@@ -322,7 +322,7 @@ public class Game {
 				+ this.getTotalReinforcements();
 		curPlayer.setReinforcements(initialReinforcements);
 		while(curPlayer.getReinforcements() > 0) {
-			Territory territory = ui.territoryPrompt("");
+			Territory territory = ui.territoryPrompt(Messages.getString("Game.14")); //$NON-NLS-1$
 			if (playerOwnsTerritory(territory)) {
 				placeOneUnit(territory);
 				ui.updatePlayerDisplay(currTurn);
@@ -380,7 +380,7 @@ public class Game {
 	}
 
 	public void battlePhase() {
-		String message = "Select one of your territories to attack with";
+		String message = Messages.getString("Game.15"); //$NON-NLS-1$
 		ui.setEndPhaseButtonVisible(true);
 		Player curPlayer = players.get(currTurn); 
 		int numOfOwnedTerritories = playersTerritories.get(curPlayer).size();
@@ -391,11 +391,11 @@ public class Game {
 				break;
 			}
 			if (!canAttack(attacker)) {
-				message = "Invalid order: You must select a territory that you own with at least 2 units!";
+				message = Messages.getString("Game.16"); //$NON-NLS-1$
 				continue;
 			}
 			ui.setCancelButtonVisible(true);
-			Territory defender = ui.territoryPrompt("Select an enemy territory to attack");
+			Territory defender = ui.territoryPrompt(Messages.getString("Game.17")); //$NON-NLS-1$
 			if (defender.equals(Territory.CANCEL_TERRITORY)){
 				continue;
 			}
@@ -406,7 +406,7 @@ public class Game {
 				battle(attacker, defender);
 			}
 			else {
-				message = "Invalid order: Select one of your territories to attack with";
+				message = Messages.getString("Game.18"); //$NON-NLS-1$
 			}
 		}
 
@@ -421,9 +421,9 @@ public class Game {
 		List <Integer> attackingPlayerRolls = new ArrayList <Integer> ();
 		List <Integer> defendingPlayerRolls = new ArrayList <Integer> ();
 		int maxUnits = Math.min(attacker.getYield()-1, 3);
-		int selectedAttackingUnits = ui.reinforcementCountPrompt(maxUnits, "Select number of units to attack with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION);   
+		int selectedAttackingUnits = ui.reinforcementCountPrompt(maxUnits, Messages.getString("Game.19"), Messages.getString("Game.20"), JOptionPane.OK_CANCEL_OPTION);    //$NON-NLS-1$ //$NON-NLS-2$
 		if (selectedAttackingUnits < 1) {
-			ui.displayMessage("You must have at least 2 units to attack!");
+			ui.displayMessage(Messages.getString("Game.21")); //$NON-NLS-1$
 			return false;
 		}
 		int attackingDiceRolls = Math.min(selectedAttackingUnits, 3);
@@ -460,7 +460,7 @@ public class Game {
 			ui.updateTerritoryDisplay(defender, players.get(currTurn).getColor());
 
 
-			attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements", JOptionPane.PLAIN_MESSAGE);
+			attackingUnits2Move = ui.reinforcementCountPrompt(maxUnits, Messages.getString("Game.22"), Messages.getString("Game.23"), JOptionPane.PLAIN_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
 
 			defendingPlayer = findOwnerOfterritory(defender);
 			Set<Territory> defendingPlayersTerritories = this.playersTerritories.get(defendingPlayer);
@@ -474,7 +474,7 @@ public class Game {
 			attacker.setYield(attacker.getYield() - attackingUnits2Move);
 
 			if (defendingPlayersTerritories.size() == 0) {
-				ui.displayMessage("Player " + defendingPlayer.ID + " was defeated by Player " + currPlayer.ID);
+				ui.displayMessage(Messages.getString("Game.24") + defendingPlayer.ID + Messages.getString("Game.25") + currPlayer.ID); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
 
@@ -535,7 +535,7 @@ public class Game {
 	}
 
 	public void fortify() {
-		String message = "Select one of your territories to move units from";
+		String message = Messages.getString("Game.26"); //$NON-NLS-1$
 		boolean moved = false;
 		while(!moved) {
 			ui.setCancelButtonVisible(false);
@@ -544,11 +544,11 @@ public class Game {
 				break;
 			}
 			if (!canAttack(startingTerritory)) {
-				message = "Invalid order: You must select a territory that you own with at least 2 units!";
+				message = Messages.getString("Game.27"); //$NON-NLS-1$
 				continue;
 			}
 			ui.setCancelButtonVisible(true);
-			Territory endTerritory = ui.territoryPrompt("Select another owned territory that is connected");
+			Territory endTerritory = ui.territoryPrompt(Messages.getString("Game.28")); //$NON-NLS-1$
 			if (endTerritory.equals(Territory.CANCEL_TERRITORY)){
 				continue;
 			}
@@ -559,7 +559,7 @@ public class Game {
 				moved = moveUnits(startingTerritory, endTerritory);
 			}
 			else {
-				message = "Invalid order: Select one of your territories to move units from";
+				message = Messages.getString("Game.29"); //$NON-NLS-1$
 			}
 		}
 		ui.setCancelButtonVisible(false);
@@ -568,9 +568,9 @@ public class Game {
 
 	private boolean moveUnits(Territory startingTerritory, Territory endTerritory) {
 		int maxUnits = startingTerritory.getYield()-1;
-		int unitsToMove = ui.reinforcementCountPrompt(maxUnits, "Select number of units to move with.", "Reinforcements", JOptionPane.OK_CANCEL_OPTION);
+		int unitsToMove = ui.reinforcementCountPrompt(maxUnits, Messages.getString("Game.30"), Messages.getString("Game.31"), JOptionPane.OK_CANCEL_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 		if (unitsToMove < 1) {
-			ui.displayMessage("Select one of your territories to move units from");
+			ui.displayMessage(Messages.getString("Game.32")); //$NON-NLS-1$
 			return false;
 		}
 

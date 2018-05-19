@@ -43,19 +43,19 @@ public class MessagePanel extends JPanel {
 	}
 	
 	private JLabel createPhaseLabel() {
-		JLabel phaseLabel = new JLabel(" Phase: Setup ");
+		JLabel phaseLabel = new JLabel(Messages.getString("MessagePanel.0")); //$NON-NLS-1$
 		phaseLabel.setBorder(BorderFactory.createDashedBorder(null));
 		return phaseLabel;
 	}
 	
 	private JLabel createCardValueLabel() {
-		JLabel cardValueLabel = new JLabel(" Card value: 4 ");
+		JLabel cardValueLabel = new JLabel(Messages.getString("MessagePanel.1")); //$NON-NLS-1$
 		cardValueLabel.setBorder(BorderFactory.createDashedBorder(null));
 		return cardValueLabel;
 	}
 	
 	private JButton createCancelButton() {
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton(Messages.getString("MessagePanel.2")); //$NON-NLS-1$
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setBackground(Color.RED);
 		cancelButton.setOpaque(true);
@@ -65,7 +65,7 @@ public class MessagePanel extends JPanel {
 	}
 	
 	private JButton createEndPhaseButton() {
-		JButton endPhaseButton = new JButton("End Phase");
+		JButton endPhaseButton = new JButton(Messages.getString("MessagePanel.3")); //$NON-NLS-1$
 		endPhaseButton.setForeground(Color.WHITE);
 		endPhaseButton.setBackground(new Color(75 , 200, 75));
 		endPhaseButton.setVisible(false);
@@ -99,11 +99,11 @@ public class MessagePanel extends JPanel {
 	}
 	
 	public void setPhaseText(String phase) {
-		this.phaseIndicator.setText(" Phase: " + phase + " ");
+		this.phaseIndicator.setText(Messages.getString("MessagePanel.4") + phase + Messages.getString("MessagePanel.5")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	public void setCardValue(int value) {
-		this.cardValueIndicator.setText(" Card value: " + value + " ");
+		this.cardValueIndicator.setText(Messages.getString("MessagePanel.6") + value + Messages.getString("MessagePanel.7")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 }
