@@ -505,6 +505,11 @@ public class Game {
 					currPlayer.addCardToHand(card);
 				}
 				
+				if (currPlayer.getHand().size() >= 6) {
+					forceRedeem();
+				}
+				
+				
 			}
 			
 			
