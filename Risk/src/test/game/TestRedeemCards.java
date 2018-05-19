@@ -80,7 +80,7 @@ public class TestRedeemCards {
 		Game game = new Game(ui, players, playersTerritories);
 	
 		game.redeemedSets = 1;
-		assertEquals(game.redeemCards(player, cards), 6);
+		assertEquals(game.redeemCards(player, cards), 4);
 		assertEquals(player.getHand().size(),0);
 		assertEquals(game.deck.discardPile.size(), 3);
 	}
@@ -113,7 +113,7 @@ public class TestRedeemCards {
 		Game game = new Game(ui, players, playersTerritories);
 		
 		game.redeemedSets = 3;
-		assertEquals(game.redeemCards(player, cards), 10);
+		assertEquals(game.redeemCards(player, cards), 8);
 		assertEquals(player.getHand().size(),0);
 		assertEquals(game.deck.discardPile.size(), 3);
 	}
@@ -219,7 +219,7 @@ public class TestRedeemCards {
 		player.addCardToHand(infantry1);
 		player.addCardToHand(calvary);
 		
-		assertEquals(game.redeemCards(player, cards), 6);
+		assertEquals(game.redeemCards(player, cards), 4);
 		assertEquals(player.getHand().size(),0);
 		assertEquals(game.deck.discardPile.size(), 6);
 	}
