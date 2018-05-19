@@ -502,13 +502,7 @@ public class Game {
 				ui.displayMessage(Messages.getString("Game.24") + defendingPlayer.ID + Messages.getString("Game.25") + currPlayer.ID); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			
-			for(Card card : defendingPlayer.getHand()) {
-				currPlayer.addCardToHand(card);
-			}
-			
-			if (currPlayer.getHand().size() > 6) {
-				forceRedeem();
-			}
+		
 		}
 
 		ui.updateTerritoryDisplay(attacker, players.get(currTurn).getColor());
